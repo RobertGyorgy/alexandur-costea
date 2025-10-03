@@ -1,0 +1,236 @@
+/* Safe typographic styles for rich text content */
+
+.prose {
+  color: var(--muted);
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--fg);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.prose h1 {
+  font-size: clamp(1.875rem, 1.575rem + 1.5vw, 2.625rem);
+  margin-top: 0;
+}
+
+.prose h2 {
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+}
+
+.prose h3 {
+  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+}
+
+.prose h4 {
+  font-size: clamp(1.125rem, 1.075rem + 0.25vw, 1.25rem);
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.prose a:hover {
+  color: var(--fg);
+  text-decoration-color: var(--accent-2);
+}
+
+.prose a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.prose strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+  color: var(--fg);
+}
+
+.prose code {
+  background-color: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 0.875em;
+  font-weight: 500;
+  padding: 0.125em 0.375em;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+.prose pre {
+  background-color: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--fg);
+  font-size: 0.875em;
+  margin: 1.7142857em 0;
+  overflow-x: auto;
+  padding: 1.1428571em 1.4285714em;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+.prose pre code {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 0;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--accent);
+  color: var(--fg);
+  font-style: italic;
+  margin: 1.6em 0;
+  padding-left: 1.6em;
+  quotes: '"' '"';
+}
+
+.prose blockquote p:first-of-type::before {
+  content: open-quote;
+}
+
+.prose blockquote p:last-of-type::after {
+  content: close-quote;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose ul li {
+  position: relative;
+}
+
+.prose ul li::marker {
+  color: var(--accent);
+}
+
+.prose ol li::marker {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2.8571429em 0;
+}
+
+.prose img {
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft-lg);
+  margin: 2em 0;
+}
+
+.prose figure {
+  margin: 2em 0;
+}
+
+.prose figcaption {
+  color: var(--muted);
+  font-size: 0.875em;
+  line-height: 1.4285714;
+  margin-top: 0.8571429em;
+  text-align: center;
+}
+
+.prose table {
+  border-collapse: collapse;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  margin: 2em 0;
+  table-layout: auto;
+  text-align: left;
+  width: 100%;
+}
+
+.prose thead {
+  border-bottom: 1px solid var(--line);
+}
+
+.prose thead th {
+  color: var(--fg);
+  font-weight: 600;
+  padding-bottom: 0.5714286em;
+  padding-left: 0.5714286em;
+  padding-right: 0.5714286em;
+  vertical-align: bottom;
+}
+
+.prose tbody tr {
+  border-bottom: 1px solid var(--line);
+}
+
+.prose tbody tr:last-child {
+  border-bottom-width: 0;
+}
+
+.prose tbody td {
+  padding: 0.5714286em;
+  vertical-align: baseline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .prose {
+    font-size: 0.875rem;
+  }
+  
+  .prose h1 {
+    font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  }
+  
+  .prose h2 {
+    font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  }
+  
+  .prose ul,
+  .prose ol {
+    padding-left: 1.25em;
+  }
+}
+
+
