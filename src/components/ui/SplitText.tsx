@@ -111,11 +111,13 @@ const SplitText: React.FC<SplitTextProps> = ({
 
   const style: React.CSSProperties = {
     textAlign,
-    overflow: 'hidden',
+    overflow: 'visible',
     display: 'inline-block',
     whiteSpace: 'normal',
     wordWrap: 'break-word',
-    willChange: 'transform, opacity'
+    willChange: 'transform, opacity',
+    paddingTop: '0.15em',
+    paddingBottom: '0.15em',
   };
   const classes = `split-parent ${className}`;
 

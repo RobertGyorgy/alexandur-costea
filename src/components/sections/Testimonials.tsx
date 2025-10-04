@@ -88,7 +88,7 @@ export function Testimonials() {
       className="testimonials-slider"
       ref={sectionRef}
     >
-      <BackgroundEffects variant="lines" color="#ff4500" opacity={0.15} animated />
+      <BackgroundEffects variant="lines" color="#FE7F2D" opacity={0.15} animated />
       {/* Slider with Gray Background Container - Dolly Zoom Effect (Desktop Only) */}
       <motion.div 
         className="max-w-[1400px] mx-auto overflow-hidden px-5" 

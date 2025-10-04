@@ -61,7 +61,7 @@ export function FAQ() {
       aria-labelledby="faq-heading"
       ref={sectionRef}
     >
-      <BackgroundEffects variant="gradient" color="#ff4500" opacity={0.1} animated={false} />
+      <BackgroundEffects variant="gradient" color="#FE7F2D" opacity={0.1} animated={false} />
       {/* FAQ Items */}
       <motion.div
         variants={containerVariants}

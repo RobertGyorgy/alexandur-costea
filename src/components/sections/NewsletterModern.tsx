@@ -115,7 +115,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
           <div className="absolute inset-0 z-0 w-full h-full" style={{ minHeight: '100vh' }}>
             <LightRays
               raysOrigin="top-center"
-              raysColor="#ff4500"
+              raysColor="#FE7F2D"
               raysSpeed={isMobile ? 2.0 : 1.5}
               lightSpread={isMobile ? 0.5 : 0.8}
               rayLength={isMobile ? 3.5 : 3.0}
@@ -137,7 +137,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-8 lg:gap-16 absolute z-0 pointer-events-none w-full overflow-hidden px-4 mt-8 sm:mt-0">
             {/* "Stay" - moves left and disappears */}
             <motion.h1
-              className="font-judge text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
+              className="font-garnet text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
               style={{ 
                 x: stayX,
                 opacity: textOpacity,
@@ -150,7 +150,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
             
             {/* "Updated" - moves right and disappears */}
             <motion.h1
-              className="font-judge text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
+              className="font-garnet text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
               style={{ 
                 x: updatedX,
                 opacity: textOpacity,
@@ -182,7 +182,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                   opacity: 1
                 }}
               >
-                <span className="font-inter text-2xl sm:text-2xl lg:text-3xl xl:text-4xl font-light text-fg tracking-wider">
+                <span className="font-arimo text-2xl sm:text-2xl lg:text-3xl xl:text-4xl font-light text-fg tracking-wider">
                   introdu
                 </span>
               </motion.div>
@@ -226,7 +226,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                     transition: { duration: 0.1 }
                   }}
                 >
-                <span className="font-inter text-2xl sm:text-2xl lg:text-3xl xl:text-4xl font-light tracking-wider transition-colors duration-300 whitespace-nowrap">
+                <span className="font-arimo text-2xl sm:text-2xl lg:text-3xl xl:text-4xl font-light tracking-wider transition-colors duration-300 whitespace-nowrap">
                   {isSubmitting ? 'sending...' : 'trimite'}
                 </span>
               </motion.button>

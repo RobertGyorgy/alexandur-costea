@@ -32,15 +32,15 @@ export function About() {
         {/* Content Column */}
         <div className="space-y-8">
           {/* Title with SplitText - Chars */}
-          <div className="-mt-8">
+          <div className="-mt-8 pt-2">
             {/* Split title by lines */}
-            <div className="mb-6">
+            <div className="mb-6 overflow-visible">
               {content.title.split('\n').map((line, idx) => (
                 <SplitText
                   key={`title-line-${idx}`}
                   text={line}
                   tag="h2"
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-fg text-left block"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-fg text-left block leading-[1.3]"
                   delay={30}
                   duration={0.4}
                   ease="power3.out"
@@ -58,7 +58,7 @@ export function About() {
             <SplitText
               text={content.description}
               tag="p"
-              className="text-lg md:text-xl text-muted leading-relaxed text-left"
+              className="text-lg md:text-xl text-muted leading-[1.8] text-left"
               delay={20}
               duration={0.3}
               ease="power2.out"
@@ -78,7 +78,7 @@ export function About() {
                 key={index}
                 text={paragraph}
                 tag="p"
-                className="text-lg text-muted leading-relaxed text-left"
+                className="text-lg text-muted leading-[1.8] text-left"
                 delay={15}
                 duration={0.3}
                 ease="power2.out"
@@ -107,7 +107,7 @@ export function About() {
           }}
         >
           <motion.div 
-            className="relative rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(255,69,0,0.3)] max-w-sm w-full"
+            className="relative rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(254,127,45,0.3)] max-w-sm w-full"
             whileHover={{ 
               scale: 1.05,
               rotateY: 5,

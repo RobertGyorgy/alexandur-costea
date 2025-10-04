@@ -93,8 +93,8 @@
 }
 
 .keypad-submit:hover {
-  background: rgba(255, 69, 0, 0.1);
-  border-color: rgba(255, 69, 0, 0.5);
+  background: rgba(254, 127, 45, 0.1);
+  border-color: rgba(254, 127, 45, 0.5);
 }
 
 .keypad {

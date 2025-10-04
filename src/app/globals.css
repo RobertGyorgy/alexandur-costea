@@ -2,32 +2,46 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Inter Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+/* Custom Fonts */
+@font-face {
+  font-family: 'Garnet';
+  src: url('/Fonts/GarnetCapitals-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* Judge Font */
-@import url('https://fonts.googleapis.com/css2?family=Judge:wght@400;700;900&display=swap');
+@font-face {
+  font-family: 'Arimo';
+  src: url('/Fonts/Arimo-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback: Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 /* CSS Custom Properties for Dark Theme */
 :root,
 :root[data-theme="dark"] {
-  /* Colors */
-  --bg: #0B0F19;
-  --bg-elev: #101523;
-  --fg: #F5F7FA;
-  --muted: #A9B0C1;
-  --accent: #ff4500;
-  --accent-2: #A855F7;
-  --line: rgba(255, 255, 255, 0.08);
-  --glass: rgba(255, 255, 255, 0.06);
+  /* Colors - New Palette */
+  --bg: #233d4d;
+  --bg-elev: #2d4a5c;
+  --fg: #eaebed;
+  --muted: #b8bec3;
+  --accent: #FE7F2D;
+  --accent-2: #006989;
+  --line: rgba(234, 235, 237, 0.1);
+  --glass: rgba(234, 235, 237, 0.06);
   
   /* Shadows */
-  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-soft-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-soft-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-soft-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  --shadow-glow-accent: 0 0 20px rgb(255 69 0 / 0.4);
-  --shadow-glow-accent-2: 0 0 20px rgb(168 85 247 / 0.4);
+  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);
+  --shadow-soft-md: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.15);
+  --shadow-soft-lg: 0 20px 25px -5px rgb(0 0 0 / 0.25), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+  --shadow-soft-xl: 0 25px 50px -12px rgb(0 0 0 / 0.3);
+  --shadow-glow-accent: 0 0 20px rgb(254 127 45 / 0.4);
+  --shadow-glow-accent-2: 0 0 20px rgb(0 105 137 / 0.4);
   
   /* Animation */
   --duration-fast: 150ms;
@@ -39,23 +53,23 @@
 
 /* CSS Custom Properties for Light Theme */
 :root[data-theme="light"] {
-  /* Colors */
-  --bg: #FFFFFF;
-  --bg-elev: #F5F7FA;
-  --fg: #0B0F19;
-  --muted: #6B7280;
-  --accent: #ff4500;
-  --accent-2: #A855F7;
-  --line: rgba(0, 0, 0, 0.08);
-  --glass: rgba(0, 0, 0, 0.06);
+  /* Colors - New Palette */
+  --bg: #eaebed;
+  --bg-elev: #FFFFFF;
+  --fg: #233d4d;
+  --muted: #5a6c7a;
+  --accent: #FE7F2D;
+  --accent-2: #006989;
+  --line: rgba(35, 61, 77, 0.1);
+  --glass: rgba(35, 61, 77, 0.04);
   
   /* Shadows */
-  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-soft-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-soft-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-soft-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  --shadow-glow-accent: 0 0 20px rgb(255 69 0 / 0.4);
-  --shadow-glow-accent-2: 0 0 20px rgb(168 85 247 / 0.4);
+  --shadow-soft: 0 4px 6px -1px rgb(35 61 77 / 0.1), 0 2px 4px -2px rgb(35 61 77 / 0.08);
+  --shadow-soft-md: 0 10px 15px -3px rgb(35 61 77 / 0.12), 0 4px 6px -4px rgb(35 61 77 / 0.08);
+  --shadow-soft-lg: 0 20px 25px -5px rgb(35 61 77 / 0.15), 0 8px 10px -6px rgb(35 61 77 / 0.1);
+  --shadow-soft-xl: 0 25px 50px -12px rgb(35 61 77 / 0.2);
+  --shadow-glow-accent: 0 0 20px rgb(254 127 45 / 0.3);
+  --shadow-glow-accent-2: 0 0 20px rgb(0 105 137 / 0.3);
 }
 
 /* Base Styles */
@@ -73,10 +87,22 @@
 }
 
 html {
-  font-family: 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Arimo', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Headings use Garnet */
+h1, h2, h3, h4, h5, h6,
+.font-heading,
+.font-garnet {
+  font-family: 'Garnet', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
 }
 
 body {
@@ -90,6 +116,12 @@ body {
   width: 100vw;
   max-width: 100vw;
   transition: background-color 0.5s ease, color 0.5s ease;
+  line-height: 1.6;
+}
+
+/* Ensure Romanian diacritics are visible */
+p, span, div {
+  overflow: visible;
 }
 
 /* Prevent horizontal scroll on mobile */

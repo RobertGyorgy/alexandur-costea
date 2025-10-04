@@ -21,7 +21,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
-          'Inter var',
+          'Arimo',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
@@ -29,9 +29,8 @@ const config: Config = {
           'Roboto',
           'sans-serif',
         ],
-        judge: [
-          'Judge',
-          'Inter var',
+        heading: [
+          'Garnet',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
@@ -39,13 +38,14 @@ const config: Config = {
           'Roboto',
           'sans-serif',
         ],
-        inter: [
-          'Inter var',
+        garnet: [
+          'Garnet',
           'Inter',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
+          'sans-serif',
+        ],
+        arimo: [
+          'Arimo',
+          'Inter',
           'sans-serif',
         ],
       },
@@ -77,8 +77,8 @@ const config: Config = {
         'soft-md': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
         'soft-lg': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
         'soft-xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-        'glow-accent': '0 0 20px rgb(255 69 0 / 0.4)',
-        'glow-accent-2': '0 0 20px rgb(168 85 247 / 0.4)',
+        'glow-accent': '0 0 20px rgb(254 127 45 / 0.4)',
+        'glow-accent-2': '0 0 20px rgb(0 105 137 / 0.4)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

@@ -12,7 +12,7 @@ interface BackgroundEffectsProps {
 
 export function BackgroundEffects({ 
   variant = 'gradient', 
-  color = '#ff4500',
+  color = '#FE7F2D',
   opacity = 0.15,
   animated = true 
 }: BackgroundEffectsProps) {
