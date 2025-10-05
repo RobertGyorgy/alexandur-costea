@@ -6,25 +6,10 @@ import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
-  const [viewportHeight, setViewportHeight] = useState('100vh');
   const pathname = usePathname();
 
   useEffect(() => {
-    const updatePosition = () => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile && window.visualViewport) {
-        // Use the actual visible viewport height
-        const height = window.visualViewport.height;
-        setViewportHeight(`${height}px`);
-      } else {
-        setViewportHeight('100vh');
-      }
-    };
-
     const handleScroll = () => {
-      // Update position on scroll too (for mobile browser bar)
-      updatePosition();
-      
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
         setShowBlur(true);
@@ -49,25 +34,11 @@ export function PageBlur() {
       }
     };
 
-    updatePosition();
     handleScroll(); // Initial check
-
-    window.addEventListener('resize', updatePosition);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updatePosition);
-      window.visualViewport.addEventListener('scroll', updatePosition);
-    }
 
     return () => {
-      window.removeEventListener('resize', updatePosition);
       window.removeEventListener('scroll', handleScroll);
-      
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', updatePosition);
-        window.visualViewport.removeEventListener('scroll', updatePosition);
-      }
     };
   }, []);
 
@@ -82,16 +53,11 @@ export function PageBlur() {
     <div 
       style={{ 
         position: 'fixed',
-        top: 0,
+        bottom: 0,
         left: 0,
         right: 0,
-        height: viewportHeight,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
         zIndex: 40,
         pointerEvents: 'none',
-        transition: 'height 0.15s ease-out'
       }}
     >
       <GradualBlur
