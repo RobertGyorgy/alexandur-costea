@@ -10,6 +10,8 @@ import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 export function Testimonials() {
   const content = siteContent.testimonials;
   const [current, setCurrent] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const mobileTrackRef = useRef<HTMLDivElement>(null);
@@ -37,10 +39,8 @@ export function Testimonials() {
   const card3Scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.88, 1.03, 0.88]);
   const card3Rotate = useTransform(scrollYProgress, [0, 0.5, 1], [-5, 0, 5]);
 
-  const isMobile = () => typeof window !== 'undefined' && window.matchMedia('(max-width:767px)').matches;
-
   const centerCard = useCallback((index: number) => {
-    const mobile = isMobile();
+    const mobile = isMobile;
     const track = mobile ? mobileTrackRef.current : trackRef.current;
     const wrap = wrapRef.current;
     
@@ -56,7 +56,7 @@ export function Testimonials() {
       [axis]: start - (wrap[size] / 2 - card[size] / 2),
       behavior: 'smooth'
     });
-  }, []);
+  }, [isMobile]);
 
   const activate = (index: number, shouldScroll: boolean) => {
     if (index === current) return;
@@ -69,6 +69,19 @@ export function Testimonials() {
       label: `index_${index}`,
     });
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     centerCard(0);
@@ -93,9 +106,9 @@ export function Testimonials() {
       <motion.div 
         className="max-w-[1400px] mx-auto overflow-hidden px-5" 
         style={{ 
-          y: typeof window !== 'undefined' && window.innerWidth >= 768 ? containerY : 0, 
-          scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? containerScale : 1,
-          rotateZ: typeof window !== 'undefined' && window.innerWidth >= 768 ? containerRotate : 0,
+          y: isMounted && !isMobile ? containerY : 0, 
+          scale: isMounted && !isMobile ? containerScale : 1,
+          rotateZ: isMounted && !isMobile ? containerRotate : 0,
         }}
       >
         {/* Gray Background Container */}
@@ -125,10 +138,6 @@ export function Testimonials() {
                 return 'text-white';
               };
 
-              const getButtonStyle = (idx: number) => {
-                if (idx % 5 === 1 || idx % 5 === 3) return 'bg-accent text-white hover:bg-accent/90';
-                return 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30';
-              };
 
               // Get transforms for each card (Desktop Only)
               const cardTransforms = [
@@ -137,7 +146,7 @@ export function Testimonials() {
                 { y: card3Y, scale: card3Scale, rotateZ: card3Rotate },
               ];
               const transform = cardTransforms[index % 3];
-              const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
+              const shouldApplyParallax = isMounted && !isMobile;
 
               return (
                 <motion.article
@@ -150,9 +159,9 @@ export function Testimonials() {
                   onClick={() => activate(index, true)}
                   onMouseEnter={() => activate(index, true)}
                   style={{
-                    y: isMobileDevice ? 0 : transform.y,
-                    scale: isMobileDevice ? 1 : transform.scale,
-                    rotateZ: isMobileDevice ? 0 : transform.rotateZ,
+                    y: shouldApplyParallax ? transform.y : 0,
+                    scale: shouldApplyParallax ? transform.scale : 1,
+                    rotateZ: shouldApplyParallax ? transform.rotateZ : 0,
                   }}
                 >
                   <div className="absolute inset-0 flex flex-col justify-center items-center p-6">
@@ -174,11 +183,6 @@ export function Testimonials() {
                           {testimonial.role}
                           {testimonial.company && ` • ${testimonial.company}`}
                         </p>
-                        <button 
-                          className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all self-start ${getButtonStyle(index)}`}
-                        >
-                          Details
-                        </button>
                       </div>
                     )}
                   </div>
@@ -206,10 +210,6 @@ export function Testimonials() {
                 return 'text-white';
               };
 
-              const getButtonStyle = (idx: number) => {
-                if (idx % 5 === 1 || idx % 5 === 3) return 'bg-accent text-white hover:bg-accent/90';
-                return 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30';
-              };
 
               return (
                 <article
@@ -240,11 +240,6 @@ export function Testimonials() {
                           {testimonial.role}
                           {testimonial.company && ` • ${testimonial.company}`}
                         </p>
-                        <button 
-                          className={`px-5 py-2 rounded-full text-xs font-semibold transition-all w-full ${getButtonStyle(index)}`}
-                        >
-                          Details
-                        </button>
                       </div>
                     )}
                   </div>

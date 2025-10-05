@@ -1,27 +1,39 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
 import type { PricingPlan } from '@/lib/content';
 import './PricingCard.css';
-import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 
 export function Pricing() {
   const content = siteContent.pricing;
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start']
   });
   
-  // Individual card parallax
-  const card1Y = useTransform(scrollYProgress, [0, 1], [80, -80]);
-  const card2Y = useTransform(scrollYProgress, [0, 1], [120, -120]);
-  const card3Y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  // Same parallax effect for all cards (Desktop Only)
+  const cardY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleCTAClick = (plan: PricingPlan) => {
     if (plan.ctaUrl.startsWith('#')) {
@@ -47,21 +59,33 @@ export function Pricing() {
       aria-labelledby="pricing-heading"
       ref={sectionRef}
     >
-      <BackgroundEffects variant="dots" color="#FE7F2D" opacity={0.12} animated={false} />
       {/* Pricing Cards - 3 Vertical Cards Side by Side */}
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-7xl mx-auto">
         {content.plans.map((plan, index) => {
-          const cardYValues = [card1Y, card2Y, card3Y];
-          const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+          const shouldApplyParallax = isMounted && !isMobile;
+          
+          // Mobile optimization: simplified animations
+          const mobileTransition = {
+            duration: 0.3,
+            delay: index * 0.05,
+            ease: "easeOut"
+          };
+          
+          const desktopTransition = {
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "easeOut"
+          };
+          
           return (
             <motion.div
               key={plan.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
+              transition={isMobile ? mobileTransition : desktopTransition}
               className="flex-1"
-              style={{ y: isMobile ? 0 : cardYValues[index] }}
+              style={{ y: shouldApplyParallax ? cardY : 0 }}
             >
               <PricingCard
                 plan={plan}
@@ -81,7 +105,17 @@ interface PricingCardProps {
 }
 
 function PricingCard({ plan, onCTAClick }: PricingCardProps) {
-  const bgColor = plan.id === 'essential' ? '#FE7F2D' : plan.id === 'professional' ? '#006989' : '#FE7F2D';
+  const bgColor = plan.id === 'essential' ? '#FE7F2D' : plan.id === 'professional' ? '#9333EA' : '#00A8E8';
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Custom content based on plan ID
   const cardContent = {
@@ -151,11 +185,12 @@ function PricingCard({ plan, onCTAClick }: PricingCardProps) {
   
   return (
     <div className={`pricing-card-wrapper ${colorClass} group relative w-full h-[520px] rounded-[20px] flex items-center justify-center transition-all duration-[600ms] ease-out md:hover:scale-105 md:hover:-translate-y-[10px] p-[3px]`}>
-      {/* Animated Glow Border */}
-      <span className="pricing-card-glow"></span>
-      
       {/* Card Inner Content */}
-      <div className="pricing-card-inner w-full h-full bg-bg-elev rounded-[17px] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)] md:hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] transition-shadow duration-500 ease-out">
+      <div className={`pricing-card-inner w-full h-full bg-bg-elev rounded-[17px] overflow-hidden transition-shadow duration-500 ease-out ${
+        isMobile 
+          ? 'shadow-[0_10px_20px_-10px_rgba(0,0,0,0.3)]' 
+          : 'shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)] md:hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)]'
+      }`}>
         {/* Content */}
         <div className="relative z-10 p-5 h-full flex flex-col gap-3">
         {/* Large Colored Card with Title and Bullets */}
@@ -172,7 +207,7 @@ function PricingCard({ plan, onCTAClick }: PricingCardProps) {
           
           {/* Top Section - Title & Subtitle */}
           <div className="relative z-10 flex flex-col gap-1">
-            <h3 className="text-white text-2xl font-bold drop-shadow-lg">
+            <h3 className="text-white text-3xl font-bold drop-shadow-lg">
               {content.title}
             </h3>
             <p className="text-white/90 text-[0.75em] font-medium drop-shadow">

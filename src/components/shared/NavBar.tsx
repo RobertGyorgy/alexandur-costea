@@ -15,7 +15,7 @@ export function NavBar({ className }: NavBarProps) {
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolling, setIsScrolling] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const router = useRouter();
+  const _router = useRouter();
   const pathname = usePathname();
   const { startTransition } = usePageTransition();
   
