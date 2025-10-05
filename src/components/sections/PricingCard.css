@@ -125,7 +125,7 @@
   height: 100%;
   border-radius: 20px;
   z-index: 0;
-  background: hsl(0deg 0% 35%)
+  background: hsl(0deg 0% 16%)
     radial-gradient(
       30% 30% at calc(var(--bg-x) * 1%) calc(var(--bg-y) * 1%),
       hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 90%)

@@ -49,20 +49,20 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
   });
 
   // Simplified animation values without spring to prevent freezing
-  const splitDistance = isMobile ? 80 : 200; // Smaller distance on mobile
+  const splitDistance = 200; // Fixed distance for stability
   
-  // Text movement - FASTER split (shorter range) - disabled on mobile
-  const stayX = useTransform(scrollYProgress, [0.3, 0.45], isMobile ? [0, 0] : [0, -splitDistance]);
-  const updatedX = useTransform(scrollYProgress, [0.3, 0.45], isMobile ? [0, 0] : [0, splitDistance]);
+  // Text movement - FASTER split (shorter range)
+  const stayX = useTransform(scrollYProgress, [0.3, 0.45], [0, -splitDistance]);
+  const updatedX = useTransform(scrollYProgress, [0.3, 0.45], [0, splitDistance]);
   
   // Text opacity - quick fade during split
-  const textOpacity = useTransform(scrollYProgress, [0.3, 0.45], isMobile ? [1, 1] : [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0.3, 0.45], [1, 0]);
   
-  // Form appears - simple fade in - instant on mobile
-  const formOpacity = useTransform(scrollYProgress, [0.1, 0.2], [0, 1]);
+  // Form appears - simple fade in
+  const formOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]);
   
-  // Form moves up - less movement on mobile
-  const formY = useTransform(scrollYProgress, [0.1, 0.2], isMobile ? [20, 0] : [50, 0]);
+  // Form moves up
+  const formY = useTransform(scrollYProgress, [0.4, 0.55], [50, 0]);
 
   // Handle window resize for responsive split distance
   useEffect(() => {

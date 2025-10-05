@@ -1,0 +1,376 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/next@14.2.33_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/.pnpm/next@14.2.33_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/components/ui/LightRays.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.light-rays-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/next@14.2.33_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/.pnpm/next@14.2.33_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/components/sections/PricingCard.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@property --hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --rotate {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --bg-y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --bg-x {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --glow-translate-y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --bg-size {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --glow-opacity {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --glow-blur {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --glow-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 2;
+}
+@property --glow-radius {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 2;
+}
+@property --white-shadow {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.pricing-card-wrapper {
+  --hue: 0;
+  --hue-speed: 1;
+  --rotate: 0;
+  --animation-speed: 4s;
+  --interaction-speed: 0.55s;
+  --glow-scale: 1.5;
+  --scale-factor: 1;
+  --glow-blur: 6;
+  --glow-opacity: 1;
+  --glow-radius: 100;
+  --glow-rotate-unit: 1deg;
+  --border-width: 3px;
+}
+
+.pricing-card-inner {
+  z-index: 1;
+  transition: box-shadow 0.5s ease;
+}
+
+.pricing-card-glow {
+  transition: all 0.6s ease;
+}
+
+.pricing-card-glow::after {
+  transition: all 0.6s ease;
+}
+
+/* Desktop only hover effects */
+@media (min-width: 768px) {
+  .pricing-card-wrapper:hover .pricing-card-inner {
+    box-shadow: 0 0 calc(var(--white-shadow) * 1vw)
+      calc(var(--white-shadow) * 0.15vw) rgb(255 255 255 / 20%);
+    animation: shadow-pulse calc(var(--animation-speed) * 2) linear infinite;
+  }
+
+  .pricing-card-wrapper:hover::before {
+    --bg-size: 15;
+    animation-play-state: paused;
+    transition: --bg-size 0.8s ease;
+  }
+
+  .pricing-card-wrapper:hover .pricing-card-glow {
+    --glow-blur: 1.5;
+    --glow-opacity: 0.6;
+    --glow-scale: 2.5;
+    --glow-radius: 0;
+    --rotate: 900;
+    --glow-rotate-unit: 0;
+    --scale-factor: 1.25;
+    animation-play-state: paused;
+    transition: all 0.6s ease;
+  }
+
+  .pricing-card-wrapper:hover .pricing-card-glow::after {
+    --glow-translate-y: 0;
+    animation-play-state: paused;
+    transition: --glow-translate-y 0.6s ease, --glow-blur 0.6s ease,
+      --glow-opacity 0.6s ease, --glow-scale 0.6s ease,
+      --glow-radius 0.6s ease, filter 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+  }
+}
+
+.pricing-card-wrapper::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  z-index: 0;
+  background: hsl(0deg 0% 16%)
+    radial-gradient(
+      30% 30% at calc(var(--bg-x) * 1%) calc(var(--bg-y) * 1%),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 90%)
+        calc(0% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 80%)
+        calc(20% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%)
+        calc(40% * var(--bg-size)),
+      transparent 100%
+    );
+  animation: rotate-bg var(--animation-speed) linear infinite;
+  transition: --bg-size 0.8s ease;
+}
+
+/* White frame in light mode */
+:root[data-theme="light"] .pricing-card-wrapper::before {
+  background: hsl(0deg 0% 96%)
+    radial-gradient(
+      30% 30% at calc(var(--bg-x) * 1%) calc(var(--bg-y) * 1%),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 90%)
+        calc(0% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 80%)
+        calc(20% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%)
+        calc(40% * var(--bg-size)),
+      transparent 100%
+    );
+}
+
+/* Color-specific animations */
+.pricing-card-orange::before {
+  animation: hue-animation-orange var(--animation-speed) linear infinite,
+    rotate-bg var(--animation-speed) linear infinite;
+}
+
+.pricing-card-orange .pricing-card-glow::after {
+  animation: hue-animation-orange var(--animation-speed) linear infinite;
+}
+
+.pricing-card-purple::before {
+  animation: hue-animation-purple var(--animation-speed) linear infinite,
+    rotate-bg var(--animation-speed) linear infinite;
+}
+
+.pricing-card-purple .pricing-card-glow::after {
+  animation: hue-animation-purple var(--animation-speed) linear infinite;
+}
+
+.pricing-card-cyan::before {
+  animation: hue-animation-cyan var(--animation-speed) linear infinite,
+    rotate-bg var(--animation-speed) linear infinite;
+}
+
+.pricing-card-cyan .pricing-card-glow::after {
+  animation: hue-animation-cyan var(--animation-speed) linear infinite;
+}
+
+.pricing-card-glow {
+  --glow-translate-y: 0;
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  animation: rotate var(--animation-speed) linear infinite;
+  transform: rotateZ(calc(var(--rotate) * var(--glow-rotate-unit)));
+  transform-origin: center;
+  border-radius: calc(var(--glow-radius) * 10vw);
+  pointer-events: none;
+}
+
+.pricing-card-glow::after {
+  content: "";
+  display: block;
+  z-index: -2;
+  filter: blur(calc(var(--glow-blur) * 10px));
+  width: 130%;
+  height: 130%;
+  left: -15%;
+  top: -15%;
+  background: hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%);
+  position: relative;
+  border-radius: calc(var(--glow-radius) * 10vw);
+  transform: scaleY(calc(var(--glow-scale) * var(--scale-factor) / 1.1))
+    scaleX(calc(var(--glow-scale) * var(--scale-factor) * 1.2))
+    translateY(calc(var(--glow-translate-y) * 1%));
+  opacity: var(--glow-opacity);
+}
+
+/* Lighter glow in light mode */
+:root[data-theme="light"] .pricing-card-glow::after {
+  background: hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 85%);
+  opacity: calc(var(--glow-opacity) * 0.7);
+}
+
+/* Enhanced shadows for light mode */
+:root[data-theme="light"] .pricing-card-inner {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Desktop only - Light mode hover shadows */
+@media (min-width: 768px) {
+  :root[data-theme="light"] .pricing-card-inner:hover {
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.2),
+                0 8px 12px -4px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@keyframes shadow-pulse {
+  0%,
+  24%,
+  46%,
+  73%,
+  96% {
+    --white-shadow: 0.5;
+  }
+  12%,
+  28%,
+  41%,
+  63%,
+  75%,
+  82%,
+  98% {
+    --white-shadow: 2.5;
+  }
+  6%,
+  32%,
+  57% {
+    --white-shadow: 1.3;
+  }
+  18%,
+  52%,
+  88% {
+    --white-shadow: 3.5;
+  }
+}
+
+@keyframes rotate-bg {
+  0% {
+    --bg-x: 0;
+    --bg-y: 0;
+  }
+  25% {
+    --bg-x: 100;
+    --bg-y: 0;
+  }
+  50% {
+    --bg-x: 100;
+    --bg-y: 100;
+  }
+  75% {
+    --bg-x: 0;
+    --bg-y: 100;
+  }
+  100% {
+    --bg-x: 0;
+    --bg-y: 0;
+  }
+}
+
+@keyframes rotate {
+  from {
+    --rotate: -70;
+    --glow-translate-y: -65;
+  }
+  25% {
+    --glow-translate-y: -65;
+  }
+  50% {
+    --glow-translate-y: -65;
+  }
+  60%,
+  75% {
+    --glow-translate-y: -65;
+  }
+  85% {
+    --glow-translate-y: -65;
+  }
+  to {
+    --rotate: calc(360 - 70);
+    --glow-translate-y: -65;
+  }
+}
+
+/* Orange shades for ReelUp */
+@keyframes hue-animation-orange {
+  0% {
+    --hue: 0;
+  }
+  50% {
+    --hue: 30;
+  }
+  100% {
+    --hue: 0;
+  }
+}
+
+/* Purple shades for Masterclass */
+@keyframes hue-animation-purple {
+  0% {
+    --hue: 260;
+  }
+  50% {
+    --hue: 300;
+  }
+  100% {
+    --hue: 260;
+  }
+}
+
+/* Cyan shades for Newbie */
+@keyframes hue-animation-cyan {
+  0% {
+    --hue: 170;
+  }
+  50% {
+    --hue: 200;
+  }
+  100% {
+    --hue: 170;
+  }
+}
+
+@keyframes hue-animation {
+  0% {
+    --hue: 0;
+  }
+  100% {
+    --hue: 360;
+  }
+}
+
+

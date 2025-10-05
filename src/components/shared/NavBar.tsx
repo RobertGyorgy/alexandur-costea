@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
 import { useTheme } from '@/lib/theme';
 
@@ -31,54 +32,52 @@ export function NavBar({ className }: NavBarProps) {
 
   // Handle active section detection with improved logic
   useEffect(() => {
-    let ticking = false;
-    
     const handleScroll = () => {
+      const sections = ['hero', 'about', 'portfolio', 'pricing', 'testimonials', 'faq', 'newsletter'];
+      
+      // Get navbar height for offset
+      const navbarHeight = 100;
+      const scrollPosition = window.scrollY + navbarHeight + 100;
+
+      let currentSection = 'hero';
+
+      // Check each section from bottom to top
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const element = document.getElementById(section);
+        
+        if (element) {
+          const offsetTop = element.offsetTop;
+          
+          // If we've scrolled past this section's start, it's the active one
+          if (scrollPosition >= offsetTop) {
+            currentSection = section;
+            break;
+          }
+        }
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    // Initial check
+    handleScroll();
+    
+    // Use requestAnimationFrame for smoother updates
+    let ticking = false;
+    const scrollListener = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const sections = ['hero', 'about', 'portfolio', 'pricing', 'testimonials', 'faq', 'newsletter'];
-          const scrollPosition = window.scrollY;
-          const windowHeight = window.innerHeight;
-          const halfScreen = scrollPosition + windowHeight / 2;
-
-          // Find which section the middle of the screen is in
-          let currentSection = 'hero';
-          
-          for (const sectionId of sections) {
-            const element = document.getElementById(sectionId);
-            if (!element) continue;
-
-            const rect = element.getBoundingClientRect();
-            const sectionTop = scrollPosition + rect.top;
-            const sectionBottom = sectionTop + rect.height;
-
-            // If the center of viewport is within this section
-            if (halfScreen >= sectionTop && halfScreen < sectionBottom) {
-              currentSection = sectionId;
-              break;
-            }
-          }
-
-          setActiveSection(currentSection);
+          handleScroll();
           ticking = false;
         });
         ticking = true;
       }
     };
-
-    // Initial check with delay to ensure DOM is ready
-    const timer = setTimeout(() => handleScroll(), 100);
     
-    // Add event listeners
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, [pathname]);
+    window.addEventListener('scroll', scrollListener, { passive: true });
+    return () => window.removeEventListener('scroll', scrollListener);
+  }, []);
 
   const _handleNavClick = (href: string, label: string) => {
     if (href.startsWith('#')) {

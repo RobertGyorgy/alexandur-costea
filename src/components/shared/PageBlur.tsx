@@ -10,37 +10,22 @@ export function PageBlur() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const updateBlurPosition = () => {
-      if (typeof window === 'undefined') return;
-
-      // Detect Safari browser
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      
-      if (isSafari) {
-        // Safari: Always stick to absolute bottom, even behind search bar
-        setBottomOffset('0px');
-        return;
-      }
-
-      // Chrome/other browsers: Dynamic positioning based on search bar
-      const visualHeight = window.visualViewport?.height || window.innerHeight;
-      const windowHeight = window.innerHeight;
-      
-      // Calculate the difference (this represents the search bar height)
-      const searchBarHeight = windowHeight - visualHeight;
-      
-      // If search bar is open (significant height difference), keep blur higher
-      // If search bar is closed/minimized (small difference), move blur to bottom
-      if (searchBarHeight > 50) {
-        // Search bar is open - move blur higher (above the search bar)
-        setBottomOffset(`${searchBarHeight}px`);
+    const updatePosition = () => {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile && window.visualViewport) {
+        const viewportHeight = window.visualViewport.height;
+        const windowHeight = window.innerHeight;
+        const difference = windowHeight - viewportHeight;
+        setBottomOffset(`${Math.max(0, difference)}px`);
       } else {
-        // Search bar is closed - move blur to absolute bottom
         setBottomOffset('0px');
       }
     };
 
     const handleScroll = () => {
+      // Update position on scroll too (for mobile browser bar)
+      updatePosition();
+      
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
         setShowBlur(true);
@@ -58,41 +43,31 @@ export function PageBlur() {
       const visibilityRatio = visibleHeight / Math.min(sectionHeight, windowHeight);
 
       // Hide blur when more than 50% of newsletter section is visible
-      // Or when newsletter section is near the top (within 100px)
-      if (visibilityRatio > 0.5 || rect.top < 100) {
+      if (visibilityRatio > 0.5) {
         setShowBlur(false);
       } else {
         setShowBlur(true);
       }
-
-      // Also update blur position on scroll
-      updateBlurPosition();
     };
+
+    updatePosition();
+    handleScroll(); // Initial check
+
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Also handle touch events on mobile
-    const handleTouchMove = () => {
-      handleScroll();
-    };
-
-    // Initial check
-    updateBlurPosition();
-    handleScroll();
-
-    // Listen for viewport changes (most important for search bar detection)
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateBlurPosition);
+      window.visualViewport.addEventListener('resize', updatePosition);
+      window.visualViewport.addEventListener('scroll', updatePosition);
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', updateBlurPosition);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-
     return () => {
+      window.removeEventListener('resize', updatePosition);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateBlurPosition);
-      window.removeEventListener('touchmove', handleTouchMove);
+      
       if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', updateBlurPosition);
+        window.visualViewport.removeEventListener('resize', updatePosition);
+        window.visualViewport.removeEventListener('scroll', updatePosition);
       }
     };
   }, []);
@@ -108,14 +83,14 @@ export function PageBlur() {
     <div 
       style={{ 
         position: 'fixed',
-        bottom: bottomOffset,
+        bottom: 0,
         left: 0,
         right: 0,
+        transform: `translateY(${bottomOffset})`,
         zIndex: 40,
         pointerEvents: 'none',
-        transition: 'bottom 0.2s ease-out',
+        transition: 'transform 0.1s ease-out'
       }}
-      className="safari-blur-fix"
     >
       <GradualBlur
         target="parent"

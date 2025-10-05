@@ -72,29 +72,14 @@ const SplitText: React.FC<SplitTextProps> = ({
     if (!ref.current || !text || !fontsLoaded) return;
 
     const el = ref.current as HTMLElement;
-    const isMobile = window.innerWidth < 768;
-    const targets = Array.from(el.querySelectorAll('[data-split-item]')) as HTMLElement[];
-    
-    if (targets.length === 0) {
-      console.warn('SplitText: No targets found for animation');
-      return;
-    }
-
-    // On mobile: instant show, no animation
-    if (isMobile) {
-      gsap.set(targets, { opacity: 1, y: 0 });
-      onLetterAnimationComplete?.();
-      return;
-    }
-    
-    // Desktop: normal animation with ScrollTrigger
     const startPct = (1 - threshold) * 100;
     const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
     const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
     const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
     const sign = marginValue === 0 ? '' : marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
     const start = `top ${startPct}%${sign}`;
-    
+
+    const targets = Array.from(el.querySelectorAll('[data-split-item]')) as HTMLElement[];
     gsap.fromTo(
       targets,
       { ...from },
@@ -108,8 +93,7 @@ const SplitText: React.FC<SplitTextProps> = ({
           start,
           once: true,
           fastScrollEnd: true,
-          anticipatePin: 0.4,
-          invalidateOnRefresh: true
+          anticipatePin: 0.4
         },
         willChange: 'transform, opacity',
         force3D: true,
