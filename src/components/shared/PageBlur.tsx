@@ -6,19 +6,18 @@ import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
-  const [bottomOffset, setBottomOffset] = useState('0px');
+  const [viewportHeight, setViewportHeight] = useState('100vh');
   const pathname = usePathname();
 
   useEffect(() => {
     const updatePosition = () => {
       const isMobile = window.innerWidth < 768;
       if (isMobile && window.visualViewport) {
-        const viewportHeight = window.visualViewport.height;
-        const windowHeight = window.innerHeight;
-        const difference = windowHeight - viewportHeight;
-        setBottomOffset(`${Math.max(0, difference)}px`);
+        // Use the actual visible viewport height
+        const height = window.visualViewport.height;
+        setViewportHeight(`${height}px`);
       } else {
-        setBottomOffset('0px');
+        setViewportHeight('100vh');
       }
     };
 
@@ -83,13 +82,16 @@ export function PageBlur() {
     <div 
       style={{ 
         position: 'fixed',
-        bottom: 0,
+        top: 0,
         left: 0,
         right: 0,
-        transform: `translateY(${bottomOffset})`,
+        height: viewportHeight,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
         zIndex: 40,
         pointerEvents: 'none',
-        transition: 'transform 0.1s ease-out'
+        transition: 'height 0.15s ease-out'
       }}
     >
       <GradualBlur
