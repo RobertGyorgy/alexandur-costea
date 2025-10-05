@@ -6,9 +6,31 @@ import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
+  const [bottomOffset, setBottomOffset] = useState('0px');
   const pathname = usePathname();
 
   useEffect(() => {
+    const updateBlurPosition = () => {
+      if (typeof window === 'undefined') return;
+
+      // Get the current visual viewport height (changes when search bar opens/closes)
+      const visualHeight = window.visualViewport?.height || window.innerHeight;
+      const windowHeight = window.innerHeight;
+      
+      // Calculate the difference (this represents the search bar height)
+      const searchBarHeight = windowHeight - visualHeight;
+      
+      // If search bar is open (significant height difference), keep blur higher
+      // If search bar is closed/minimized (small difference), move blur to bottom
+      if (searchBarHeight > 50) {
+        // Search bar is open - move blur higher (above the search bar)
+        setBottomOffset(`${searchBarHeight}px`);
+      } else {
+        // Search bar is closed - move blur to absolute bottom
+        setBottomOffset('0px');
+      }
+    };
+
     const handleScroll = () => {
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
@@ -32,13 +54,29 @@ export function PageBlur() {
       } else {
         setShowBlur(true);
       }
+
+      // Also update blur position on scroll
+      updateBlurPosition();
     };
 
-    handleScroll(); // Initial check
+    // Initial check
+    updateBlurPosition();
+    handleScroll();
+
+    // Listen for viewport changes (most important for search bar detection)
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateBlurPosition);
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', updateBlurPosition);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateBlurPosition);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', updateBlurPosition);
+      }
     };
   }, []);
 
@@ -53,11 +91,12 @@ export function PageBlur() {
     <div 
       style={{ 
         position: 'fixed',
-        bottom: 0,
+        bottom: bottomOffset,
         left: 0,
         right: 0,
         zIndex: 40,
         pointerEvents: 'none',
+        transition: 'bottom 0.2s ease-out',
       }}
     >
       <GradualBlur
