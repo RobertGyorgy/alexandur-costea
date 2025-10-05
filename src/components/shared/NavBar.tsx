@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
 import { useTheme } from '@/lib/theme';
 
