@@ -317,3 +317,35 @@ select {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
+
+/* Safari-specific fixes for mobile blur and fullscreen */
+@supports (-webkit-touch-callout: none) {
+  /* Safari mobile blur fix */
+  .safari-blur-fix {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 40 !important;
+  }
+  
+  /* Ensure fullscreen on Safari mobile */
+  @media (max-width: 767px) {
+    html, body {
+      height: 100% !important;
+      height: -webkit-fill-available !important;
+      overflow-x: hidden !important;
+    }
+    
+    #__next {
+      min-height: 100% !important;
+      min-height: -webkit-fill-available !important;
+    }
+    
+    /* Fix Safari viewport height issues */
+    .min-h-screen {
+      min-height: 100vh !important;
+      min-height: -webkit-fill-available !important;
+    }
+  }
+}

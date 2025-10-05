@@ -13,7 +13,16 @@ export function PageBlur() {
     const updateBlurPosition = () => {
       if (typeof window === 'undefined') return;
 
-      // Get the current visual viewport height (changes when search bar opens/closes)
+      // Detect Safari browser
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      if (isSafari) {
+        // Safari: Always stick to absolute bottom, even behind search bar
+        setBottomOffset('0px');
+        return;
+      }
+
+      // Chrome/other browsers: Dynamic positioning based on search bar
       const visualHeight = window.visualViewport?.height || window.innerHeight;
       const windowHeight = window.innerHeight;
       
@@ -98,6 +107,7 @@ export function PageBlur() {
         pointerEvents: 'none',
         transition: 'bottom 0.2s ease-out',
       }}
+      className="safari-blur-fix"
     >
       <GradualBlur
         target="parent"
