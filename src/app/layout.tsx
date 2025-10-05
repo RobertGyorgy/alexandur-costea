@@ -4,6 +4,7 @@ import { defaultMetadata, generateJsonLd, generateOrganizationJsonLd, generateWe
 import { NavBar } from '@/components/shared/NavBar';
 import { PageBlur } from '@/components/shared/PageBlur';
 import { LoaderScreen } from '@/components/shared/LoaderScreen';
+// import { PageTransitionProvider } from '@/lib/page-transition';
 import { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = defaultMetadata;
@@ -77,19 +78,21 @@ export default function RootLayout({
         />
       </head>
         <body className="min-h-screen bg-bg text-fg font-sans antialiased">
-          {/* Loader Screen */}
-          <LoaderScreen />
+          {/* <PageTransitionProvider> */}
+            {/* Loader Screen */}
+            <LoaderScreen />
 
-          {/* Navigation */}
-          <NavBar />
-        
-        {/* Gradual blur - visible until 50% of newsletter section */}
-        <PageBlur />
-        
-        {/* Main content */}
-        <main className="relative overflow-x-hidden">
-          {children}
-        </main>
+            {/* Navigation */}
+            <NavBar />
+          
+          {/* Gradual blur - visible until 50% of newsletter section */}
+          <PageBlur />
+          
+          {/* Main content */}
+          <main className="relative overflow-x-hidden">
+            {children}
+          </main>
+          {/* </PageTransitionProvider> */}
         
         {/* Analytics initialization */}
         <script

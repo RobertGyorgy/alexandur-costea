@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/analytics';
 import { useTheme } from '@/lib/theme';
-import { usePageTransition } from '@/lib/page-transition';
+// import { usePageTransition } from '@/lib/page-transition';
 
 interface NavBarProps {
   className?: string;
@@ -17,7 +17,7 @@ export function NavBar({ className }: NavBarProps) {
   const { theme, toggleTheme } = useTheme();
   const _router = useRouter();
   const pathname = usePathname();
-  const { startTransition } = usePageTransition();
+  // const { startTransition } = usePageTransition();
   
   const isKeypadPage = pathname === '/keypad';
 
@@ -157,7 +157,7 @@ export function NavBar({ className }: NavBarProps) {
             <button
               onClick={() => {
                 if (isKeypadPage) {
-                  startTransition('/');
+                  _router.push('/');
                 } else {
                   const heroElement = document.getElementById('hero');
                   if (heroElement) {
@@ -193,9 +193,9 @@ export function NavBar({ className }: NavBarProps) {
           )}
           onClick={() => {
             if (isKeypadPage) {
-              startTransition('/');
+              _router.push('/');
             } else {
-              startTransition('/keypad');
+              _router.push('/keypad');
             }
           }}
           aria-label="Login"
@@ -236,7 +236,7 @@ export function NavBar({ className }: NavBarProps) {
           <button
             onClick={() => {
               if (isKeypadPage) {
-                startTransition('/');
+                _router.push('/');
               } else {
                 const heroElement = document.getElementById('hero');
                 if (heroElement) {
@@ -271,9 +271,9 @@ export function NavBar({ className }: NavBarProps) {
           )}
           onClick={() => {
             if (isKeypadPage) {
-              startTransition('/');
+              _router.push('/');
             } else {
-              startTransition('/keypad');
+              _router.push('/keypad');
             }
           }}
           aria-label="Login"
