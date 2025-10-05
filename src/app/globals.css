@@ -347,5 +347,19 @@ select {
       min-height: 100vh !important;
       min-height: -webkit-fill-available !important;
     }
+    
+    /* Hero section full screen on mobile */
+    #hero {
+      min-height: 100vh !important;
+      min-height: -webkit-fill-available !important;
+    }
+  }
+}
+
+/* Mobile hero section full screen for all browsers */
+@media (max-width: 767px) {
+  #hero {
+    min-height: 100vh !important;
+    min-height: 100svh !important;
   }
 }
