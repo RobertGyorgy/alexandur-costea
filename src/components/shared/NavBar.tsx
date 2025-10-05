@@ -32,77 +32,54 @@ export function NavBar({ className }: NavBarProps) {
 
   // Handle active section detection with improved logic
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const sections = siteContent.site.nav
-        .filter((item) => item.href.startsWith('#'))
-        .map((item) => item.href.slice(1));
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sections = ['hero', 'about', 'portfolio', 'pricing', 'testimonials', 'faq', 'newsletter'];
+          const scrollPosition = window.scrollY;
+          const windowHeight = window.innerHeight;
+          const halfScreen = scrollPosition + windowHeight / 2;
 
-      // Find the section that's most visible in the viewport
-      let currentSection = 'hero';
-      let maxVisibility = 0;
-
-      sections.forEach((section) => {
-        const element = document.getElementById(section);
-        if (!element) return;
-
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        // Calculate how much of the section is visible
-        const visibleTop = Math.max(0, rect.top);
-        const visibleBottom = Math.min(windowHeight, rect.bottom);
-        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-        const visibilityRatio = visibleHeight / Math.min(rect.height, windowHeight);
-
-        // If more than 50% of the section is visible, consider it active
-        if (visibilityRatio > 0.5 && visibilityRatio > maxVisibility) {
-          maxVisibility = visibilityRatio;
-          currentSection = section;
-        }
-      });
-
-      // Fallback: if no section is 50% visible, find the one closest to the top
-      if (maxVisibility === 0) {
-        let closestSection = 'hero';
-        let closestDistance = Infinity;
-
-        sections.forEach((section) => {
-          const element = document.getElementById(section);
-          if (!element) return;
-
-          const rect = element.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
+          // Find which section the middle of the screen is in
+          let currentSection = 'hero';
           
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestSection = section;
+          for (const sectionId of sections) {
+            const element = document.getElementById(sectionId);
+            if (!element) continue;
+
+            const rect = element.getBoundingClientRect();
+            const sectionTop = scrollPosition + rect.top;
+            const sectionBottom = sectionTop + rect.height;
+
+            // If the center of viewport is within this section
+            if (halfScreen >= sectionTop && halfScreen < sectionBottom) {
+              currentSection = sectionId;
+              break;
+            }
           }
+
+          setActiveSection(currentSection);
+          ticking = false;
         });
-
-        currentSection = closestSection;
+        ticking = true;
       }
-
-      setActiveSection(currentSection);
     };
 
-    // Initial check
-    handleScroll();
+    // Initial check with delay to ensure DOM is ready
+    const timer = setTimeout(() => handleScroll(), 100);
     
-    // Also handle touch events on mobile
-    const handleTouchMove = () => {
-      handleScroll();
-    };
-    
+    // Add event listeners
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
     
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [pathname]); // Re-run when pathname changes
+  }, [pathname]);
 
   const _handleNavClick = (href: string, label: string) => {
     if (href.startsWith('#')) {

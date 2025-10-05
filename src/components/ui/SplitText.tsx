@@ -73,31 +73,36 @@ const SplitText: React.FC<SplitTextProps> = ({
 
     const el = ref.current as HTMLElement;
     const isMobile = window.innerWidth < 768;
+    const targets = Array.from(el.querySelectorAll('[data-split-item]')) as HTMLElement[];
     
-    // More aggressive trigger on mobile
-    const mobileThreshold = isMobile ? Math.min(threshold * 2, 0.3) : threshold;
-    const mobileRootMargin = isMobile ? '50px' : rootMargin;
+    if (targets.length === 0) {
+      console.warn('SplitText: No targets found for animation');
+      return;
+    }
+
+    // On mobile: instant show, no animation
+    if (isMobile) {
+      gsap.set(targets, { opacity: 1, y: 0 });
+      onLetterAnimationComplete?.();
+      return;
+    }
     
-    const startPct = (1 - mobileThreshold) * 100;
-    const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(mobileRootMargin);
+    // Desktop: normal animation with ScrollTrigger
+    const startPct = (1 - threshold) * 100;
+    const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
     const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
     const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
     const sign = marginValue === 0 ? '' : marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
     const start = `top ${startPct}%${sign}`;
-
-    const targets = Array.from(el.querySelectorAll('[data-split-item]')) as HTMLElement[];
-    
-    // On mobile, reduce stagger delay for faster animation
-    const effectiveDelay = isMobile ? Math.min(delay, 10) : delay;
     
     gsap.fromTo(
       targets,
       { ...from },
       {
         ...to,
-        duration: isMobile ? Math.min(duration, 0.4) : duration,
+        duration,
         ease,
-        stagger: effectiveDelay / 1000,
+        stagger: delay / 1000,
         scrollTrigger: {
           trigger: el,
           start,
