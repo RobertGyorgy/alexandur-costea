@@ -69,7 +69,6 @@ export function Hero() {
       id="hero"
       as="header"
       className="relative min-h-screen flex items-end justify-center overflow-hidden pb-32 md:pb-20"
-      style={{ minHeight: '100vh', minHeight: '100svh' }}
       spacing="xl"
       ref={sectionRef}
     >
