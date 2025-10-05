@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/analytics';
 import { useTheme } from '@/lib/theme';
+import { usePageTransition } from '@/lib/page-transition';
 
 interface NavBarProps {
   className?: string;
@@ -12,9 +13,11 @@ interface NavBarProps {
 
 export function NavBar({ className }: NavBarProps) {
   const [activeSection, setActiveSection] = useState('hero');
+  const [isScrolling, setIsScrolling] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  const { startTransition } = usePageTransition();
   
   const isKeypadPage = pathname === '/keypad';
 
@@ -29,9 +32,23 @@ export function NavBar({ className }: NavBarProps) {
     newsletter: 'NEWSLETTER'
   };
 
-  // Handle active section detection with improved logic
+  // Handle scroll detection and navbar sizing
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
+      // Set scrolling state to true
+      setIsScrolling(true);
+
+      // Clear existing timeout
+      clearTimeout(scrollTimeout);
+
+      // Set timeout to detect when scrolling stops
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150); // 150ms delay after scroll stops
+
+      // Handle active section detection
       const sections = ['hero', 'about', 'portfolio', 'pricing', 'testimonials', 'faq', 'newsletter'];
       
       // Get navbar height for offset
@@ -75,7 +92,11 @@ export function NavBar({ className }: NavBarProps) {
     };
     
     window.addEventListener('scroll', scrollListener, { passive: true });
-    return () => window.removeEventListener('scroll', scrollListener);
+    
+    return () => {
+      window.removeEventListener('scroll', scrollListener);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   const _handleNavClick = (href: string, label: string) => {
@@ -100,16 +121,20 @@ export function NavBar({ className }: NavBarProps) {
   return (
     <nav
       className={cn(
-        'fixed top-4 left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-500 w-full px-4 max-w-7xl',
+        'fixed left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-500 w-full px-4 max-w-7xl',
+        isScrolling ? 'top-2 scale-90' : 'top-4 scale-100',
         className
       )}
     >
       {/* Mobile Layout */}
-      <div className="flex md:hidden items-center justify-between w-full">
+      <div className="flex md:hidden items-center justify-center gap-2 w-full">
         {/* Left: Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="w-12 h-12 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg flex-shrink-0"
+          className={cn(
+            "rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg flex-shrink-0",
+            isScrolling ? "w-14 h-14" : "w-16 h-16"
+          )}
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
@@ -123,13 +148,16 @@ export function NavBar({ className }: NavBarProps) {
           )}
         </button>
 
-        {/* Center: Home Button */}
+        {/* Center: Section Title */}
         <div className="flex-shrink-0">
-          <div className="bg-bg-elev/90 backdrop-blur-lg border border-line rounded-full px-8 py-3 shadow-soft-lg">
+          <div className={cn(
+            "bg-bg-elev/90 backdrop-blur-lg border border-line rounded-full shadow-soft-lg flex items-center justify-center transition-all duration-300",
+            isScrolling ? "w-[220px] py-3" : "w-[240px] py-4"
+          )}>
             <button
               onClick={() => {
                 if (isKeypadPage) {
-                  router.push('/');
+                  startTransition('/');
                 } else {
                   const heroElement = document.getElementById('hero');
                   if (heroElement) {
@@ -140,11 +168,14 @@ export function NavBar({ className }: NavBarProps) {
                   }
                 }
               }}
-              className="text-base font-bold text-accent tracking-widest uppercase transition-all duration-300 hover:text-fg focus-visible:text-fg focus-visible:outline-none"
+              className={cn(
+                "font-bold text-accent tracking-widest uppercase transition-all duration-300 hover:text-fg focus-visible:text-fg focus-visible:outline-none w-full text-center",
+                isScrolling ? "text-base" : "text-lg"
+              )}
               aria-label="Go to home"
             >
               {isKeypadPage ? (
-                <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-accent mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
               ) : (
@@ -154,55 +185,36 @@ export function NavBar({ className }: NavBarProps) {
           </div>
         </div>
 
-        {/* Right: Profile Button */}
+        {/* Right: Login Button */}
         <button
-          className="w-12 h-12 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg flex-shrink-0"
-          onClick={() => router.push('/keypad')}
-          aria-label="Menu"
+          className={cn(
+            "rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg flex-shrink-0",
+            isScrolling ? "w-14 h-14" : "w-16 h-16"
+          )}
+          onClick={() => {
+            if (isKeypadPage) {
+              startTransition('/');
+            } else {
+              startTransition('/keypad');
+            }
+          }}
+          aria-label="Login"
         >
           <svg className="w-6 h-6 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
           </svg>
         </button>
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex items-center gap-4 justify-center">
-        {/* Large, bold home button */}
-        <div className="bg-bg-elev/90 backdrop-blur-lg border border-line rounded-full px-12 py-6 shadow-soft-lg">
-          <div className="flex items-center justify-center">
-            <button
-              onClick={() => {
-                if (isKeypadPage) {
-                  router.push('/');
-                } else {
-                  const heroElement = document.getElementById('hero');
-                  if (heroElement) {
-                    heroElement.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start',
-                    });
-                  }
-                }
-              }}
-              className="text-xl font-bold text-accent tracking-widest uppercase transition-all duration-300 hover:text-fg focus-visible:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-              aria-label="Go to home"
-            >
-              {isKeypadPage ? (
-                <svg className="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-              ) : (
-                sectionNames[activeSection] || 'ACASĂ'
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Theme Toggle Button */}
+      <div className="hidden md:flex items-center gap-2 justify-center">
+        {/* Left: Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="w-[72px] h-[72px] rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg"
+          className={cn(
+            "rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg",
+            isScrolling ? "w-[60px] h-[60px]" : "w-[72px] h-[72px]"
+          )}
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
@@ -216,14 +228,58 @@ export function NavBar({ className }: NavBarProps) {
           )}
         </button>
 
-        {/* Profile Button */}
+        {/* Center: Section Title */}
+        <div className={cn(
+          "bg-bg-elev/90 backdrop-blur-lg border border-line rounded-full shadow-soft-lg flex items-center justify-center transition-all duration-300",
+          isScrolling ? "w-[240px] py-4" : "w-[280px] py-6"
+        )}>
+          <button
+            onClick={() => {
+              if (isKeypadPage) {
+                startTransition('/');
+              } else {
+                const heroElement = document.getElementById('hero');
+                if (heroElement) {
+                  heroElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
+                }
+              }
+            }}
+            className={cn(
+              "font-bold text-accent tracking-widest uppercase transition-all duration-300 hover:text-fg focus-visible:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg w-full text-center",
+              isScrolling ? "text-lg" : "text-xl"
+            )}
+            aria-label="Go to home"
+          >
+            {isKeypadPage ? (
+              <svg className="w-7 h-7 text-accent mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            ) : (
+              sectionNames[activeSection] || 'ACASĂ'
+            )}
+          </button>
+        </div>
+
+        {/* Right: Login Button */}
         <button
-          className="w-[72px] h-[72px] rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg"
-          onClick={() => router.push('/keypad')}
-          aria-label="Menu"
+          className={cn(
+            "rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg",
+            isScrolling ? "w-[60px] h-[60px]" : "w-[72px] h-[72px]"
+          )}
+          onClick={() => {
+            if (isKeypadPage) {
+              startTransition('/');
+            } else {
+              startTransition('/keypad');
+            }
+          }}
+          aria-label="Login"
         >
           <svg className="w-8 h-8 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
           </svg>
         </button>
       </div>

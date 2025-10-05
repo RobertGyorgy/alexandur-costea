@@ -90,6 +90,8 @@ export function Portfolio() {
   const [direction, setDirection] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   
@@ -102,6 +104,11 @@ export function Portfolio() {
   const phoneY = useTransform(scrollYProgress, [0, 1], [150, -150]);
   const cardY = useTransform(scrollYProgress, [0, 1], [-100, 100]);
   const phoneRotate = useTransform(scrollYProgress, [0, 0.5, 1], [-5, 0, 5]);
+  
+  // Enhanced parallax for description card content
+  const cardContentY = useTransform(scrollYProgress, [0, 0.5, 1], [50, 0, -50]);
+  const cardContentScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+  const cardContentRotate = useTransform(scrollYProgress, [0, 0.5, 1], [2, 0, -2]);
 
   const handleNext = () => {
     setDirection(1);
@@ -140,6 +147,19 @@ export function Portfolio() {
       }
     }
   }, [currentIndex, isMuted, isPlaying]);
+
+  // Mobile detection
+  useEffect(() => {
+    setIsMounted(true);
+    
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const currentVideo = VERTICAL_VIDEOS[currentIndex];
 
@@ -181,6 +201,7 @@ export function Portfolio() {
       spacing="xl"
       aria-labelledby="portfolio-heading"
       ref={sectionRef}
+      className="bg-[#006989] rounded-3xl"
     >
       {/* Desktop & Mobile Layout */}
       <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-16 gap-8">
@@ -188,8 +209,8 @@ export function Portfolio() {
         <motion.div 
           className="relative lg:w-1/2 flex justify-center" 
           style={{ 
-            y: typeof window !== 'undefined' && window.innerWidth >= 768 ? phoneY : 0, 
-            rotateZ: typeof window !== 'undefined' && window.innerWidth >= 768 ? phoneRotate : 0 
+            y: isMounted && !isMobile ? phoneY : 0, 
+            rotateZ: isMounted && !isMobile ? phoneRotate : 0 
           }}
         >
           {/* Phone Frame Wrapper for Button Positioning */}
@@ -358,7 +379,11 @@ export function Portfolio() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
           className="hidden lg:flex lg:w-1/2 flex-col justify-center"
-          style={{ y: typeof window !== 'undefined' && window.innerWidth >= 768 ? cardY : 0 }}
+          style={{ 
+            y: isMounted && !isMobile ? cardY : 0,
+            scale: isMounted && !isMobile ? cardContentScale : 1,
+            rotateZ: isMounted && !isMobile ? cardContentRotate : 0
+          }}
         >
           {/* Unified Project Info Card with Animated Text */}
           <div className="relative backdrop-blur-xl bg-bg-elev/95 border border-line rounded-3xl p-7 shadow-soft-xl overflow-hidden h-[600px]">
@@ -376,18 +401,21 @@ export function Portfolio() {
                   opacity: { duration: 0.2 }
                 }}
                 className="space-y-5"
+                style={{ 
+                  y: isMounted && !isMobile ? cardContentY : 0
+                }}
               >
                 {/* Header with title and counter */}
                 <div className="flex items-start justify-between gap-4 pb-3 border-b border-line/50">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-fg mb-1">
+                    <h3 className="text-2xl font-bold text-white mb-1">
                       {currentVideo.title}
                     </h3>
                     <p className="text-accent text-xs font-medium uppercase tracking-wider">
                       {currentVideo.description}
                     </p>
                   </div>
-                  <span className="text-muted text-xs font-medium px-2 py-1 bg-bg/50 rounded-full">
+                  <span className="text-white/80 text-xs font-medium px-2 py-1 bg-white/10 rounded-full">
                     {currentIndex + 1} / {VERTICAL_VIDEOS.length}
                   </span>
                 </div>
@@ -395,34 +423,34 @@ export function Portfolio() {
                 {/* Client and Role */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Client</p>
-                    <p className="text-fg font-medium text-sm">{currentVideo.client}</p>
+                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Client</p>
+                    <p className="text-white font-medium text-sm">{currentVideo.client}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Role</p>
-                    <p className="text-fg font-medium text-sm">{currentVideo.role}</p>
+                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Role</p>
+                    <p className="text-white font-medium text-sm">{currentVideo.role}</p>
                   </div>
                 </div>
 
                 {/* Project Details */}
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Project Overview</p>
-                    <p className="text-muted leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Project Overview</p>
+                    <p className="text-white leading-relaxed text-sm">
                       {currentVideo.details}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Key Achievements</p>
-                    <p className="text-muted leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Key Achievements</p>
+                    <p className="text-white leading-relaxed text-sm">
                       {currentVideo.achievements}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Techniques & Approach</p>
-                    <p className="text-muted leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Techniques & Approach</p>
+                    <p className="text-white leading-relaxed text-sm">
                       {currentVideo.techniques}
                     </p>
                   </div>
