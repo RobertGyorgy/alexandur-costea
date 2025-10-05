@@ -7,7 +7,6 @@ import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
 import type { PricingPlan } from '@/lib/content';
 import './PricingCard.css';
-import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 
 export function Pricing() {
   const content = siteContent.pricing;
