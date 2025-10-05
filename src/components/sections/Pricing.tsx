@@ -47,7 +47,6 @@ export function Pricing() {
       aria-labelledby="pricing-heading"
       ref={sectionRef}
     >
-      <BackgroundEffects variant="dots" color="#FE7F2D" opacity={0.12} animated={false} />
       {/* Pricing Cards - 3 Vertical Cards Side by Side */}
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-7xl mx-auto">
         {content.plans.map((plan, index) => {
@@ -81,7 +80,7 @@ interface PricingCardProps {
 }
 
 function PricingCard({ plan, onCTAClick }: PricingCardProps) {
-  const bgColor = plan.id === 'essential' ? '#FE7F2D' : plan.id === 'professional' ? '#006989' : '#FE7F2D';
+  const bgColor = plan.id === 'essential' ? '#FE7F2D' : plan.id === 'professional' ? '#8B5CF6' : '#00D4FF';
   
   // Custom content based on plan ID
   const cardContent = {
@@ -172,7 +171,7 @@ function PricingCard({ plan, onCTAClick }: PricingCardProps) {
           
           {/* Top Section - Title & Subtitle */}
           <div className="relative z-10 flex flex-col gap-1">
-            <h3 className="text-white text-2xl font-bold drop-shadow-lg">
+            <h3 className="text-white text-3xl font-bold drop-shadow-lg">
               {content.title}
             </h3>
             <p className="text-white/90 text-[0.75em] font-medium drop-shadow">
