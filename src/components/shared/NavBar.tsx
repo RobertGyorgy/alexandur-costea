@@ -88,9 +88,21 @@ export function NavBar({ className }: NavBarProps) {
     // Initial check
     handleScroll();
     
+    // Also handle touch events on mobile
+    const handleTouchMove = () => {
+      handleScroll();
+    };
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [pathname]); // Re-run when pathname changes
 
   const _handleNavClick = (href: string, label: string) => {
     if (href.startsWith('#')) {

@@ -58,7 +58,8 @@ export function PageBlur() {
       const visibilityRatio = visibleHeight / Math.min(sectionHeight, windowHeight);
 
       // Hide blur when more than 50% of newsletter section is visible
-      if (visibilityRatio > 0.5) {
+      // Or when newsletter section is near the top (within 100px)
+      if (visibilityRatio > 0.5 || rect.top < 100) {
         setShowBlur(false);
       } else {
         setShowBlur(true);
@@ -66,6 +67,11 @@ export function PageBlur() {
 
       // Also update blur position on scroll
       updateBlurPosition();
+    };
+    
+    // Also handle touch events on mobile
+    const handleTouchMove = () => {
+      handleScroll();
     };
 
     // Initial check
@@ -79,10 +85,12 @@ export function PageBlur() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', updateBlurPosition);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', updateBlurPosition);
+      window.removeEventListener('touchmove', handleTouchMove);
       if (window.visualViewport) {
         window.visualViewport.removeEventListener('resize', updateBlurPosition);
       }
