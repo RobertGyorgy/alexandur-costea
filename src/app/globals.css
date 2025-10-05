@@ -120,8 +120,14 @@ body {
 }
 
 /* Ensure Romanian diacritics are visible */
-p, span, div {
-  overflow: visible;
+p, span, div { 
+  overflow: visible; 
+}
+
+/* Prevent word breaking in titles */
+h1, h2, h3, h4, h5, h6 {
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* Prevent horizontal scroll on mobile */

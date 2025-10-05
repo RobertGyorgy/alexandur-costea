@@ -40,11 +40,11 @@ export function About() {
                   key={`title-line-${idx}`}
                   text={line}
                   tag="h2"
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-fg text-left block leading-[1.3]"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-fg text-left block leading-[1.3] break-words"
                   delay={30}
                   duration={0.4}
                   ease="power3.out"
-                  splitType="chars"
+                  splitType="words"
                   from={{ opacity: 0, y: 30, rotateX: -90 }}
                   to={{ opacity: 1, y: 0, rotateX: 0 }}
                   threshold={0.1}
