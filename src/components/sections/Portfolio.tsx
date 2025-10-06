@@ -386,7 +386,7 @@ export function Portfolio() {
           }}
         >
           {/* Unified Project Info Card with Animated Text */}
-          <div className="relative backdrop-blur-xl bg-bg-elev/95 border border-line rounded-3xl p-7 shadow-soft-xl overflow-hidden h-[600px]">
+          <div className="relative backdrop-blur-xl bg-white dark:bg-[#1a2332] border border-line rounded-3xl p-7 shadow-soft-xl overflow-hidden h-[600px]">
             {/* Text content with animations */}
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
@@ -408,14 +408,14 @@ export function Portfolio() {
                 {/* Header with title and counter */}
                 <div className="flex items-start justify-between gap-4 pb-3 border-b border-line/50">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-white mb-1">
+                    <h3 className="text-2xl font-bold text-[#233d4d] dark:text-white mb-1">
                       {currentVideo.title}
                     </h3>
                     <p className="text-accent text-xs font-medium uppercase tracking-wider">
                       {currentVideo.description}
                     </p>
                   </div>
-                  <span className="text-white/80 text-xs font-medium px-2 py-1 bg-white/10 rounded-full">
+                  <span className="text-[#233d4d]/70 dark:text-white/80 text-xs font-medium px-2 py-1 bg-[#233d4d]/10 dark:bg-white/10 rounded-full">
                     {currentIndex + 1} / {VERTICAL_VIDEOS.length}
                   </span>
                 </div>
@@ -423,34 +423,34 @@ export function Portfolio() {
                 {/* Client and Role */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Client</p>
-                    <p className="text-white font-medium text-sm">{currentVideo.client}</p>
+                    <p className="text-xs uppercase tracking-wider text-[#233d4d]/60 dark:text-white/60 mb-1">Client</p>
+                    <p className="text-[#233d4d] dark:text-white font-medium text-sm">{currentVideo.client}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Role</p>
-                    <p className="text-white font-medium text-sm">{currentVideo.role}</p>
+                    <p className="text-xs uppercase tracking-wider text-[#233d4d]/60 dark:text-white/60 mb-1">Role</p>
+                    <p className="text-[#233d4d] dark:text-white font-medium text-sm">{currentVideo.role}</p>
                   </div>
                 </div>
 
                 {/* Project Details */}
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Project Overview</p>
-                    <p className="text-white leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-[#233d4d]/60 dark:text-white/60 mb-1">Project Overview</p>
+                    <p className="text-[#233d4d]/90 dark:text-white leading-relaxed text-sm">
                       {currentVideo.details}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Key Achievements</p>
-                    <p className="text-white leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-[#233d4d]/60 dark:text-white/60 mb-1">Key Achievements</p>
+                    <p className="text-[#233d4d]/90 dark:text-white leading-relaxed text-sm">
                       {currentVideo.achievements}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/60 mb-1">Techniques & Approach</p>
-                    <p className="text-white leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-[#233d4d]/60 dark:text-white/60 mb-1">Techniques & Approach</p>
+                    <p className="text-[#233d4d]/90 dark:text-white leading-relaxed text-sm">
                       {currentVideo.techniques}
                     </p>
                   </div>
