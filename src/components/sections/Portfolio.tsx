@@ -201,7 +201,7 @@ export function Portfolio() {
       spacing="xl"
       aria-labelledby="portfolio-heading"
       ref={sectionRef}
-      className="bg-[#006989] rounded-3xl"
+      className="bg-[#006989]"
     >
       {/* Desktop & Mobile Layout */}
       <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-16 gap-8">

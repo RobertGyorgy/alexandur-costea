@@ -39,6 +39,7 @@ const SplitText: React.FC<SplitTextProps> = ({
 }) => {
   const ref = useRef<HTMLElement>(null);
   const [fontsLoaded, setFontsLoaded] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const parts = useMemo(() => {
     if (!text) return [] as { t: string; isSpace: boolean }[];
     if (splitType === 'chars') {
@@ -57,6 +58,13 @@ const SplitText: React.FC<SplitTextProps> = ({
   }, [text, splitType]);
 
   useEffect(() => {
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
     const docFonts = (document as Document & { fonts?: { status?: string; ready?: Promise<void> } }).fonts;
     if (docFonts?.status === 'loaded') {
       setFontsLoaded(true);
@@ -66,40 +74,66 @@ const SplitText: React.FC<SplitTextProps> = ({
       // Fallback if Font Loading API not available
       setFontsLoaded(true);
     }
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
     if (!ref.current || !text || !fontsLoaded) return;
 
     const el = ref.current as HTMLElement;
-    const startPct = (1 - threshold) * 100;
-    const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
-    const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-    const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
-    const sign = marginValue === 0 ? '' : marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
-    const start = `top ${startPct}%${sign}`;
-
     const targets = Array.from(el.querySelectorAll('[data-split-item]')) as HTMLElement[];
-    gsap.fromTo(
-      targets,
-      { ...from },
-      {
-        ...to,
-        duration,
-        ease,
-        stagger: delay / 1000,
-        scrollTrigger: {
-          trigger: el,
-          start,
-          once: true,
-          fastScrollEnd: true,
-          anticipatePin: 0.4
-        },
-        willChange: 'transform, opacity',
-        force3D: true,
-        onComplete: () => onLetterAnimationComplete?.()
-      }
-    );
+
+    // Mobile optimization: simplified animations
+    if (isMobile) {
+      // On mobile, use simpler animations with reduced complexity
+      gsap.fromTo(
+        targets,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+          stagger: 0.02, // Reduced stagger for faster loading
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 80%',
+            once: true,
+            fastScrollEnd: true
+          },
+          onComplete: () => onLetterAnimationComplete?.()
+        }
+      );
+    } else {
+      // Desktop: full animations
+      const startPct = (1 - threshold) * 100;
+      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
+      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
+      const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
+      const sign = marginValue === 0 ? '' : marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
+      const start = `top ${startPct}%${sign}`;
+
+      gsap.fromTo(
+        targets,
+        { ...from },
+        {
+          ...to,
+          duration,
+          ease,
+          stagger: delay / 1000,
+          scrollTrigger: {
+            trigger: el,
+            start,
+            once: true,
+            fastScrollEnd: true,
+            anticipatePin: 0.4
+          },
+          willChange: 'transform, opacity',
+          force3D: true,
+          onComplete: () => onLetterAnimationComplete?.()
+        }
+      );
+    }
 
     return () => {
       ScrollTrigger.getAll().forEach(st => {
@@ -107,7 +141,7 @@ const SplitText: React.FC<SplitTextProps> = ({
       });
       gsap.killTweensOf(targets);
     };
-  }, [text, parts, delay, duration, ease, from, to, threshold, rootMargin, fontsLoaded, onLetterAnimationComplete]);
+  }, [text, parts, delay, duration, ease, from, to, threshold, rootMargin, fontsLoaded, onLetterAnimationComplete, isMobile]);
 
   const style: React.CSSProperties = {
     textAlign,

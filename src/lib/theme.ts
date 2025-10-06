@@ -5,26 +5,16 @@ import { useEffect, useState } from 'react';
 export type Theme = 'light' | 'dark';
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme] = useState<Theme>('dark');
 
   useEffect(() => {
-    // Check for saved theme preference or default to dark
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const initialTheme = savedTheme || 'dark';
-    setTheme(initialTheme);
-    applyTheme(initialTheme);
+    // Always set dark theme
+    const root = document.documentElement;
+    root.setAttribute('data-theme', 'dark');
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    applyTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
-  const applyTheme = (newTheme: Theme) => {
-    const root = document.documentElement;
-    root.setAttribute('data-theme', newTheme);
+    // Theme toggle disabled - always dark mode
   };
 
   return { theme, toggleTheme };

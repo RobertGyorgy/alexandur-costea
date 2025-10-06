@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
@@ -13,6 +13,8 @@ import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 export function FAQ() {
   const content = siteContent.faq;
   const [openItem, setOpenItem] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -22,6 +24,14 @@ export function FAQ() {
   
   // Simple parallax effect for FAQ items
   const faqY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const toggleItem = (id: string) => {
     // Toggle: if clicking the same item, close it; otherwise open the new one
@@ -60,13 +70,14 @@ export function FAQ() {
       spacing="xl"
       aria-labelledby="faq-heading"
       ref={sectionRef}
+      className="bg-[#233d4d]"
     >
       <BackgroundEffects variant="gradient" color="#FE7F2D" opacity={0.1} animated={false} />
       {/* FAQ Items */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        style={{ y: typeof window !== 'undefined' && window.innerWidth >= 768 ? faqY : 0 }}
+        style={{ y: isMounted && !isMobile ? faqY : 0 }}
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
         className="max-w-4xl mx-auto"

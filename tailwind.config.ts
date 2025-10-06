@@ -79,6 +79,7 @@ const config: Config = {
         'soft-xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
         'glow-accent': '0 0 20px rgb(254 127 45 / 0.4)',
         'glow-accent-2': '0 0 20px rgb(0 105 137 / 0.4)',
+        'inner-faint': 'inset 0 1px 0 0 rgba(255,255,255,0.05)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

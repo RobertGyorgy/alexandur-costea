@@ -98,7 +98,7 @@ export function Testimonials() {
       id="testimonials"
       spacing="xl"
       aria-labelledby="testimonials-heading"
-      className="testimonials-slider"
+      className="testimonials-slider bg-[#233d4d]"
       ref={sectionRef}
     >
       <BackgroundEffects variant="lines" color="#FE7F2D" opacity={0.15} animated />

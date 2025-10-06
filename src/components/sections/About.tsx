@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import SplitText from '@/components/ui/SplitText';
@@ -10,6 +10,8 @@ import Image from 'next/image';
 export function About() {
   const content = siteContent.about;
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -20,6 +22,14 @@ export function About() {
   const imageY = useTransform(scrollYProgress, [0, 0.5, 1], [150, 0, -150]);
   const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1.05, 0.85]);
   const imageRotate = useTransform(scrollYProgress, [0, 0.5, 1], [-5, 0, 5]);
+  
+  useEffect(() => {
+    setIsMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <Section
@@ -27,6 +37,7 @@ export function About() {
       spacing="xl"
       aria-labelledby="about-heading"
       ref={sectionRef}
+      className="bg-[#233d4d]"
     >
       <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
         {/* Content Column */}
@@ -41,14 +52,14 @@ export function About() {
                   text={line}
                   tag="h2"
                   className="text-3xl md:text-5xl lg:text-6xl font-bold text-fg text-left block leading-[1.3]"
-                  delay={30}
-                  duration={0.4}
-                  ease="power3.out"
+                  delay={20}
+                  duration={0.3}
+                  ease="power2.out"
                   splitType="chars"
-                  from={{ opacity: 0, y: 30, rotateX: -90 }}
-                  to={{ opacity: 1, y: 0, rotateX: 0 }}
-                  threshold={0.1}
-                  rootMargin="-50px"
+                  from={{ opacity: 0, y: 20 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.2}
+                  rootMargin="-30px"
                   textAlign="left"
                 />
               ))}
@@ -59,14 +70,14 @@ export function About() {
               text={content.description}
               tag="p"
               className="text-lg md:text-xl text-muted leading-[1.8] text-left"
-              delay={20}
-              duration={0.3}
+              delay={15}
+              duration={0.25}
               ease="power2.out"
               splitType="words"
-              from={{ opacity: 0, y: 20 }}
+              from={{ opacity: 0, y: 15 }}
               to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-50px"
+              threshold={0.2}
+              rootMargin="-30px"
               textAlign="left"
             />
           </div>
@@ -79,14 +90,14 @@ export function About() {
                 text={paragraph}
                 tag="p"
                 className="text-lg text-muted leading-[1.8] text-left"
-                delay={15}
-                duration={0.3}
+                delay={10}
+                duration={0.2}
                 ease="power2.out"
                 splitType="words"
-                from={{ opacity: 0, y: 15 }}
+                from={{ opacity: 0, y: 10 }}
                 to={{ opacity: 1, y: 0 }}
-                threshold={0.1}
-                rootMargin="-50px"
+                threshold={0.2}
+                rootMargin="-30px"
                 textAlign="left"
               />
             ))}
@@ -101,9 +112,9 @@ export function About() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="relative flex justify-center lg:justify-end"
           style={{
-            y: typeof window !== 'undefined' && window.innerWidth >= 768 ? imageY : 0,
-            scale: typeof window !== 'undefined' && window.innerWidth >= 768 ? imageScale : 1,
-            rotateZ: typeof window !== 'undefined' && window.innerWidth >= 768 ? imageRotate : 0,
+            y: isMounted && !isMobile ? imageY : 0,
+            scale: isMounted && !isMobile ? imageScale : 1,
+            rotateZ: isMounted && !isMobile ? imageRotate : 0,
           }}
         >
           <motion.div 

@@ -248,18 +248,6 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                 <p className="text-sm text-muted">
                   © 2025 Alex Costea. All rights reserved.
                 </p>
-                <a
-                  href="#"
-                  className="text-sm text-muted hover:text-accent transition-colors"
-                >
-                  Terms of Service
-                </a>
-                <a
-                  href="#"
-                  className="text-sm text-muted hover:text-accent transition-colors"
-                >
-                  Privacy Policy
-                </a>
               </div>
 
               {/* Images Below */}

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/analytics';
-import { useTheme } from '@/lib/theme';
+// import { useTheme } from '@/lib/theme';
 import { usePageTransition } from '@/lib/page-transition';
 
 interface NavBarProps {
@@ -14,7 +14,8 @@ interface NavBarProps {
 export function NavBar({ className }: NavBarProps) {
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolling, setIsScrolling] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  // Theme is always dark now
+  // const { theme, toggleTheme } = useTheme();
   const _router = useRouter();
   const pathname = usePathname();
   const { startTransition } = usePageTransition();
@@ -128,26 +129,6 @@ export function NavBar({ className }: NavBarProps) {
     >
       {/* Mobile Layout */}
       <div className="flex md:hidden items-center justify-center gap-2 w-full">
-        {/* Left: Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className={cn(
-            "rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg flex-shrink-0",
-            isScrolling ? "w-14 h-14" : "w-16 h-16"
-          )}
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? (
-            <svg className="w-5 h-5 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
-
         {/* Center: Section Title */}
         <div className="flex-shrink-0">
           <div className={cn(
@@ -208,26 +189,6 @@ export function NavBar({ className }: NavBarProps) {
 
       {/* Desktop Layout */}
       <div className="hidden md:flex items-center gap-2 justify-center">
-        {/* Left: Theme Toggle Button */}
-        <button
-          onClick={toggleTheme}
-          className={cn(
-            "rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg",
-            isScrolling ? "w-[60px] h-[60px]" : "w-[72px] h-[72px]"
-          )}
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? (
-            <svg className="w-6 h-6 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            <svg className="w-6 h-6 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
-
         {/* Center: Section Title */}
         <div className={cn(
           "bg-bg-elev/90 backdrop-blur-lg border border-line rounded-full shadow-soft-lg flex items-center justify-center transition-all duration-300",
@@ -286,4 +247,3 @@ export function NavBar({ className }: NavBarProps) {
     </nav>
   );
 }
-

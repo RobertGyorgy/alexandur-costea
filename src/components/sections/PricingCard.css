@@ -1,538 +1,198 @@
-/* Pricing Cards Container */
-.pricing-cards-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  perspective: 2000px;
-  padding: 20px;
+@property --hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --rotate {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --bg-y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --bg-x {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+/* Removed glow properties for performance */
+@property --bg-size {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+/* Removed additional glow-related properties */
+
+.pricing-card-wrapper {
+  --hue: 0;
+  --hue-speed: 1;
+  --animation-speed: 4s;
+  --border-width: 3px;
 }
 
-/* Flip Card Wrapper */
-.pricing-flip-card {
-  position: relative;
-  width: 340px;
-  height: 580px;
-  perspective: 1000px;
-  --card-color: #FE7F2D;
+.pricing-card-inner {
+  z-index: 1;
+  transition: box-shadow 0.5s ease;
 }
 
-.pricing-flip-card.highlighted {
-  transform: scale(1.08);
-  z-index: 10;
+/* Desktop only hover effects - Simplified */
+@media (min-width: 768px) {
+  .pricing-card-wrapper:hover .pricing-card-inner {
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+  }
+
+  .pricing-card-wrapper:hover::before {
+    --bg-size: 15;
+    animation-play-state: paused;
+    transition: --bg-size 0.8s ease;
+  }
 }
 
-/* Flip Card Inner Container */
-.pricing-flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.pricing-flip-card-inner.flipped {
-  transform: rotateY(180deg);
-}
-
-/* Front and Back Face Shared Styles */
-.pricing-flip-card-front,
-.pricing-flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 24px;
-  overflow: hidden;
-}
-
-/* === FRONT OF CARD === */
-.pricing-flip-card-front {
-  background: linear-gradient(
-    135deg,
-    rgba(var(--card-color-rgb), 0.1) 0%,
-    rgba(var(--card-color-rgb), 0.05) 100%
-  );
-  backdrop-filter: blur(20px);
-  border: 2px solid var(--card-color);
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-    0 0 80px rgba(var(--card-color-rgb), 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-theme="dark"] .pricing-flip-card-front {
-  background: linear-gradient(
-    135deg,
-    rgba(var(--card-color-rgb), 0.15) 0%,
-    rgba(var(--card-color-rgb), 0.08) 100%
-  );
-}
-
-[data-theme="light"] .pricing-flip-card-front {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.9) 100%
-  );
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.15),
-    0 0 0 2px var(--card-color) inset,
-    0 0 60px rgba(var(--card-color-rgb), 0.2);
-}
-
-/* Set RGB values for each color */
-.pricing-flip-card[style*="#FE7F2D"] {
-  --card-color-rgb: 254, 127, 45;
-}
-
-.pricing-flip-card[style*="#9333EA"] {
-  --card-color-rgb: 147, 51, 234;
-}
-
-.pricing-flip-card[style*="#00A8E8"] {
-  --card-color-rgb: 0, 168, 232;
-}
-
-/* Popular Badge */
-.popular-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: var(--card-color);
-  color: white;
-  padding: 8px 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  z-index: 10;
-}
-
-/* Card Front Content */
-.card-front-content {
-  width: 100%;
-  height: 100%;
-  padding: 40px 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-}
-
-/* Plan Name */
-.plan-name {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 10px;
-  color: var(--card-color);
-  text-transform: uppercase;
-}
-
-/* Price Section */
-.price-section {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin: 20px 0;
-  gap: 4px;
-}
-
-.currency {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 8px;
-  opacity: 0.8;
-}
-
-[data-theme="dark"] .currency {
-  color: var(--fg);
-}
-
-[data-theme="light"] .currency {
-  color: var(--card-color);
-}
-
-.amount {
-  font-size: 4.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--card-color);
-}
-
-.period {
-  font-size: 1rem;
-  opacity: 0.7;
-  margin-top: 12px;
-}
-
-[data-theme="dark"] .period {
-  color: var(--muted);
-}
-
-[data-theme="light"] .period {
-  color: var(--card-color);
-}
-
-/* Features List */
-.features-list {
-  list-style: none;
-  width: 100%;
-  margin: 30px 0;
-  flex: 1;
-}
-
-.feature-item {
-  position: relative;
-  padding-left: 32px;
-  margin-bottom: 14px;
-  font-size: 0.95rem;
-  text-align: left;
-  line-height: 1.6;
-}
-
-[data-theme="dark"] .feature-item {
-  color: var(--fg);
-}
-
-[data-theme="light"] .feature-item {
-  color: #233d4d;
-}
-
-.feature-item .check-icon {
-  position: absolute;
-  left: 0;
-  color: var(--card-color);
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.feature-item.more-features {
-  opacity: 0.7;
-  font-style: italic;
-  font-weight: 500;
-}
-
-/* CTA Button */
-.cta-button {
-  width: 100%;
-  padding: 16px 24px;
-  background: var(--card-color);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
+.pricing-card-wrapper::before {
+  content: "";
   display: block;
-  text-align: center;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(var(--card-color-rgb), 0.4);
-}
-
-.cta-button:active {
-  transform: translateY(-1px);
-}
-
-/* Flip Button */
-.flip-button {
-  margin-top: 16px;
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
-  color: var(--muted);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-}
-
-[data-theme="light"] .flip-button {
-  border-color: var(--card-color);
-  color: var(--card-color);
-}
-
-.flip-button:hover {
-  border-color: var(--card-color);
-  background: rgba(var(--card-color-rgb), 0.1);
-  transform: translateX(5px);
-}
-
-.flip-button svg {
-  transition: transform 0.3s ease;
-}
-
-.flip-button:hover svg {
-  transform: translateX(3px);
-}
-
-/* Shine Effect */
-.shine-effect {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(30deg);
-  opacity: 0;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  z-index: 0;
+  background: #233d4d
+    radial-gradient(
+      40% 40% at calc(var(--bg-x) * 1%) calc(var(--bg-y) * 1%),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 70%)
+        calc(0% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%)
+        calc(20% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 50%)
+        calc(40% * var(--bg-size)),
+      transparent 100%
+    );
+  animation: rotate-bg var(--animation-speed) linear infinite;
+  transition: --bg-size 0.8s ease;
 }
 
-.pricing-flip-card:hover .shine-effect {
-  animation: shine 2s ease-in-out infinite;
+/* White frame in light mode */
+:root[data-theme="light"] .pricing-card-wrapper::before {
+  background: hsl(0deg 0% 96%)
+    radial-gradient(
+      30% 30% at calc(var(--bg-x) * 1%) calc(var(--bg-y) * 1%),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 90%)
+        calc(0% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 80%)
+        calc(20% * var(--bg-size)),
+      hsl(calc(calc(var(--hue) * var(--hue-speed)) * 1deg) 100% 60%)
+        calc(40% * var(--bg-size)),
+      transparent 100%
+    );
 }
 
-@keyframes shine {
+/* Color-specific animations */
+.pricing-card-orange::before {
+  animation: hue-animation-orange var(--animation-speed) linear infinite,
+    rotate-bg var(--animation-speed) linear infinite;
+}
+
+.pricing-card-purple::before {
+  animation: hue-animation-purple var(--animation-speed) linear infinite,
+    rotate-bg var(--animation-speed) linear infinite;
+}
+
+.pricing-card-cyan::before {
+  animation: hue-animation-cyan var(--animation-speed) linear infinite,
+    rotate-bg var(--animation-speed) linear infinite;
+}
+
+/* Glow removed for performance optimization */
+
+/* Enhanced shadows for light mode */
+:root[data-theme="light"] .pricing-card-inner {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Desktop only - Light mode hover shadows */
+@media (min-width: 768px) {
+  :root[data-theme="light"] .pricing-card-inner:hover {
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.2),
+                0 8px 12px -4px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Removed shadow-pulse for performance */
+
+@keyframes rotate-bg {
   0% {
-    transform: rotate(30deg) translateX(-100%);
-    opacity: 0;
+    --bg-x: 0;
+    --bg-y: 0;
+  }
+  25% {
+    --bg-x: 100;
+    --bg-y: 0;
   }
   50% {
-    opacity: 1;
+    --bg-x: 100;
+    --bg-y: 100;
+  }
+  75% {
+    --bg-x: 0;
+    --bg-y: 100;
   }
   100% {
-    transform: rotate(30deg) translateX(100%);
-    opacity: 0;
+    --bg-x: 0;
+    --bg-y: 0;
   }
 }
 
-/* === BACK OF CARD === */
-.pricing-flip-card-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(
-    135deg,
-    rgba(var(--card-color-rgb), 0.2) 0%,
-    rgba(var(--card-color-rgb), 0.1) 100%
-  );
-  backdrop-filter: blur(20px);
-  border: 2px solid var(--card-color);
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-  overflow-y: auto;
-}
+/* Removed rotate keyframe - was only used for glow animation */
 
-[data-theme="light"] .pricing-flip-card-back {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.9) 100%
-  );
-}
-
-/* Custom Scrollbar for Back Card */
-.pricing-flip-card-back::-webkit-scrollbar {
-  width: 6px;
-}
-
-.pricing-flip-card-back::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-.pricing-flip-card-back::-webkit-scrollbar-thumb {
-  background: var(--card-color);
-  border-radius: 3px;
-}
-
-/* Back Card Content */
-.card-back-content {
-  padding: 30px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Back Header */
-.back-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--card-color);
-}
-
-.close-button {
-  width: 36px;
-  height: 36px;
-  background: rgba(var(--card-color-rgb), 0.2);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.close-button:hover {
-  background: var(--card-color);
-  transform: rotate(90deg);
-}
-
-.close-button svg {
-  stroke: var(--card-color);
-}
-
-.close-button:hover svg {
-  stroke: white;
-}
-
-/* Description Section */
-.description-section {
-  margin-bottom: 24px;
-}
-
-.description-text {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  opacity: 0.9;
-}
-
-[data-theme="dark"] .description-text {
-  color: var(--fg);
-}
-
-[data-theme="light"] .description-text {
-  color: #233d4d;
-}
-
-/* All Features Section */
-.all-features-section {
-  flex: 1;
-  margin-bottom: 20px;
-}
-
-.features-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--card-color);
-}
-
-.features-list-back {
-  list-style: none;
-}
-
-.feature-item-back {
-  position: relative;
-  padding-left: 28px;
-  margin-bottom: 12px;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-[data-theme="dark"] .feature-item-back {
-  color: var(--fg);
-}
-
-[data-theme="light"] .feature-item-back {
-  color: #233d4d;
-}
-
-.feature-item-back .check-icon {
-  position: absolute;
-  left: 0;
-  color: var(--card-color);
-  font-weight: bold;
-}
-
-/* Back CTA Button */
-.cta-button-back {
-  width: 100%;
-  padding: 16px 24px;
-  background: var(--card-color);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-top: auto;
-}
-
-.cta-button-back:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(var(--card-color-rgb), 0.4);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .pricing-cards-container {
-    gap: 30px;
-    padding: 10px;
+/* Orange shades for ReelUp */
+@keyframes hue-animation-orange {
+  0% {
+    --hue: 0;
   }
-
-  .pricing-flip-card {
-    width: 100%;
-    max-width: 360px;
-    height: 600px;
+  50% {
+    --hue: 30;
   }
-
-  .pricing-flip-card.highlighted {
-    transform: none;
-  }
-
-  .card-front-content {
-    padding: 30px 24px;
-  }
-
-  .plan-name {
-    font-size: 1.75rem;
-  }
-
-  .amount {
-    font-size: 3.5rem;
-  }
-
-  .card-back-content {
-    padding: 24px;
+  100% {
+    --hue: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .pricing-flip-card {
-    height: 550px;
+/* Purple shades for Masterclass */
+@keyframes hue-animation-purple {
+  0% {
+    --hue: 260;
   }
-
-  .amount {
-    font-size: 3rem;
+  50% {
+    --hue: 300;
   }
-
-  .feature-item {
-    font-size: 0.9rem;
+  100% {
+    --hue: 260;
   }
 }
+
+/* Cyan shades for Newbie */
+@keyframes hue-animation-cyan {
+  0% {
+    --hue: 170;
+  }
+  50% {
+    --hue: 200;
+  }
+  100% {
+    --hue: 170;
+  }
+}
+
+@keyframes hue-animation {
+  0% {
+    --hue: 0;
+  }
+  100% {
+    --hue: 360;
+  }
+}
+
