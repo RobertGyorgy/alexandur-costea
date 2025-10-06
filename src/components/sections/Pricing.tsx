@@ -196,11 +196,11 @@ function PricingCard({ plan, onCTAClick }: PricingCardProps) {
   const content = cardContent[plan.id as keyof typeof cardContent] || cardContent.essential;
   
   // Map plan IDs to color classes
-  let colorClass = 'pricing-card-orange';
+  let _colorClass = 'pricing-card-orange';
   if (plan.id === 'professional') {
-    colorClass = 'pricing-card-purple';
+    _colorClass = 'pricing-card-purple';
   } else if (plan.id === 'enterprise') {
-    colorClass = 'pricing-card-cyan';
+    _colorClass = 'pricing-card-cyan';
   }
   
   return (

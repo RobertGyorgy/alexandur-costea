@@ -37,7 +37,7 @@ export function PricingSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const handleCTAClick = (plan: PricingPlan, cardData: any) => {
+  const handleCTAClick = (plan: PricingPlan, cardData: { ctaAction?: string; instagramUrl?: string }) => {
     // Handle newsletter action
     if (cardData.ctaAction === 'newsletter') {
       const element = document.getElementById('newsletter');
@@ -85,7 +85,17 @@ export function PricingSection() {
 
   // Map plan data to NeoPricingCard format
   const getCardData = (plan: PricingPlan) => {
-    const cardContent: Record<string, any> = {
+    const cardContent: Record<string, {
+      subtitle: string;
+      features: string[];
+      description: string;
+      extras: string[];
+      price: string;
+      period: string;
+      ctaLabel: string;
+      ctaAction: string;
+      instagramUrl?: string;
+    }> = {
       essential: {
         subtitle: 'ReelUp',
         features: [
@@ -211,7 +221,7 @@ export function PricingSection() {
                 style={{ y: shouldApplyParallax ? cardY : 0 }}
               >
                 <NeoPricingCard
-                  title={plan.name}
+                  title={plan.title}
                   subtitle={cardData.subtitle}
                   price={cardData.price}
                   period={cardData.period}

@@ -25,7 +25,7 @@ export function NeoPricingCard({
   features,
   ctaLabel,
   onCTAClick,
-  isPopular = false,
+  isPopular: _isPopular = false,
   showInstagramIcon = false,
   description,
   extras
