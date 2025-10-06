@@ -70,9 +70,9 @@ export function FAQ() {
       spacing="xl"
       aria-labelledby="faq-heading"
       ref={sectionRef}
-      className="bg-[#233d4d]"
+      className="bg-[#003049]"
     >
-      <BackgroundEffects variant="gradient" color="#FE7F2D" opacity={0.1} animated={false} />
+      <BackgroundEffects variant="gradient" color="#F77F00" opacity={0.1} animated={false} />
       {/* FAQ Items */}
       <motion.div
         variants={containerVariants}

@@ -77,8 +77,8 @@ const config: Config = {
         'soft-md': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
         'soft-lg': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
         'soft-xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-        'glow-accent': '0 0 20px rgb(254 127 45 / 0.4)',
-        'glow-accent-2': '0 0 20px rgb(0 105 137 / 0.4)',
+        'glow-accent': '0 0 20px rgb(247 127 0 / 0.4)',
+        'glow-accent-2': '0 0 20px rgb(214 40 40 / 0.4)',
         'inner-faint': 'inset 0 1px 0 0 rgba(255,255,255,0.05)',
       },
       animation: {

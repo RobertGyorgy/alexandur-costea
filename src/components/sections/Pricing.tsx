@@ -58,7 +58,7 @@ export function Pricing() {
       spacing="xl"
       aria-labelledby="pricing-heading"
       ref={sectionRef}
-      className="bg-[#233d4d]"
+      className="bg-[#003049]"
     >
       {/* Pricing Cards - 3 Vertical Cards Side by Side */}
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-7xl mx-auto">

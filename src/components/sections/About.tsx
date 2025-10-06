@@ -37,7 +37,7 @@ export function About() {
       spacing="xl"
       aria-labelledby="about-heading"
       ref={sectionRef}
-      className="bg-[#233d4d]"
+      className="bg-[#003049]"
     >
       <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
         {/* Content Column */}
@@ -118,7 +118,7 @@ export function About() {
           }}
         >
           <motion.div 
-            className="relative rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(254,127,45,0.3)] max-w-sm w-full"
+            className="relative rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(247,127,0,0.3)] max-w-sm w-full"
             whileHover={{ 
               scale: 1.05,
               rotateY: 5,

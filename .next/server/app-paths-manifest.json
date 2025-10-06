@@ -2,6 +2,6 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/keypad/page": "app/keypad/page.js",
   "/sitemap.xml/route": "app/sitemap.xml/route.js",
-  "/page": "app/page.js",
-  "/robots.txt/route": "app/robots.txt/route.js"
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/page": "app/page.js"
 }

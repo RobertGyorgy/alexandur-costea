@@ -115,7 +115,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
           <div className="absolute inset-0 z-0 w-full h-full" style={{ minHeight: '100vh' }}>
             <LightRays
               raysOrigin="top-center"
-              raysColor="#FE7F2D"
+              raysColor="#F77F00"
               raysSpeed={isMobile ? 2.0 : 1.5}
               lightSpread={isMobile ? 0.5 : 0.8}
               rayLength={isMobile ? 3.5 : 3.0}

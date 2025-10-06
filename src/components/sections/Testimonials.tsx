@@ -98,10 +98,10 @@ export function Testimonials() {
       id="testimonials"
       spacing="xl"
       aria-labelledby="testimonials-heading"
-      className="testimonials-slider bg-[#233d4d]"
+      className="testimonials-slider bg-[#003049]"
       ref={sectionRef}
     >
-      <BackgroundEffects variant="lines" color="#FE7F2D" opacity={0.15} animated />
+      <BackgroundEffects variant="lines" color="#F77F00" opacity={0.15} animated />
       {/* Slider with Gray Background Container - Dolly Zoom Effect (Desktop Only) */}
       <motion.div 
         className="max-w-[1400px] mx-auto overflow-hidden px-5" 

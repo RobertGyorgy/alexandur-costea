@@ -83,7 +83,7 @@ export function NeoPricingCard({
               {/* Button */}
               <button
                 onClick={onCTAClick}
-                className="w-full rounded-full h-12 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#FE7F2D] text-white hover:bg-[#ff8c42] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
+                className="w-full rounded-full h-12 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#F77F00] text-white hover:bg-[#ff8c1a] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
               >
                 {showInstagramIcon && (
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
