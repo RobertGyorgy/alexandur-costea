@@ -1,4 +1,4 @@
 {
-  "/keypad/page": "app/keypad/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/keypad/page": "app/keypad/page.js"
 }

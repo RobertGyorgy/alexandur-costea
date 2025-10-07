@@ -2175,6 +2175,16 @@ select {
   .mobile-blur-container {
     height: var(--mobile-vh, 100vh);
   }
+  
+  /* Safari-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    .mobile-blur-container {
+      height: var(--mobile-vh, 100vh);
+      /* Force Safari to use the calculated height */
+      min-height: var(--mobile-vh, 100vh);
+      max-height: var(--mobile-vh, 100vh);
+    }
+  }
 }
 
 .placeholder\:text-muted::-moz-placeholder {

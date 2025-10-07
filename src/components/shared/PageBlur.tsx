@@ -11,10 +11,23 @@ export function PageBlur() {
   useEffect(() => {
     const updateViewportHeight = () => {
       const isMobile = window.innerWidth < 768;
-      if (isMobile && window.visualViewport) {
-        // Set CSS custom property for mobile viewport height
-        const vh = window.visualViewport.height;
-        document.documentElement.style.setProperty('--mobile-vh', `${vh}px`);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        if (isSafari) {
+          // Safari-specific handling: use window.innerHeight and add safe area
+          const height = window.innerHeight;
+          // Account for Safari's dynamic viewport units
+          const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom') || '0');
+          document.documentElement.style.setProperty('--mobile-vh', `${height - safeAreaBottom}px`);
+        } else if (window.visualViewport) {
+          // Chrome and other browsers with visualViewport support
+          const vh = window.visualViewport.height;
+          document.documentElement.style.setProperty('--mobile-vh', `${vh}px`);
+        } else {
+          // Fallback for browsers without visualViewport
+          document.documentElement.style.setProperty('--mobile-vh', `${window.innerHeight}px`);
+        }
       } else {
         document.documentElement.style.setProperty('--mobile-vh', '100vh');
       }
@@ -23,6 +36,15 @@ export function PageBlur() {
     const handleScroll = () => {
       // Update viewport height on scroll too (for mobile browser bar)
       updateViewportHeight();
+      
+      // Safari-specific: Force update on scroll to handle dynamic viewport
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      if (isSafari && window.innerWidth < 768) {
+        // Use requestAnimationFrame for smoother updates in Safari
+        requestAnimationFrame(() => {
+          updateViewportHeight();
+        });
+      }
       
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
@@ -51,8 +73,18 @@ export function PageBlur() {
     updateViewportHeight();
     handleScroll(); // Initial check
 
+    // Safari-specific: Add orientation change listener
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
     window.addEventListener('resize', updateViewportHeight);
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    if (isSafari) {
+      window.addEventListener('orientationchange', () => {
+        // Delay to allow Safari to update its viewport
+        setTimeout(updateViewportHeight, 100);
+      });
+    }
     
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', updateViewportHeight);
@@ -62,6 +94,10 @@ export function PageBlur() {
     return () => {
       window.removeEventListener('resize', updateViewportHeight);
       window.removeEventListener('scroll', handleScroll);
+      
+      if (isSafari) {
+        window.removeEventListener('orientationchange', updateViewportHeight);
+      }
       
       if (window.visualViewport) {
         window.visualViewport.removeEventListener('resize', updateViewportHeight);
