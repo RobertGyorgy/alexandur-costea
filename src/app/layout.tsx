@@ -17,6 +17,9 @@ export const viewport: Viewport = {
   userScalable: true,
   themeColor: '#FE7F2D',
   colorScheme: 'dark',
+  viewportFit: 'cover',
+  // Prevent Safari search bar from collapsing
+  interactiveWidget: 'resizes-content',
 };
 
 export default function RootLayout({
@@ -32,6 +35,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Prevent Safari search bar from collapsing */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         {/* Structured Data */}
         <script
           type="application/ld+json"
