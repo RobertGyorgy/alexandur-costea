@@ -186,7 +186,7 @@ export function NavBar({ className }: NavBarProps) {
           }}
           aria-label="Login"
         >
-          <svg className={cn("w-6 h-6", isDarkText ? "text-[#003049]" : "text-fg")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={cn("w-6 h-6", isDarkText ? "text-[#003049]" : "text-accent")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </button>
@@ -245,7 +245,7 @@ export function NavBar({ className }: NavBarProps) {
           }}
           aria-label="Login"
         >
-          <svg className={cn("w-8 h-8", isDarkText ? "text-[#003049]" : "text-fg")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={cn("w-8 h-8", isDarkText ? "text-[#003049]" : "text-accent")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </button>
