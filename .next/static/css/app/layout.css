@@ -625,9 +625,6 @@ video {
 .top-8 {
   top: 2rem;
 }
-.isolate {
-  isolation: isolate;
-}
 .-z-10 {
   z-index: -10;
 }
@@ -2180,23 +2177,6 @@ select {
     height: 100svh;
     overflow-x: hidden;
   }
-  
-  /* Additional Safari-specific fixes for search bar */
-  body {
-    /* Prevent Safari from adjusting viewport */
-    -webkit-overflow-scrolling: touch;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Force Safari to maintain fixed viewport */
-  @media screen and (max-width: 767px) {
-    html, body {
-      height: 100vh !important;
-      min-height: 100vh !important;
-      max-height: 100vh !important;
-    }
-  }
 }
 
 /* Mobile blur container - adjusts to mobile browser viewport changes */
@@ -2209,28 +2189,20 @@ select {
     height: var(--mobile-vh, 100vh);
   }
   
-         /* Safari-specific fixes - place blur behind search bar */
-         @supports (-webkit-touch-callout: none) {
-           .mobile-blur-container {
-             height: 100vh;
-             /* Ensure blur stays fixed at bottom of full viewport in Safari */
-             position: fixed;
-             bottom: 0;
-             /* Place blur far behind Safari's search bar */
-             z-index: -9999;
-             /* Force Safari to use full viewport height */
-             min-height: 100vh;
-             max-height: 100vh;
-             /* Additional Safari-specific properties */
-             transform: translateZ(0);
-             will-change: transform;
-           }
-           
-           /* Ensure all child elements also have negative z-index */
-           .mobile-blur-container * {
-             z-index: -9999 !important;
-           }
-         }
+  /* Safari-specific fixes - place blur behind search bar */
+  @supports (-webkit-touch-callout: none) {
+    .mobile-blur-container {
+      height: 100vh;
+      /* Ensure blur stays fixed at bottom of full viewport in Safari */
+      position: fixed;
+      bottom: 0;
+      /* Ensure blur appears behind Safari's search bar but still visible */
+      z-index: 1;
+      /* Force Safari to use full viewport height */
+      min-height: 100vh;
+      max-height: 100vh;
+    }
+  }
 }
 
 .placeholder\:text-muted::-moz-placeholder {
