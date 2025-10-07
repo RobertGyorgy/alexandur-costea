@@ -329,7 +329,7 @@ export function Testimonials() {
                       scale: { duration: 0.5 },
                       rotateY: { duration: 0.7 }
                     }}
-                    className={`absolute inset-0 rounded-3xl overflow-hidden ${getCardBg(index)} w-full h-full flex items-center justify-center`}
+                    className={`absolute inset-0 rounded-3xl overflow-hidden ${getCardBg(index)} w-[95%] h-full flex items-center justify-center mx-auto`}
                     style={{ 
                       display: isActive ? 'flex' : 'none',
                       transformStyle: 'preserve-3d',
@@ -337,7 +337,7 @@ export function Testimonials() {
                     }}
                   >
                     <motion.div 
-                      className="flex flex-col justify-center p-8 w-full h-full"
+                      className="flex flex-col justify-center p-6 w-full h-full"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ 
                         y: isActive ? 0 : 20,

@@ -909,6 +909,9 @@ video {
 .w-px {
   width: 1px;
 }
+.w-\[95\%\] {
+  width: 95%;
+}
 .min-w-full {
   min-width: 100%;
 }
