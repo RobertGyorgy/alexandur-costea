@@ -114,7 +114,7 @@ export function PageBlur() {
   // Check if Safari for z-index adjustment
   const isSafari = typeof window !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const blurZIndex = isSafari && isMobile ? -1 : 40;
+  const blurZIndex = isSafari && isMobile ? -9999 : 40;
 
   return (
     <div 
@@ -126,7 +126,14 @@ export function PageBlur() {
         right: 0,
         zIndex: blurZIndex,
         pointerEvents: 'none',
-        transition: 'height 0.2s ease-out'
+        transition: 'height 0.2s ease-out',
+        // Additional Safari-specific styles
+        ...(isSafari && isMobile ? {
+          WebkitTransform: 'translateZ(0)',
+          transform: 'translateZ(0)',
+          willChange: 'transform',
+          isolation: 'isolate'
+        } : {})
       }}
     >
       <GradualBlur
@@ -140,6 +147,13 @@ export function PageBlur() {
         opacity={1}
         animated={false}
         zIndex={blurZIndex}
+        style={{
+          // Force negative z-index for Safari
+          ...(isSafari && isMobile ? {
+            zIndex: -9999,
+            position: 'absolute'
+          } : {})
+        }}
       />
     </div>
   );
