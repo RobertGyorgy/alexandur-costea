@@ -1,3 +1,6 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/next@14.2.33_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/.pnpm/next@14.2.33_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/components/ui/Keypad.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* Default styles */
 .keypad-wrapper {
   display: flex;
@@ -75,6 +78,10 @@
   border-color: #ff6b35;
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.keypad-input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .keypad-input::placeholder {
@@ -172,7 +179,9 @@
     12% 23%,
     47% 0%
   );
-  mask: url(https://assets.codepen.io/605876/keypad-single.png?format=auto&quality=86)
+  -webkit-mask: url(https://assets.codepen.io/605876/keypad-single.png?format=auto&quality=86)
+    50% 50% / 100% 100%;
+          mask: url(https://assets.codepen.io/605876/keypad-single.png?format=auto&quality=86)
     50% 50% / 100% 100%;
 }
 
@@ -218,7 +227,9 @@
     7% 17%,
     30% 0
   );
-  mask: url(https://assets.codepen.io/605876/keypad-double.png?format=auto&quality=86)
+  -webkit-mask: url(https://assets.codepen.io/605876/keypad-double.png?format=auto&quality=86)
+    50% 50% / 100% 100%;
+          mask: url(https://assets.codepen.io/605876/keypad-double.png?format=auto&quality=86)
     50% 50% / 100% 100%;
 }
 
@@ -261,4 +272,5 @@
     order: 2;
   }
 }
+
 

@@ -6,25 +6,23 @@ import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
-  const [bottomOffset, setBottomOffset] = useState('0px');
   const pathname = usePathname();
 
   useEffect(() => {
-    const updatePosition = () => {
+    const updateViewportHeight = () => {
       const isMobile = window.innerWidth < 768;
       if (isMobile && window.visualViewport) {
-        const viewportHeight = window.visualViewport.height;
-        const windowHeight = window.innerHeight;
-        const difference = windowHeight - viewportHeight;
-        setBottomOffset(`${Math.max(0, difference)}px`);
+        // Set CSS custom property for mobile viewport height
+        const vh = window.visualViewport.height;
+        document.documentElement.style.setProperty('--mobile-vh', `${vh}px`);
       } else {
-        setBottomOffset('0px');
+        document.documentElement.style.setProperty('--mobile-vh', '100vh');
       }
     };
 
     const handleScroll = () => {
-      // Update position on scroll too (for mobile browser bar)
-      updatePosition();
+      // Update viewport height on scroll too (for mobile browser bar)
+      updateViewportHeight();
       
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
@@ -50,24 +48,24 @@ export function PageBlur() {
       }
     };
 
-    updatePosition();
+    updateViewportHeight();
     handleScroll(); // Initial check
 
-    window.addEventListener('resize', updatePosition);
+    window.addEventListener('resize', updateViewportHeight);
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updatePosition);
-      window.visualViewport.addEventListener('scroll', updatePosition);
+      window.visualViewport.addEventListener('resize', updateViewportHeight);
+      window.visualViewport.addEventListener('scroll', updateViewportHeight);
     }
 
     return () => {
-      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('resize', updateViewportHeight);
       window.removeEventListener('scroll', handleScroll);
       
       if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', updatePosition);
-        window.visualViewport.removeEventListener('scroll', updatePosition);
+        window.visualViewport.removeEventListener('resize', updateViewportHeight);
+        window.visualViewport.removeEventListener('scroll', updateViewportHeight);
       }
     };
   }, []);
@@ -81,15 +79,15 @@ export function PageBlur() {
 
   return (
     <div 
+      className="mobile-blur-container"
       style={{ 
         position: 'fixed',
         bottom: 0,
         left: 0,
         right: 0,
-        transform: `translateY(${bottomOffset})`,
         zIndex: 40,
         pointerEvents: 'none',
-        transition: 'transform 0.1s ease-out'
+        transition: 'height 0.2s ease-out'
       }}
     >
       <GradualBlur

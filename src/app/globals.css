@@ -329,3 +329,14 @@ select {
   -webkit-line-clamp: 3;
   line-clamp: 3;
 }
+
+/* Mobile blur container - adjusts to mobile browser viewport changes */
+.mobile-blur-container {
+  height: 100vh;
+}
+
+@media (max-width: 767px) {
+  .mobile-blur-container {
+    height: var(--mobile-vh, 100vh);
+  }
+}
