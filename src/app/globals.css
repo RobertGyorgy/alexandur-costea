@@ -369,31 +369,7 @@ select {
   }
 }
 
-/* iOS Safari toolbar fix - Fixed blur pattern */
-.fixed-blur {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: calc(var(--blur-height) + var(--ios-bottom-ui));
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 10;
-  transform: translateZ(0);
-}
-
-.fixed-blur::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: var(--ios-bottom-ui);
-  height: var(--blur-height);
-  background: rgba(20, 20, 20, 0.28);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-}
+/* iOS Safari toolbar fix - Reserved for GradualBlur component */
 
 /* Reserve space for fixed blur so content never sits under it */
 @media (max-width: 767px) {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
@@ -51,6 +52,33 @@ export function PageBlur() {
   if (!showBlur) return null;
 
   return (
-    <div className="fixed-blur" />
+    <div 
+      className="fixed left-0 right-0 bottom-0 z-10 overflow-hidden pointer-events-none translate-z-0"
+      style={{ 
+        height: 'calc(var(--blur-height) + var(--ios-bottom-ui))',
+        transform: 'translateZ(0)'
+      }}
+    >
+      <div
+        className="absolute left-0 right-0 rounded-[20px]"
+        style={{
+          bottom: 'var(--ios-bottom-ui)',
+          height: 'var(--blur-height)'
+        }}
+      >
+        <GradualBlur
+          target="parent"
+          position="bottom"
+          height="8rem"
+          strength={2}
+          divCount={6}
+          curve="bezier"
+          exponential={false}
+          opacity={1}
+          animated={false}
+          zIndex={10}
+        />
+      </div>
+    </div>
   );
 }
