@@ -27,11 +27,12 @@
 :root[data-theme="dark"] {
   /* Colors - New Palette */
   --bg: #003049;
-  --bg-elev: #004d6b;
+  --bg-elev: #004060;
   --fg: #EAE2B7;
   --muted: #d4cda8;
   --accent: #F77F00;
   --accent-2: #D62828;
+  --accent-3: #FCBF49;
   --line: rgba(234, 226, 183, 0.1);
   --glass: rgba(234, 226, 183, 0.06);
   
@@ -214,6 +215,16 @@ html {
   overflow-y: overlay;
 }
 
+/* Hide default cursor on interactive elements */
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+.cursor-pointer {
+  cursor: none !important;
+}
+
 /* Base typography improvements */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
@@ -316,4 +327,5 @@ select {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }

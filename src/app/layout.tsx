@@ -4,6 +4,7 @@ import { defaultMetadata, generateJsonLd, generateOrganizationJsonLd, generateWe
 import { NavBar } from '@/components/shared/NavBar';
 import { PageBlur } from '@/components/shared/PageBlur';
 import { LoaderScreen } from '@/components/shared/LoaderScreen';
+import { CustomCursor } from '@/components/ui/CustomCursor';
 import { PageTransitionProvider } from '@/lib/page-transition';
 import { Metadata, Viewport } from 'next';
 
@@ -14,7 +15,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#F77F00',
+  themeColor: '#FE7F2D',
   colorScheme: 'dark',
 };
 
@@ -79,6 +80,9 @@ export default function RootLayout({
       </head>
         <body className="min-h-screen bg-bg text-fg font-sans antialiased">
           <PageTransitionProvider>
+            {/* Custom Cursor */}
+            <CustomCursor />
+            
             {/* Loader Screen */}
             <LoaderScreen />
 

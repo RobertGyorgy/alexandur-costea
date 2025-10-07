@@ -37,7 +37,7 @@ export function About() {
       spacing="xl"
       aria-labelledby="about-heading"
       ref={sectionRef}
-      className="bg-[#003049]"
+      className="bg-[#EAE2B7]"
     >
       <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
         {/* Content Column */}
@@ -51,7 +51,7 @@ export function About() {
                   key={`title-line-${idx}`}
                   text={line}
                   tag="h2"
-                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-fg text-left block leading-[1.3]"
+                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#003049] text-left block leading-[1.3]"
                   delay={20}
                   duration={0.3}
                   ease="power2.out"
@@ -69,7 +69,7 @@ export function About() {
             <SplitText
               text={content.description}
               tag="p"
-              className="text-lg md:text-xl text-muted leading-[1.8] text-left"
+              className="text-lg md:text-xl text-[#003049]/80 leading-[1.8] text-left"
               delay={15}
               duration={0.25}
               ease="power2.out"
@@ -89,7 +89,7 @@ export function About() {
                 key={index}
                 text={paragraph}
                 tag="p"
-                className="text-lg text-muted leading-[1.8] text-left"
+                className="text-lg text-[#003049]/80 leading-[1.8] text-left"
                 delay={10}
                 duration={0.2}
                 ease="power2.out"

@@ -14,6 +14,7 @@ interface NavBarProps {
 export function NavBar({ className }: NavBarProps) {
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isDarkText, setIsDarkText] = useState(false);
   // Theme is always dark now
   // const { theme, toggleTheme } = useTheme();
   const _router = useRouter();
@@ -32,6 +33,9 @@ export function NavBar({ className }: NavBarProps) {
     faq: 'FAQ',
     newsletter: 'NEWSLETTER'
   };
+  
+  // Light background sections (need dark text)
+  const lightSections = ['about', 'testimonials', 'faq'];
 
   // Handle scroll detection and navbar sizing
   useEffect(() => {
@@ -75,6 +79,7 @@ export function NavBar({ className }: NavBarProps) {
       }
 
       setActiveSection(currentSection);
+      setIsDarkText(lightSections.includes(currentSection));
     };
 
     // Initial check
@@ -150,13 +155,14 @@ export function NavBar({ className }: NavBarProps) {
                 }
               }}
               className={cn(
-                "font-bold text-accent tracking-widest uppercase transition-all duration-300 hover:text-fg focus-visible:text-fg focus-visible:outline-none w-full text-center",
-                isScrolling ? "text-base" : "text-lg"
+                "font-bold tracking-widest uppercase transition-all duration-300 focus-visible:outline-none w-full text-center",
+                isScrolling ? "text-base" : "text-lg",
+                isDarkText ? "text-[#003049] hover:text-[#D62828]" : "text-accent hover:text-fg"
               )}
               aria-label="Go to home"
             >
               {isKeypadPage ? (
-                <svg className="w-5 h-5 text-accent mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cn("w-5 h-5 mx-auto", isDarkText ? "text-[#003049]" : "text-accent")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
               ) : (
@@ -174,15 +180,15 @@ export function NavBar({ className }: NavBarProps) {
           )}
           onClick={() => {
             if (isKeypadPage) {
-              _router.push('/');
+              startTransition('/');
             } else {
               startTransition('/keypad');
             }
           }}
           aria-label="Login"
         >
-          <svg className="w-6 h-6 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          <svg className={cn("w-6 h-6", isDarkText ? "text-[#003049]" : "text-fg")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </button>
       </div>
@@ -197,7 +203,7 @@ export function NavBar({ className }: NavBarProps) {
           <button
             onClick={() => {
               if (isKeypadPage) {
-                _router.push('/');
+                startTransition('/');
               } else {
                 const heroElement = document.getElementById('hero');
                 if (heroElement) {
@@ -209,13 +215,14 @@ export function NavBar({ className }: NavBarProps) {
               }
             }}
             className={cn(
-              "font-bold text-accent tracking-widest uppercase transition-all duration-300 hover:text-fg focus-visible:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg w-full text-center",
-              isScrolling ? "text-lg" : "text-xl"
+              "font-bold tracking-widest uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg w-full text-center",
+              isScrolling ? "text-lg" : "text-xl",
+              isDarkText ? "text-[#003049] hover:text-[#D62828]" : "text-accent hover:text-fg"
             )}
             aria-label="Go to home"
           >
             {isKeypadPage ? (
-              <svg className="w-7 h-7 text-accent mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={cn("w-7 h-7 mx-auto", isDarkText ? "text-[#003049]" : "text-accent")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
             ) : (
@@ -232,15 +239,15 @@ export function NavBar({ className }: NavBarProps) {
           )}
           onClick={() => {
             if (isKeypadPage) {
-              _router.push('/');
+              startTransition('/');
             } else {
               startTransition('/keypad');
             }
           }}
           aria-label="Login"
         >
-          <svg className="w-8 h-8 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          <svg className={cn("w-8 h-8", isDarkText ? "text-[#003049]" : "text-fg")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </button>
       </div>

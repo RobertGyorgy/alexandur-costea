@@ -98,7 +98,7 @@ export function Testimonials() {
       id="testimonials"
       spacing="xl"
       aria-labelledby="testimonials-heading"
-      className="testimonials-slider bg-[#003049]"
+      className="testimonials-slider bg-[#FCBF49]"
       ref={sectionRef}
     >
       <BackgroundEffects variant="lines" color="#F77F00" opacity={0.15} animated />
@@ -128,14 +128,14 @@ export function Testimonials() {
               const isActive = index === current;
               // Cycle through colors
               const getCardBg = (idx: number) => {
-                const colors = ['bg-accent', 'bg-white', 'bg-gray-800', 'bg-white', 'bg-accent'];
+                const colors = ['bg-[#D62828]', 'bg-[#003049]', 'bg-[#F77F00]', 'bg-[#003049]', 'bg-[#D62828]'];
                 return colors[idx % colors.length];
               };
 
               const getTextColor = (idx: number) => {
-                if (idx % 5 === 1 || idx % 5 === 3) return 'text-[#0B0F19]';
-                if (idx % 5 === 2) return 'text-white';
-                return 'text-white';
+                if (idx % 5 === 0 || idx % 5 === 4) return 'text-[#EAE2B7]'; // Red cards
+                if (idx % 5 === 2) return 'text-[#EAE2B7]'; // Orange card
+                return 'text-[#EAE2B7]'; // Blue cards
               };
 
 
@@ -191,61 +191,215 @@ export function Testimonials() {
             })}
           </div>
 
-          {/* Mobile: Vertical Layout */}
-          <div
-            ref={mobileTrackRef}
-            className="flex md:hidden flex-col gap-3 items-center justify-center pb-10"
-            style={{ scrollBehavior: 'smooth', scrollSnapType: 'y mandatory' }}
-          >
-            {content.items.map((testimonial, index) => {
-              const isActive = index === current;
-              const getCardBg = (idx: number) => {
-                const colors = ['bg-accent', 'bg-white', 'bg-gray-800', 'bg-white', 'bg-accent'];
-                return colors[idx % colors.length];
-              };
-
-              const getTextColor = (idx: number) => {
-                if (idx % 5 === 1 || idx % 5 === 3) return 'text-[#0B0F19]';
-                if (idx % 5 === 2) return 'text-white';
-                return 'text-white';
-              };
-
-
-              return (
-                <article
-                  key={`mobile-${testimonial.id}`}
-                  className={`relative rounded-3xl overflow-hidden cursor-pointer ${getCardBg(index)} w-full transition-all duration-700 ease-in-out flex items-center justify-center`}
-                  style={{
-                    maxHeight: isActive ? '60rem' : '5rem',
-                    minHeight: '5rem'
-                  }}
-                  onClick={() => activate(index, true)}
+          {/* Mobile: Landscape Layout with Navigation */}
+          <div className="md:hidden">
+            {/* Navigation Buttons */}
+            <div className="flex justify-between items-center mb-6">
+              <motion.button
+                onClick={() => {
+                  const prevIndex = current === 0 ? content.items.length - 1 : current - 1;
+                  activate(prevIndex, false);
+                }}
+                className="w-12 h-12 rounded-full bg-[#003049]/20 backdrop-blur-sm border border-[#003049]/30 flex items-center justify-center hover:bg-[#003049]/30 transition-all duration-300"
+                aria-label="Previous testimonial"
+                whileHover={{ 
+                  scale: 1.1,
+                  rotate: -5,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ 
+                  scale: 0.95,
+                  transition: { duration: 0.1 }
+                }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <motion.svg 
+                  className="w-6 h-6 text-[#003049]" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  whileHover={{ x: -2 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <div className={`flex flex-col justify-center items-center w-full ${isActive ? 'py-8 px-4 h-full' : 'px-4'}`}>
-                    {!isActive && (
-                      <h3 className={`${getTextColor(index)} font-bold text-xl text-center`}>
-                        {testimonial.name.split(' ')[0].toUpperCase()}
-                      </h3>
-                    )}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </motion.svg>
+              </motion.button>
+              
+              <div className="flex gap-2">
+                {content.items.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => activate(index, false)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === current ? 'bg-[#003049]' : 'bg-[#003049]/30'
+                    }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                    whileHover={{ 
+                      scale: 1.5,
+                      transition: { duration: 0.2 }
+                    }}
+                    whileTap={{ 
+                      scale: 0.8,
+                      transition: { duration: 0.1 }
+                    }}
+                    animate={{
+                      scale: index === current ? 1.5 : 1,
+                      backgroundColor: index === current ? '#003049' : 'rgba(0, 48, 73, 0.3)'
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: index * 0.1,
+                      ease: [0.76, 0, 0.24, 1]
+                    }}
+                  />
+                ))}
+              </div>
+              
+              <motion.button
+                onClick={() => {
+                  const nextIndex = current === content.items.length - 1 ? 0 : current + 1;
+                  activate(nextIndex, false);
+                }}
+                className="w-12 h-12 rounded-full bg-[#003049]/20 backdrop-blur-sm border border-[#003049]/30 flex items-center justify-center hover:bg-[#003049]/30 transition-all duration-300"
+                aria-label="Next testimonial"
+                whileHover={{ 
+                  scale: 1.1,
+                  rotate: 5,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ 
+                  scale: 0.95,
+                  transition: { duration: 0.1 }
+                }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <motion.svg 
+                  className="w-6 h-6 text-[#003049]" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  whileHover={{ x: 2 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </motion.svg>
+              </motion.button>
+            </div>
 
-                    {isActive && (
-                      <div className="flex flex-col justify-center p-6 w-full">
-                        <h3 className={`${getTextColor(index)} font-bold text-2xl mb-4`}>
-                          {testimonial.name.toUpperCase()}
-                        </h3>
-                        <p className={`${getTextColor(index)} opacity-90 text-sm leading-relaxed mb-4`}>
-                          {testimonial.quote}
-                        </p>
-                        <p className={`${getTextColor(index)} opacity-70 text-xs mb-4`}>
-                          {testimonial.role}
-                          {testimonial.company && ` • ${testimonial.company}`}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
+            {/* Single Card Display */}
+            <div className="relative h-[40rem]">
+              {content.items.map((testimonial, index) => {
+                const isActive = index === current;
+                const getCardBg = (idx: number) => {
+                  const colors = ['bg-[#D62828]', 'bg-[#003049]', 'bg-[#F77F00]', 'bg-[#003049]', 'bg-[#D62828]'];
+                  return colors[idx % colors.length];
+                };
+
+                const getTextColor = (idx: number) => {
+                  if (idx % 5 === 0 || idx % 5 === 4) return 'text-[#EAE2B7]'; // Red cards
+                  if (idx % 5 === 2) return 'text-[#EAE2B7]'; // Orange card
+                  return 'text-[#EAE2B7]'; // Blue cards
+                };
+
+                return (
+                  <motion.article
+                    key={`mobile-${testimonial.id}`}
+                    initial={{ opacity: 0, x: 100, scale: 0.8, rotateY: 15 }}
+                    animate={{ 
+                      opacity: isActive ? 1 : 0,
+                      x: isActive ? 0 : 100,
+                      scale: isActive ? 1 : 0.8,
+                      rotateY: isActive ? 0 : 15
+                    }}
+                    exit={{ 
+                      opacity: 0, 
+                      x: -100, 
+                      scale: 0.8, 
+                      rotateY: -15 
+                    }}
+                    transition={{ 
+                      duration: 0.6, 
+                      ease: [0.76, 0, 0.24, 1],
+                      scale: { duration: 0.5 },
+                      rotateY: { duration: 0.7 }
+                    }}
+                    className={`absolute inset-0 rounded-3xl overflow-hidden ${getCardBg(index)} w-full h-full flex items-center justify-center`}
+                    style={{ 
+                      display: isActive ? 'flex' : 'none',
+                      transformStyle: 'preserve-3d',
+                      backfaceVisibility: 'hidden'
+                    }}
+                  >
+                    <motion.div 
+                      className="flex flex-col justify-center p-8 w-full h-full"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ 
+                        y: isActive ? 0 : 20,
+                        opacity: isActive ? 1 : 0
+                      }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: isActive ? 0.2 : 0,
+                        ease: [0.76, 0, 0.24, 1]
+                      }}
+                    >
+                      <motion.h3 
+                        className={`${getTextColor(index)} font-bold text-3xl mb-6 text-center`}
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ 
+                          scale: isActive ? 1 : 0.9,
+                          opacity: isActive ? 1 : 0
+                        }}
+                        transition={{ 
+                          duration: 0.3, 
+                          delay: isActive ? 0.3 : 0,
+                          ease: [0.76, 0, 0.24, 1]
+                        }}
+                      >
+                        {testimonial.name.toUpperCase()}
+                      </motion.h3>
+                      <motion.p 
+                        className={`${getTextColor(index)} opacity-90 text-lg leading-relaxed mb-6 text-center`}
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ 
+                          y: isActive ? 0 : 10,
+                          opacity: isActive ? 0.9 : 0
+                        }}
+                        transition={{ 
+                          duration: 0.4, 
+                          delay: isActive ? 0.4 : 0,
+                          ease: [0.76, 0, 0.24, 1]
+                        }}
+                      >
+                        {testimonial.quote}
+                      </motion.p>
+                      <motion.p 
+                        className={`${getTextColor(index)} opacity-70 text-base text-center`}
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ 
+                          y: isActive ? 0 : 10,
+                          opacity: isActive ? 0.7 : 0
+                        }}
+                        transition={{ 
+                          duration: 0.4, 
+                          delay: isActive ? 0.5 : 0,
+                          ease: [0.76, 0, 0.24, 1]
+                        }}
+                      >
+                        {testimonial.role}
+                        {testimonial.company && ` • ${testimonial.company}`}
+                      </motion.p>
+                    </motion.div>
+                  </motion.article>
+                );
+              })}
+            </div>
           </div>
           </div>
         </div>
@@ -254,3 +408,4 @@ export function Testimonials() {
     </Section>
   );
 }
+

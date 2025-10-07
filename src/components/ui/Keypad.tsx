@@ -110,7 +110,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
               onClick={() => setActiveForm('signin')}
               className="flex-1 rounded-full !text-white"
             >
-              Sign In
+              Autentificare
             </Button>
             <Button
               variant={activeForm === 'signup' ? 'primary' : 'glass'}
@@ -118,7 +118,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
               onClick={() => setActiveForm('signup')}
               className="flex-1 rounded-full !text-white"
             >
-              Sign Up
+              Înregistrare
             </Button>
           </div>
         )}
@@ -143,21 +143,21 @@ export function Keypad({ onSubmit }: KeypadProps) {
               >
                 <div className="mb-6">
                   <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#c5c7ce' }}>
-                    Welcome <span style={{ color: '#ff6b35' }}>back!</span>
+                    Bine ai <span style={{ color: '#ff6b35' }}>revenit!</span>
                   </h1>
                   <p className={`keypad-description ${isMobile ? 'text-center' : ''}`}>
-                    Sign in to access your account and continue your creative journey.
+                    Autentifică-te pentru a accesa contul tău și a continua călătoria creativă.
                   </p>
                 </div>
                 <form ref={formRef} onSubmit={handleSignInSubmit} className={`keypad-form ${isMobile ? 'w-full overflow-visible' : ''}`}>
                   <div className="relative">
                     <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
-                      Email Address
+                      Adresa Email
                     </label>
                     <input
                       type="email"
                       required
-                      placeholder="your@email.com"
+                      placeholder="adresa@email.com"
                       value={signInEmail}
                       onChange={(e) => setSignInEmail(e.target.value)}
                       className="keypad-input w-full"
@@ -166,7 +166,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                   </div>
                   <div className="relative">
                     <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
-                      Password
+                      Parolă
                     </label>
                     <input
                       type="password"
@@ -181,7 +181,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                   {!isMobile && (
                     <div className="mt-4 text-center">
                       <p className="text-xs" style={{ color: '#c5c7ce', opacity: 0.6 }}>
-                        Press <span style={{ color: '#ff6b35' }}>ENTER</span> to sign in
+                        Apasă <span style={{ color: '#ff6b35' }}>ENTER</span> pentru autentificare
                       </p>
                     </div>
                   )}
@@ -200,7 +200,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       }}
                       className="w-full rounded-full !text-white"
                     >
-                      Enter
+                      Intră
                     </Button>
                   </div>
                 )}
@@ -223,21 +223,21 @@ export function Keypad({ onSubmit }: KeypadProps) {
               >
                 <div className="mb-6">
                   <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#c5c7ce' }}>
-                    <span style={{ color: '#ff6b35' }}>Create</span> your account
+                    <span style={{ color: '#ff6b35' }}>Creează-ți</span> contul
                   </h1>
                   <p className={`keypad-description ${isMobile ? 'text-center' : ''}`}>
-                    Join our community of builders. Share your work, get inspired, and grow your creative journey.
+                    Alătură-te comunității de creatori. Împărtășește-ți munca, inspiră-te și dezvoltă-ți călătoria creativă.
                   </p>
                 </div>
                 <form ref={formRef} onSubmit={handleSignUpSubmit} className={`keypad-form ${isMobile ? 'w-full overflow-visible' : ''}`}>
                   <div className="relative">
                     <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
-                      Full Name
+                      Nume Complet
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Your Name"
+                      placeholder="Numele Tău"
                       value={signUpName}
                       onChange={(e) => setSignUpName(e.target.value)}
                       className="keypad-input w-full"
@@ -246,12 +246,12 @@ export function Keypad({ onSubmit }: KeypadProps) {
                   </div>
                   <div className="relative">
                     <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
-                      Email Address
+                      Adresa Email
                     </label>
                     <input
                       type="email"
                       required
-                      placeholder="creator@hotmail.com"
+                      placeholder="creator@email.com"
                       value={signUpEmail}
                       onChange={(e) => setSignUpEmail(e.target.value)}
                       className="keypad-input w-full"
@@ -260,7 +260,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                   </div>
                   <div className="relative">
                     <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
-                      Password
+                      Parolă
                     </label>
                     <input
                       type="password"
@@ -275,7 +275,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                   {!isMobile && (
                     <div className="mt-4 text-center">
                       <p className="text-xs" style={{ color: '#c5c7ce', opacity: 0.6 }}>
-                        Press <span style={{ color: '#ff6b35' }}>ENTER</span> to create account
+                        Apasă <span style={{ color: '#ff6b35' }}>ENTER</span> pentru a crea contul
                       </p>
                     </div>
                   )}
@@ -294,7 +294,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       }}
                       className="w-full rounded-full !text-white"
                     >
-                      Enter
+                      Intră
                     </Button>
                   </div>
                 )}

@@ -17,7 +17,7 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
       // Call onTransitionComplete after all animations complete
       const timer = setTimeout(() => {
         onTransitionComplete?.();
-      }, 2300); // Wait for all exit cards to finish (1.9s + 0.4s)
+      }, 1700); // Wait for all exit cards to finish
       
       return () => clearTimeout(timer);
     } else {
@@ -26,19 +26,17 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
     }
   }, [isTransitioning, onTransitionComplete]);
 
-  // Define the entrance color layers
+  // Define the entrance color layers (slower timing)
   const entranceLayers = [
     { color: '#FE7F2D', delay: 0, duration: 0.6 },      // Orange (accent)
-    { color: '#006989', delay: 0.3, duration: 0.6 },    // Blue (accent-2)
-    { color: '#233d4d', delay: 0.6, duration: 0.6 },    // Dark blue
-    { color: '#FE7F2D', delay: 0.9, duration: 0.4 },    // Orange again (shorter)
+    { color: '#003049', delay: 0.25, duration: 0.6 },   // Dark blue
+    { color: '#D62828', delay: 0.5, duration: 0.6 },    // Red
+    { color: '#FCBF49', delay: 0.75, duration: 0.6 },   // Yellow
   ];
 
   // Define the exit color layers (continue to the right with a small break)
   const exitLayers = [
-    { color: '#006989', delay: 1.5, duration: 0.5 },    // Blue continues (0.2s break)
-    { color: '#233d4d', delay: 1.7, duration: 0.5 },    // Dark continues
-    { color: '#FE7F2D', delay: 1.9, duration: 0.4 },    // Orange final
+    { color: '#FCBF49', delay: 1.2, duration: 0.5 },    // Yellow continues
   ];
 
   return (
@@ -49,14 +47,15 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
           {entranceLayers.map((layer, index) => (
             <motion.div
               key={`entrance-${index}`}
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
+              initial={{ x: '-100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
               transition={{ 
                 duration: layer.duration, 
                 delay: layer.delay,
-                ease: [0.43, 0.13, 0.23, 0.96] 
+                ease: [0.76, 0, 0.24, 1] // Smoother easeInOutQuart
               }}
-              className="fixed inset-0 rounded-3xl"
+              className="fixed inset-0"
               style={{ 
                 backgroundColor: layer.color,
                 zIndex: 200 + index 
@@ -64,18 +63,43 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
             />
           ))}
 
+          {/* Text Layer - ALEXANDRU COSTEA */}
+          <motion.div
+            key="text-layer"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.2 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: 1.0,
+              ease: [0.76, 0, 0.24, 1]
+            }}
+            className="fixed inset-0 flex items-center justify-center"
+            style={{ zIndex: 220 }}
+          >
+            <h1 
+              className="font-garnet text-[8vw] md:text-[6vw] font-bold tracking-tight text-[#EAE2B7]"
+              style={{
+                textShadow: '0 0 40px rgba(234, 226, 183, 0.3)',
+              }}
+            >
+              ALEXANDRU COSTEA
+            </h1>
+          </motion.div>
+
           {/* Exit layers - continue sliding to the right */}
           {exitLayers.map((layer, index) => (
             <motion.div
               key={`exit-${index}`}
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
+              initial={{ x: '-100%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0 }}
               transition={{ 
                 duration: layer.duration, 
                 delay: layer.delay,
-                ease: [0.43, 0.13, 0.23, 0.96] 
+                ease: [0.76, 0, 0.24, 1] // Smoother easeInOutQuart
               }}
-              className="fixed inset-0 rounded-3xl"
+              className="fixed inset-0"
               style={{ 
                 backgroundColor: layer.color,
                 zIndex: 210 + index 
@@ -87,4 +111,8 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
     </AnimatePresence>
   );
 }
+
+
+
+
 

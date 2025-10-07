@@ -100,22 +100,44 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-row gap-3 md:gap-4 justify-center items-center"
         >
-          <Button
-            variant="primary"
-            size="md"
-            onClick={() => handleCTAClick(content.ctaPrimary.href, content.ctaPrimary.label)}
-            className="w-[140px] md:min-w-[180px] rounded-full !text-white text-sm md:text-base"
+          <motion.div
+            whileHover={{ 
+              scale: 1.05,
+              transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
           >
-            {content.ctaPrimary.label}
-          </Button>
-          <Button
-            variant="glass"
-            size="md"
-            onClick={() => handleCTAClick(content.ctaSecondary.href, content.ctaSecondary.label)}
-            className="w-[140px] md:min-w-[180px] rounded-full !text-white text-sm md:text-base"
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => handleCTAClick(content.ctaPrimary.href, content.ctaPrimary.label)}
+              className="w-[140px] md:min-w-[180px] rounded-full !text-white text-sm md:text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(254,127,45,0.5)]"
+            >
+              {content.ctaPrimary.label}
+            </Button>
+          </motion.div>
+          <motion.div
+            whileHover={{ 
+              scale: 1.05,
+              transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
           >
-            {content.ctaSecondary.label}
-          </Button>
+            <Button
+              variant="glass"
+              size="md"
+              onClick={() => handleCTAClick(content.ctaSecondary.href, content.ctaSecondary.label)}
+              className="w-[140px] md:min-w-[180px] rounded-full !text-white text-sm md:text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(234,226,183,0.3)] hover:border-accent"
+            >
+              {content.ctaSecondary.label}
+            </Button>
+          </motion.div>
         </motion.div>
       </motion.div>
     </Section>

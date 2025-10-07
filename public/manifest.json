@@ -4,7 +4,7 @@
   "description": "Professional content creator and digital storyteller specializing in video production, photography, and brand collaborations.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#003049",
+  "background_color": "#0B0F19",
   "theme_color": "#F77F00",
   "orientation": "portrait-primary",
   "icons": [

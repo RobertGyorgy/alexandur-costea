@@ -173,16 +173,16 @@ export function PricingSection() {
     <section
       id="pricing"
       ref={sectionRef}
-      className="relative w-full bg-[#003049] text-white overflow-hidden py-20 md:py-32"
+      className="relative w-full bg-gradient-to-b from-[#003049] via-[#002540] to-[#002035] text-white overflow-hidden py-20 md:py-32"
       aria-labelledby="pricing-heading"
     >
       {/* Background Word "Cursuri" with Parallax */}
              <motion.div
-               className="hidden md:flex absolute inset-0 items-start justify-center pt-8 md:pt-12 pointer-events-none select-none z-0"
+               className="hidden md:flex absolute inset-0 items-start justify-center pt-0 pointer-events-none select-none z-0"
                aria-hidden="true"
                style={{ y: isMounted && !isMobile ? textY : 0 }}
              >
-               <span className="font-garnet text-[16vw] leading-none tracking-[-0.04em] text-[#FCBF49]/30" style={{ textShadow: '0 0 40px rgba(252, 191, 73, 0.6), 0 0 80px rgba(252, 191, 73, 0.3)' }}>
+               <span className="font-garnet text-[16vw] leading-none tracking-[-0.04em] text-[#FCBF49]/50" style={{ textShadow: '0 0 20px rgba(252, 191, 73, 0.4)' }}>
                  Cursuri
                </span>
              </motion.div>
@@ -211,14 +211,20 @@ export function PricingSection() {
             return (
               <motion.div
                 key={plan.id}
-                initial={{ opacity: 0, y: isMobile ? 15 : 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9, rotateX: -15 }}
+                whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
                 viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
                 transition={{
-                  ...isMobile ? mobileTransition : desktopTransition,
-                  opacity: { duration: 0.4, ease: "easeOut" }
+                  duration: 0.7,
+                  delay: index * 0.15,
+                  ease: [0.25, 0.1, 0.25, 1],
+                  scale: { duration: 0.6, ease: "easeOut" },
+                  rotateX: { duration: 0.7, ease: "easeOut" }
                 }}
-                style={{ y: shouldApplyParallax ? cardY : 0 }}
+                style={{ 
+                  y: shouldApplyParallax ? cardY : 0,
+                  perspective: '1200px'
+                }}
               >
                 <NeoPricingCard
                   title={plan.title}
@@ -241,4 +247,8 @@ export function PricingSection() {
     </section>
   );
 }
+
+
+
+
 
