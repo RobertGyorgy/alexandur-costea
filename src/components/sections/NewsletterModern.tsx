@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import LightRays from '@/components/ui/LightRays';
 
@@ -42,38 +42,16 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
     return () => observer.disconnect();
   }, []);
   
-  // Scroll progress for split animation - more robust for mobile
+  // Scroll progress for split animation - same for all devices
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 80%", "end 20%"],
-    // Add mobile-specific options
-    ...(isMobile ? {
-      // More lenient scroll detection for mobile
-      offset: ["start 70%", "end 30%"]
-    } : {})
+    offset: ["start 80%", "end 20%"]
   });
 
   // Responsive split distance based on screen size
   const splitDistance = isMobile ? 100 : 200; // Smaller distance for mobile
   
-  // Mobile fallback: use intersection observer if scroll detection fails
-  const [isInView, setIsInView] = useState(false);
-  
-  useEffect(() => {
-    if (!isMobile || !containerRef.current) return;
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.3 }
-    );
-    
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [isMobile]);
-  
-  // Text movement - FASTER split (shorter range)
+  // Text movement - FASTER split (shorter range) - same for all devices
   const stayX = useTransform(scrollYProgress, [0.3, 0.45], [0, -splitDistance]);
   const updatedX = useTransform(scrollYProgress, [0.3, 0.45], [0, splitDistance]);
   
@@ -85,26 +63,6 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
   
   // Form moves up
   const formY = useTransform(scrollYProgress, [0.4, 0.55], [50, 0]);
-  
-  // Mobile fallback animations
-  const mobileStayX = useMotionValue(0);
-  const mobileUpdatedX = useMotionValue(0);
-  const mobileTextOpacity = useMotionValue(1);
-  const mobileFormOpacity = useMotionValue(0);
-  const mobileFormY = useMotionValue(50);
-  
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    if (isInView) {
-      // Trigger mobile animation
-      mobileStayX.set(-splitDistance);
-      mobileUpdatedX.set(splitDistance);
-      mobileTextOpacity.set(0);
-      mobileFormOpacity.set(1);
-      mobileFormY.set(0);
-    }
-  }, [isInView, isMobile, splitDistance]);
 
   // Handle window resize for responsive split distance
   useEffect(() => {
@@ -181,8 +139,8 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
             <motion.h1
               className="font-garnet text-4xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
               style={{ 
-                x: isMobile ? mobileStayX : stayX,
-                opacity: isMobile ? mobileTextOpacity : textOpacity,
+                x: stayX,
+                opacity: textOpacity,
                 willChange: 'transform, opacity',
                 pointerEvents: 'none'
               }}
@@ -194,8 +152,8 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
             <motion.h1
               className="font-garnet text-4xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
               style={{ 
-                x: isMobile ? mobileUpdatedX : updatedX,
-                opacity: isMobile ? mobileTextOpacity : textOpacity,
+                x: updatedX,
+                opacity: textOpacity,
                 willChange: 'transform, opacity',
                 pointerEvents: 'none'
               }}
@@ -208,8 +166,8 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
           <motion.div
             className="flex items-center justify-center z-50 relative pb-16 w-full px-4 mt-8 sm:mt-0"
             style={{
-              opacity: isMobile ? mobileFormOpacity : formOpacity,
-              y: isMobile ? mobileFormY : formY,
+              opacity: formOpacity,
+              y: formY,
               willChange: 'opacity, transform'
             }}
           >
