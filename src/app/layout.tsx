@@ -6,6 +6,7 @@ import { PageBlur } from '@/components/shared/PageBlur';
 import { LoaderScreen } from '@/components/shared/LoaderScreen';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { PageTransitionProvider } from '@/lib/page-transition';
+import IosBottomUIFix from '@/components/ui/IosBottomUIFix';
 import { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = defaultMetadata;
@@ -100,6 +101,9 @@ export default function RootLayout({
 
             {/* Navigation */}
             <NavBar />
+          
+          {/* iOS Safari toolbar fix */}
+          <IosBottomUIFix />
           
           {/* Gradual blur - visible until 50% of newsletter section */}
           <PageBlur />

@@ -36,6 +36,10 @@
   --line: rgba(234, 226, 183, 0.1);
   --glass: rgba(234, 226, 183, 0.06);
   
+  /* iOS Safari toolbar fix */
+  --ios-bottom-ui: env(safe-area-inset-bottom);
+  --blur-height: 8rem;
+  
   /* Shadows */
   --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);
   --shadow-soft-md: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.15);
@@ -365,28 +369,35 @@ select {
   }
 }
 
-/* Mobile blur container - adjusts to mobile browser viewport changes */
-.mobile-blur-container {
-  height: 100vh;
+/* iOS Safari toolbar fix - Fixed blur pattern */
+.fixed-blur {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--blur-height) + var(--ios-bottom-ui));
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+  transform: translateZ(0);
 }
 
+.fixed-blur::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--ios-bottom-ui);
+  height: var(--blur-height);
+  background: rgba(20, 20, 20, 0.28);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+}
+
+/* Reserve space for fixed blur so content never sits under it */
 @media (max-width: 767px) {
-  .mobile-blur-container {
-    height: var(--mobile-vh, 100vh);
-  }
-  
-  /* Safari-specific fixes - place blur behind search bar */
-  @supports (-webkit-touch-callout: none) {
-    .mobile-blur-container {
-      height: 100vh;
-      /* Ensure blur stays fixed at bottom of full viewport in Safari */
-      position: fixed;
-      bottom: 0;
-      /* Ensure blur appears behind Safari's search bar but still visible */
-      z-index: 1;
-      /* Force Safari to use full viewport height */
-      min-height: 100vh;
-      max-height: 100vh;
-    }
+  main {
+    padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui));
   }
 }

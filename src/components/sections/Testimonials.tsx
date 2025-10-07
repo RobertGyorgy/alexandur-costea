@@ -104,7 +104,7 @@ export function Testimonials() {
       <BackgroundEffects variant="lines" color="#F77F00" opacity={0.15} animated />
       {/* Slider with Gray Background Container - Dolly Zoom Effect (Desktop Only) */}
       <motion.div 
-        className="max-w-[1400px] mx-auto overflow-hidden px-5" 
+        className="max-w-[1400px] mx-auto overflow-hidden px-2 md:px-5" 
         style={{ 
           y: isMounted && !isMobile ? containerY : 0, 
           scale: isMounted && !isMobile ? containerScale : 1,
@@ -112,7 +112,7 @@ export function Testimonials() {
         }}
       >
         {/* Gray Background Container */}
-        <div className="bg-gray-800/20 dark:bg-gray-200/15 rounded-3xl p-6 md:p-8 backdrop-blur-sm">
+        <div className="bg-gray-800/20 dark:bg-gray-200/15 rounded-3xl p-3 md:p-8 backdrop-blur-sm">
           <div
             ref={wrapRef}
             className="overflow-x-auto md:overflow-x-visible scrollbar-hide"
@@ -329,7 +329,7 @@ export function Testimonials() {
                       scale: { duration: 0.5 },
                       rotateY: { duration: 0.7 }
                     }}
-                    className={`absolute inset-0 rounded-3xl overflow-hidden ${getCardBg(index)} w-[95%] h-full flex items-center justify-center mx-auto`}
+                    className={`absolute inset-0 rounded-3xl overflow-hidden ${getCardBg(index)} w-full h-full flex items-center justify-center`}
                     style={{ 
                       display: isActive ? 'flex' : 'none',
                       transformStyle: 'preserve-3d',

@@ -2,48 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
-    const updateViewportHeight = () => {
-      const isMobile = window.innerWidth < 768;
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        if (isSafari) {
-          // Safari-specific: Use 100vh to stay fixed at bottom of full viewport
-          // This ensures blur stays at bottom even when search bar collapses
-          document.documentElement.style.setProperty('--mobile-vh', '100vh');
-        } else if (window.visualViewport) {
-          // Chrome and other browsers with visualViewport support
-          const vh = window.visualViewport.height;
-          document.documentElement.style.setProperty('--mobile-vh', `${vh}px`);
-        } else {
-          // Fallback for browsers without visualViewport
-          document.documentElement.style.setProperty('--mobile-vh', `${window.innerHeight}px`);
-        }
-      } else {
-        document.documentElement.style.setProperty('--mobile-vh', '100vh');
-      }
-    };
-
     const handleScroll = () => {
-      // Update viewport height on scroll too (for mobile browser bar)
-      updateViewportHeight();
-      
-      // Safari-specific: Force update on scroll to handle dynamic viewport
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      if (isSafari && window.innerWidth < 768) {
-        // Use requestAnimationFrame for smoother updates in Safari
-        requestAnimationFrame(() => {
-          updateViewportHeight();
-        });
-      }
-      
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
         setShowBlur(true);
@@ -62,18 +27,6 @@ export function PageBlur() {
       // More robust visibility calculation for mobile
       const visibilityRatio = sectionHeight > 0 ? visibleHeight / sectionHeight : 0;
 
-      // Debug logging for mobile (remove in production)
-      if (window.innerWidth < 768) {
-        console.log('Mobile blur visibility:', {
-          sectionHeight,
-          visibleHeight,
-          visibilityRatio,
-          rectTop: rect.top,
-          rectBottom: rect.bottom,
-          windowHeight
-        });
-      }
-
       // Hide blur when more than 50% of newsletter section is visible
       if (visibilityRatio > 0.5) {
         setShowBlur(false);
@@ -82,39 +35,11 @@ export function PageBlur() {
       }
     };
 
-    updateViewportHeight();
     handleScroll(); // Initial check
-
-    // Safari-specific: Add orientation change listener
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    
-    window.addEventListener('resize', updateViewportHeight);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    if (isSafari) {
-      window.addEventListener('orientationchange', () => {
-        // Delay to allow Safari to update its viewport
-        setTimeout(updateViewportHeight, 100);
-      });
-    }
-    
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateViewportHeight);
-      window.visualViewport.addEventListener('scroll', updateViewportHeight);
-    }
 
     return () => {
-      window.removeEventListener('resize', updateViewportHeight);
       window.removeEventListener('scroll', handleScroll);
-      
-      if (isSafari) {
-        window.removeEventListener('orientationchange', updateViewportHeight);
-      }
-      
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', updateViewportHeight);
-        window.visualViewport.removeEventListener('scroll', updateViewportHeight);
-      }
     };
   }, []);
 
@@ -126,30 +51,6 @@ export function PageBlur() {
   if (!showBlur) return null;
 
   return (
-    <div 
-      className="mobile-blur-container"
-      style={{ 
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 40,
-        pointerEvents: 'none',
-        transition: 'height 0.2s ease-out'
-      }}
-    >
-      <GradualBlur
-        target="parent"
-        position="bottom"
-        height="8rem"
-        strength={2}
-        divCount={6}
-        curve="bezier"
-        exponential={false}
-        opacity={1}
-        animated={false}
-        zIndex={40}
-      />
-    </div>
+    <div className="fixed-blur" />
   );
 }
