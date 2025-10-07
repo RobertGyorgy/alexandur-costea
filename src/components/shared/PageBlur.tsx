@@ -58,7 +58,21 @@ export function PageBlur() {
       const visibleTop = Math.max(0, rect.top);
       const visibleBottom = Math.min(windowHeight, rect.bottom);
       const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-      const visibilityRatio = visibleHeight / Math.min(sectionHeight, windowHeight);
+      
+      // More robust visibility calculation for mobile
+      const visibilityRatio = sectionHeight > 0 ? visibleHeight / sectionHeight : 0;
+
+      // Debug logging for mobile (remove in production)
+      if (window.innerWidth < 768) {
+        console.log('Mobile blur visibility:', {
+          sectionHeight,
+          visibleHeight,
+          visibilityRatio,
+          rectTop: rect.top,
+          rectBottom: rect.bottom,
+          windowHeight
+        });
+      }
 
       // Hide blur when more than 50% of newsletter section is visible
       if (visibilityRatio > 0.5) {
