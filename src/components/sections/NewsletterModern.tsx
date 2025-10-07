@@ -48,8 +48,8 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
     offset: ["start 80%", "end 20%"]
   });
 
-  // Simplified animation values without spring to prevent freezing
-  const splitDistance = 200; // Fixed distance for stability
+  // Responsive split distance based on screen size
+  const splitDistance = isMobile ? 100 : 200; // Smaller distance for mobile
   
   // Text movement - FASTER split (shorter range)
   const stayX = useTransform(scrollYProgress, [0.3, 0.45], [0, -splitDistance]);
@@ -134,10 +134,10 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
         {/* Combined text and form container */}
         <div className="flex items-center justify-center flex-1 relative pt-24 md:pt-24 overflow-hidden">
           {/* Split text animation - completely non-interactive */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-8 lg:gap-16 absolute z-0 pointer-events-none w-full overflow-hidden px-4 mt-8 sm:mt-0">
+          <div className="flex flex-row items-center justify-center gap-2 sm:gap-8 lg:gap-16 absolute z-0 pointer-events-none w-full overflow-hidden px-4 mt-8 sm:mt-0">
             {/* "Stay" - moves left and disappears */}
             <motion.h1
-              className="font-garnet text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
+              className="font-garnet text-4xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
               style={{ 
                 x: stayX,
                 opacity: textOpacity,
@@ -150,7 +150,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
             
             {/* "Updated" - moves right and disappears */}
             <motion.h1
-              className="font-garnet text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
+              className="font-garnet text-4xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
               style={{ 
                 x: updatedX,
                 opacity: textOpacity,
