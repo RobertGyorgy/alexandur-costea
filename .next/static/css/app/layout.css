@@ -1499,9 +1499,9 @@ video {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .text-\[11vw\] {
   font-size: 11vw;
@@ -1558,10 +1558,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 .font-bold {
   font-weight: 700;
@@ -2190,17 +2186,15 @@ select {
   /* Force Safari toolbar to stay visible and non-transparent */
   @media screen and (max-width: 767px) {
     html {
-      /* Prevent Safari from collapsing toolbar */
-      height: 100vh !important;
-      min-height: 100vh !important;
-      max-height: 100vh !important;
+      /* Prevent Safari from collapsing toolbar - less aggressive */
+      height: 100vh;
+      min-height: 100vh;
     }
     
     body {
-      /* Force Safari to maintain toolbar visibility */
-      height: 100vh !important;
-      min-height: 100vh !important;
-      max-height: 100vh !important;
+      /* Force Safari to maintain toolbar visibility - less aggressive */
+      height: 100vh;
+      min-height: 100vh;
       /* Prevent toolbar transparency */
       background-color: var(--bg, #0a0a0a);
     }
