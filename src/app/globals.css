@@ -360,8 +360,8 @@ select {
       /* Ensure blur stays fixed at bottom of full viewport in Safari */
       position: fixed;
       bottom: 0;
-      /* Ensure blur appears behind Safari's search bar but still visible */
-      z-index: 1;
+      /* Place blur behind Safari's search bar */
+      z-index: -1;
       /* Force Safari to use full viewport height */
       min-height: 100vh;
       max-height: 100vh;

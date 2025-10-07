@@ -111,6 +111,11 @@ export function PageBlur() {
 
   if (!showBlur) return null;
 
+  // Check if Safari for z-index adjustment
+  const isSafari = typeof window !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const blurZIndex = isSafari && isMobile ? -1 : 40;
+
   return (
     <div 
       className="mobile-blur-container"
@@ -119,7 +124,7 @@ export function PageBlur() {
         bottom: 0,
         left: 0,
         right: 0,
-        zIndex: 40,
+        zIndex: blurZIndex,
         pointerEvents: 'none',
         transition: 'height 0.2s ease-out'
       }}
@@ -134,7 +139,7 @@ export function PageBlur() {
         exponential={false}
         opacity={1}
         animated={false}
-        zIndex={40}
+        zIndex={blurZIndex}
       />
     </div>
   );
