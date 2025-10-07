@@ -25,16 +25,16 @@
 /* CSS Custom Properties for Dark Theme */
 :root,
 :root[data-theme="dark"] {
-  /* Colors - New Palette */
-  --bg: #003049;
-  --bg-elev: #004060;
-  --fg: #EAE2B7;
-  --muted: #d4cda8;
-  --accent: #F77F00;
-  --accent-2: #D62828;
-  --accent-3: #FCBF49;
-  --line: rgba(234, 226, 183, 0.1);
-  --glass: rgba(234, 226, 183, 0.06);
+  /* Colors - New Palette: Platinum, Dark Blue, Orange */
+  --bg: #102837;           /* Dark Blue - main background */
+  --bg-elev: #1a3d52;      /* Slightly lighter Dark Blue - elevated surfaces */
+  --fg: #E5E4E2;           /* Platinum - main text */
+  --muted: #b8b7b5;        /* Muted Platinum - secondary text */
+  --accent: #FE5F01;       /* Orange - primary accent */
+  --accent-2: #ff7a2e;     /* Lighter Orange - secondary accent */
+  --accent-3: #E5E4E2;     /* Platinum - tertiary accent */
+  --line: rgba(229, 228, 226, 0.1);
+  --glass: rgba(229, 228, 226, 0.06);
   
   /* iOS Safari toolbar fix */
   --ios-bottom-ui: env(safe-area-inset-bottom);
@@ -45,8 +45,8 @@
   --shadow-soft-md: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.15);
   --shadow-soft-lg: 0 20px 25px -5px rgb(0 0 0 / 0.25), 0 8px 10px -6px rgb(0 0 0 / 0.2);
   --shadow-soft-xl: 0 25px 50px -12px rgb(0 0 0 / 0.3);
-  --shadow-glow-accent: 0 0 20px rgb(247 127 0 / 0.4);
-  --shadow-glow-accent-2: 0 0 20px rgb(214 40 40 / 0.4);
+  --shadow-glow-accent: 0 0 20px rgb(254 95 1 / 0.4);
+  --shadow-glow-accent-2: 0 0 20px rgb(255 122 46 / 0.4);
   
   /* Animation */
   --duration-fast: 150ms;
@@ -369,11 +369,4 @@ select {
   }
 }
 
-/* iOS Safari toolbar fix - Reserved for GradualBlur component */
-
-/* Reserve space for fixed blur so content never sits under it */
-@media (max-width: 767px) {
-  main {
-    padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui));
-  }
-}
+/* iOS Safari toolbar fix - Padding managed dynamically by PageBlur component */

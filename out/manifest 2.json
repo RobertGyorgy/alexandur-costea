@@ -1,0 +1,34 @@
+{
+  "name": "Alex Costea - Content Creator & Digital Storyteller",
+  "short_name": "Alex Costea",
+  "description": "Professional content creator and digital storyteller specializing in video production, photography, and brand collaborations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0F19",
+  "theme_color": "#F77F00",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/1.png",
+      "sizes": "530x136",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/2.png",
+      "sizes": "516x144",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "photography", "entertainment"],
+  "lang": "en",
+  "scope": "/",
+  "id": "/"
+}
+

@@ -62,8 +62,8 @@
 .keypad-input {
   flex: 1;
   padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: rgba(16, 40, 55, 0.2);
+  border: 2px solid rgba(229, 228, 226, 0.25);
   border-radius: 8px;
   outline: none;
   color: #fff;
@@ -72,20 +72,20 @@
 }
 
 .keypad-input:focus {
-  border-color: #ff6b35;
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  border-color: #FE5F01;
+  background: rgba(16, 40, 55, 0.3);
+  box-shadow: 0 0 0 3px rgba(254, 95, 1, 0.1);
 }
 
 .keypad-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(229, 228, 226, 0.4);
 }
 
 .keypad-submit {
   padding-inline: 1.5rem;
   border-radius: 6px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(229, 228, 226, 0.25);
   cursor: pointer;
   color: inherit;
   font-size: 0.875rem;
@@ -93,8 +93,8 @@
 }
 
 .keypad-submit:hover {
-  background: rgba(254, 127, 45, 0.1);
-  border-color: rgba(254, 127, 45, 0.5);
+  background: rgba(254, 95, 1, 0.1);
+  border-color: rgba(254, 95, 1, 0.5);
 }
 
 .keypad {

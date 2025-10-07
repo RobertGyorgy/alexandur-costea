@@ -201,7 +201,7 @@ export function Portfolio() {
       spacing="xl"
       aria-labelledby="portfolio-heading"
       ref={sectionRef}
-      className="bg-[#006989]"
+      className="bg-[#E5E4E2]"
     >
       {/* Desktop & Mobile Layout */}
       <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-16 gap-8">
@@ -227,12 +227,12 @@ export function Portfolio() {
             <div className="absolute -left-[3px] top-52 w-[3px] h-12 bg-accent rounded-l-sm shadow-lg z-30" />
 
             {/* Phone Frame */}
-            <div className="relative w-[300px] h-[600px] bg-bg-elev border-8 border-line rounded-[3rem] shadow-soft-xl overflow-hidden">
+            <div className="relative w-[300px] h-[600px] bg-[#102837] border-8 border-[#102837]/30 rounded-[3rem] shadow-[0_0_40px_rgba(16,40,55,0.4)] overflow-hidden">
             {/* Notch - Black Pill */}
             <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-24 h-6 bg-black rounded-full z-10 shadow-soft" />
 
             {/* Video Content Area */}
-            <div className="relative w-full h-full overflow-hidden bg-bg">
+            <div className="relative w-full h-full overflow-hidden bg-[#0a1620]">
               <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.div
                   key={currentIndex}
@@ -330,11 +330,11 @@ export function Portfolio() {
             {/* Up Button */}
             <button
               onClick={handlePrevious}
-              className="w-14 h-14 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg"
+              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#102837]/90 border border-[#E5E4E2]/20 flex items-center justify-center hover:bg-[#102837] transition-all duration-300 hover:border-[#FE5F01] shadow-[0_0_20px_rgba(16,40,55,0.3)]"
               aria-label="Previous video"
             >
               <svg
-                className="w-6 h-6 text-fg"
+                className="w-6 h-6 text-[#E5E4E2]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -351,11 +351,11 @@ export function Portfolio() {
             {/* Down Button */}
             <button
               onClick={handleNext}
-              className="w-14 h-14 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft-lg"
+              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#102837]/90 border border-[#E5E4E2]/20 flex items-center justify-center hover:bg-[#102837] transition-all duration-300 hover:border-[#FE5F01] shadow-[0_0_20px_rgba(16,40,55,0.3)]"
               aria-label="Next video"
             >
               <svg
-                className="w-6 h-6 text-fg"
+                className="w-6 h-6 text-[#E5E4E2]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -386,7 +386,7 @@ export function Portfolio() {
           }}
         >
           {/* Unified Project Info Card with Animated Text */}
-          <div className="relative backdrop-blur-xl border border-line rounded-3xl p-7 shadow-soft-xl overflow-hidden h-[600px]" style={{ backgroundColor: 'var(--bg-elev)' }}>
+          <div className="relative backdrop-blur-xl border-4 border-[#102837]/20 rounded-3xl p-7 shadow-[0_0_60px_rgba(16,40,55,0.3)] overflow-hidden h-[600px]" style={{ backgroundColor: '#102837' }}>
             {/* Text content with animations */}
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
@@ -406,16 +406,16 @@ export function Portfolio() {
                 }}
               >
                 {/* Header with title and counter */}
-                <div className="flex items-start justify-between gap-4 pb-3 border-b border-line/50">
+                <div className="flex items-start justify-between gap-4 pb-3 border-b border-[#E5E4E2]/20">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-fg mb-1">
+                    <h3 className="text-2xl font-bold text-[#E5E4E2] mb-1">
                       {currentVideo.title}
                     </h3>
-                    <p className="text-accent text-xs font-medium uppercase tracking-wider">
+                    <p className="text-[#FE5F01] text-xs font-medium uppercase tracking-wider">
                       {currentVideo.description}
                     </p>
                   </div>
-                  <span className="text-muted text-xs font-medium px-2 py-1 bg-bg/50 rounded-full">
+                  <span className="text-[#E5E4E2]/70 text-xs font-medium px-2 py-1 bg-[#E5E4E2]/10 rounded-full">
                     {currentIndex + 1} / {VERTICAL_VIDEOS.length}
                   </span>
                 </div>
@@ -423,34 +423,34 @@ export function Portfolio() {
                 {/* Client and Role */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Client</p>
-                    <p className="text-fg font-medium text-sm">{currentVideo.client}</p>
+                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Client</p>
+                    <p className="text-[#E5E4E2] font-medium text-sm">{currentVideo.client}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Role</p>
-                    <p className="text-fg font-medium text-sm">{currentVideo.role}</p>
+                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Role</p>
+                    <p className="text-[#E5E4E2] font-medium text-sm">{currentVideo.role}</p>
                   </div>
                 </div>
 
                 {/* Project Details */}
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Project Overview</p>
-                    <p className="text-muted leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Project Overview</p>
+                    <p className="text-[#E5E4E2]/80 leading-relaxed text-sm">
                       {currentVideo.details}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Key Achievements</p>
-                    <p className="text-muted leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Key Achievements</p>
+                    <p className="text-[#E5E4E2]/80 leading-relaxed text-sm">
                       {currentVideo.achievements}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-muted/60 mb-1">Techniques & Approach</p>
-                    <p className="text-muted leading-relaxed text-sm">
+                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Techniques & Approach</p>
+                    <p className="text-[#E5E4E2]/80 leading-relaxed text-sm">
                       {currentVideo.techniques}
                     </p>
                   </div>

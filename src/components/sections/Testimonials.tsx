@@ -98,10 +98,10 @@ export function Testimonials() {
       id="testimonials"
       spacing="xl"
       aria-labelledby="testimonials-heading"
-      className="testimonials-slider bg-[#FCBF49]"
+      className="testimonials-slider bg-[#E5E4E2]"
       ref={sectionRef}
     >
-      <BackgroundEffects variant="lines" color="#F77F00" opacity={0.15} animated />
+      <BackgroundEffects variant="lines" color="#FE5F01" opacity={0.15} animated />
       {/* Slider with Gray Background Container - Dolly Zoom Effect (Desktop Only) */}
       <motion.div 
         className="max-w-[1400px] mx-auto overflow-hidden px-2 md:px-5" 
@@ -128,7 +128,7 @@ export function Testimonials() {
               const isActive = index === current;
               // Cycle through colors
               const getCardBg = (idx: number) => {
-                const colors = ['bg-[#D62828]', 'bg-[#003049]', 'bg-[#F77F00]', 'bg-[#003049]', 'bg-[#D62828]'];
+                const colors = ['bg-[#FE5F01]', 'bg-[#102837]', 'bg-[#ff7a2e]', 'bg-[#102837]', 'bg-[#FE5F01]'];
                 return colors[idx % colors.length];
               };
 
@@ -200,7 +200,7 @@ export function Testimonials() {
                   const prevIndex = current === 0 ? content.items.length - 1 : current - 1;
                   activate(prevIndex, false);
                 }}
-                className="w-12 h-12 rounded-full bg-[#003049]/20 backdrop-blur-sm border border-[#003049]/30 flex items-center justify-center hover:bg-[#003049]/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full bg-[#102837]/20 backdrop-blur-sm border border-[#102837]/30 flex items-center justify-center hover:bg-[#102837]/30 transition-all duration-300"
                 aria-label="Previous testimonial"
                 whileHover={{ 
                   scale: 1.1,
@@ -216,7 +216,7 @@ export function Testimonials() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <motion.svg 
-                  className="w-6 h-6 text-[#003049]" 
+                  className="w-6 h-6 text-[#102837]" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -233,7 +233,7 @@ export function Testimonials() {
                     key={index}
                     onClick={() => activate(index, false)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === current ? 'bg-[#003049]' : 'bg-[#003049]/30'
+                      index === current ? 'bg-[#102837]' : 'bg-[#102837]/30'
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                     whileHover={{ 
@@ -246,7 +246,7 @@ export function Testimonials() {
                     }}
                     animate={{
                       scale: index === current ? 1.5 : 1,
-                      backgroundColor: index === current ? '#003049' : 'rgba(0, 48, 73, 0.3)'
+                      backgroundColor: index === current ? '#102837' : 'rgba(16, 40, 55, 0.3)'
                     }}
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -264,7 +264,7 @@ export function Testimonials() {
                   const nextIndex = current === content.items.length - 1 ? 0 : current + 1;
                   activate(nextIndex, false);
                 }}
-                className="w-12 h-12 rounded-full bg-[#003049]/20 backdrop-blur-sm border border-[#003049]/30 flex items-center justify-center hover:bg-[#003049]/30 transition-all duration-300"
+                className="w-12 h-12 rounded-full bg-[#102837]/20 backdrop-blur-sm border border-[#102837]/30 flex items-center justify-center hover:bg-[#102837]/30 transition-all duration-300"
                 aria-label="Next testimonial"
                 whileHover={{ 
                   scale: 1.1,
@@ -280,7 +280,7 @@ export function Testimonials() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <motion.svg 
-                  className="w-6 h-6 text-[#003049]" 
+                  className="w-6 h-6 text-[#102837]" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -297,7 +297,7 @@ export function Testimonials() {
               {content.items.map((testimonial, index) => {
                 const isActive = index === current;
                 const getCardBg = (idx: number) => {
-                  const colors = ['bg-[#D62828]', 'bg-[#003049]', 'bg-[#F77F00]', 'bg-[#003049]', 'bg-[#D62828]'];
+                  const colors = ['bg-[#FE5F01]', 'bg-[#102837]', 'bg-[#ff7a2e]', 'bg-[#102837]', 'bg-[#FE5F01]'];
                   return colors[idx % colors.length];
                 };
 

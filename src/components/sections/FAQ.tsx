@@ -49,31 +49,33 @@ export function FAQ() {
     <section
       id="faq"
       ref={sectionRef}
-      className="relative bg-[#F77F00] py-24 md:py-28 lg:py-32"
+      className="relative bg-[#FE5F01] py-24 md:py-28 lg:py-32"
       aria-labelledby="faq-heading"
     >
-      <BackgroundEffects variant="gradient" color="#D62828" opacity={0.1} animated={false} />
+      <BackgroundEffects variant="gradient" color="#102837" opacity={0.1} animated={false} />
       
       {/* Two Column Layout */}
       <div className="grid md:grid-cols-[auto_1fr] gap-8 md:gap-16 lg:gap-24 max-w-7xl mx-auto px-4 md:px-6 items-start">
         {/* Left Column: Sticky Vertical Title (Desktop Only) */}
         <div className="hidden md:flex sticky top-8 gap-6 self-start">
           <h2 
-            className="font-garnet text-[11vw] lg:text-[8.5vw] font-bold text-[#003049] leading-none whitespace-nowrap"
+            className="font-garnet text-[11vw] lg:text-[8.5vw] font-bold text-white leading-none whitespace-nowrap"
             style={{ 
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
-              transform: 'rotate(180deg)'
+              transform: 'rotate(180deg)',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
             }}
           >
             ÎNTREBĂRI
           </h2>
           <h2 
-            className="font-garnet text-[11vw] lg:text-[8.5vw] font-bold text-[#003049] leading-none whitespace-nowrap"
+            className="font-garnet text-[11vw] lg:text-[8.5vw] font-bold text-white leading-none whitespace-nowrap"
             style={{ 
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
-              transform: 'rotate(180deg)'
+              transform: 'rotate(180deg)',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
             }}
           >
             FRECVENTE
@@ -116,12 +118,12 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
     <div className="relative w-full">
       <Button
         variant="ghost"
-        className="w-full py-6 px-0 text-left flex items-center justify-between hover:bg-transparent transition-colors duration-200 group"
+        className="w-full py-4 px-0 text-left flex items-center justify-between hover:bg-transparent transition-colors duration-200 group"
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${item.id}`}
       >
-        <span className="text-[#003049] font-medium text-lg pr-4 group-hover:text-[#D62828] transition-colors duration-200">
+        <span className="text-white font-semibold text-lg pr-4 group-hover:text-[#102837] transition-colors duration-200" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}>
           {item.question}
         </span>
         <motion.div
@@ -131,7 +133,7 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
         >
           <div className={cn(
             'w-4 h-4 relative transition-colors duration-200',
-            isOpen ? 'text-[#D62828]' : 'text-[#003049]/60 group-hover:text-[#D62828]'
+            isOpen ? 'text-[#102837]' : 'text-white/80 group-hover:text-[#102837]'
           )}>
             {/* Plus sign using two divs */}
             <div className="absolute top-1/2 left-0 w-full h-[1.5px] bg-current -translate-y-1/2" />
@@ -150,8 +152,8 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="pt-2 pb-8">
-              <p className="text-[#003049]/80 leading-relaxed">
+            <div className="pb-6">
+              <p className="text-white/90 leading-relaxed font-medium" style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.15)' }}>
                 {item.answer}
               </p>
             </div>
@@ -161,15 +163,15 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
 
       {/* Animated divider line - centered between questions */}
       {!isLast && (
-        <div className="w-full my-6 md:my-8">
-          <div className="relative h-[3px] w-full bg-[#D62828]/40 rounded-full overflow-hidden">
+        <div className="w-full my-4 md:my-6">
+          <div className="relative h-[3px] w-full bg-white/30 rounded-full overflow-hidden">
             {/* Animated foreground line */}
             <motion.div
               initial={{ width: '0%' }}
               whileInView={{ width: '100%' }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-              className="h-full bg-[#D62828] rounded-full"
+              viewport={{ once: true, amount: 0.8 }}
+              transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
+              className="h-full bg-white rounded-full"
             />
           </div>
         </div>

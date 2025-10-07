@@ -1,20 +1,46 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export function CheckIcon() {
   return (
-    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[#F77F00]/10 ring-1 ring-[#F77F00]/30 flex items-center justify-center">
+    <motion.div 
+      className="relative flex-shrink-0 w-6 h-6 rounded-full overflow-hidden bg-[#FE5F01] group"
+      initial={{ scale: 0, rotate: -180 }}
+      whileInView={{ scale: 1, rotate: 0 }}
+      viewport={{ once: true }}
+      transition={{ 
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+        delay: 0.1
+      }}
+    >
+      {/* Check SVG */}
       <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
+        stroke="white"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-[#F77F00]"
+        className="relative z-10 scale-75"
       >
-        <path d="M5 8l2 2 4-4" />
+        <motion.path
+          d="M6 12l4 4 8-8"
+          initial={{ pathLength: 0 }}
+          whileInView={{ pathLength: 1 }}
+          viewport={{ once: true }}
+          transition={{ 
+            duration: 0.5,
+            delay: 0.3,
+            ease: "easeOut"
+          }}
+        />
       </svg>
-    </div>
+    </motion.div>
   );
 }
 

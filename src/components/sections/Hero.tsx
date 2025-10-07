@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
+import { GlowButton } from '@/components/ui/GlowButton';
 import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
 
@@ -100,44 +101,19 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-row gap-3 md:gap-4 justify-center items-center"
         >
-          <motion.div
-            whileHover={{ 
-              scale: 1.05,
-              transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] }
-            }}
-            whileTap={{ 
-              scale: 0.95,
-              transition: { duration: 0.1 }
-            }}
+          <GlowButton
+            variant="orange"
+            onClick={() => handleCTAClick(content.ctaPrimary.href, content.ctaPrimary.label)}
           >
-            <Button
-              variant="primary"
-              size="md"
-              onClick={() => handleCTAClick(content.ctaPrimary.href, content.ctaPrimary.label)}
-              className="w-[140px] md:min-w-[180px] rounded-full !text-white text-sm md:text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(254,127,45,0.5)]"
-            >
-              {content.ctaPrimary.label}
-            </Button>
-          </motion.div>
-          <motion.div
-            whileHover={{ 
-              scale: 1.05,
-              transition: { duration: 0.2, ease: [0.76, 0, 0.24, 1] }
-            }}
-            whileTap={{ 
-              scale: 0.95,
-              transition: { duration: 0.1 }
-            }}
+            {content.ctaPrimary.label}
+          </GlowButton>
+          
+          <GlowButton
+            variant="white"
+            onClick={() => handleCTAClick(content.ctaSecondary.href, content.ctaSecondary.label)}
           >
-            <Button
-              variant="glass"
-              size="md"
-              onClick={() => handleCTAClick(content.ctaSecondary.href, content.ctaSecondary.label)}
-              className="w-[140px] md:min-w-[180px] rounded-full !text-white text-sm md:text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(234,226,183,0.3)] hover:border-accent"
-            >
-              {content.ctaSecondary.label}
-            </Button>
-          </motion.div>
+            {content.ctaSecondary.label}
+          </GlowButton>
         </motion.div>
       </motion.div>
     </Section>

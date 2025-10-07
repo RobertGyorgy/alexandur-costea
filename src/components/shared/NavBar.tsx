@@ -37,7 +37,7 @@ export function NavBar({ className }: NavBarProps) {
   // Handle scroll detection and navbar sizing
   useEffect(() => {
     // Light background sections (need dark text)
-    const lightSections = ['about', 'testimonials', 'faq'];
+    const lightSections = ['testimonials', 'faq'];
     let scrollTimeout: NodeJS.Timeout;
 
     const handleScroll = () => {

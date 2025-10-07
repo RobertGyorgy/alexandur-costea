@@ -143,8 +143,8 @@ export function Keypad({ onSubmit }: KeypadProps) {
                 style={{ transformPerspective: 1200 }}
               >
                 <div className="mb-6">
-                  <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#c5c7ce' }}>
-                    Bine ai <span style={{ color: '#ff6b35' }}>revenit!</span>
+                  <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#E5E4E2' }}>
+                    Bine ai <span style={{ color: '#FE5F01' }}>revenit!</span>
                   </h1>
                   <p className={`keypad-description ${isMobile ? 'text-center' : ''}`}>
                     Autentifică-te pentru a accesa contul tău și a continua călătoria creativă.
@@ -152,7 +152,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                 </div>
                 <form ref={formRef} onSubmit={handleSignInSubmit} className={`keypad-form ${isMobile ? 'w-full overflow-visible' : ''}`}>
                   <div className="relative">
-                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
+                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#FE5F01', opacity: 0.8 }}>
                       Adresa Email
                     </label>
                     <input
@@ -162,11 +162,11 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       value={signInEmail}
                       onChange={(e) => setSignInEmail(e.target.value)}
                       className="keypad-input w-full"
-                      style={{ borderColor: signInEmail ? '#ff6b35' : 'rgba(255, 255, 255, 0.25)' }}
+                      style={{ borderColor: signInEmail ? '#FE5F01' : 'rgba(229, 228, 226, 0.25)' }}
                     />
                   </div>
                   <div className="relative">
-                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
+                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#FE5F01', opacity: 0.8 }}>
                       Parolă
                     </label>
                     <input
@@ -176,13 +176,13 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       value={signInPassword}
                       onChange={(e) => setSignInPassword(e.target.value)}
                       className="keypad-input w-full"
-                      style={{ borderColor: signInPassword ? '#ff6b35' : 'rgba(255, 255, 255, 0.25)' }}
+                      style={{ borderColor: signInPassword ? '#FE5F01' : 'rgba(229, 228, 226, 0.25)' }}
                     />
                   </div>
                   {!isMobile && (
                     <div className="mt-4 text-center">
-                      <p className="text-xs" style={{ color: '#c5c7ce', opacity: 0.6 }}>
-                        Apasă <span style={{ color: '#ff6b35' }}>ENTER</span> pentru autentificare
+                      <p className="text-xs" style={{ color: '#E5E4E2', opacity: 0.6 }}>
+                        Apasă <span style={{ color: '#FE5F01' }}>ENTER</span> pentru autentificare
                       </p>
                     </div>
                   )}
@@ -223,8 +223,8 @@ export function Keypad({ onSubmit }: KeypadProps) {
                 style={{ transformPerspective: 1200 }}
               >
                 <div className="mb-6">
-                  <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#c5c7ce' }}>
-                    <span style={{ color: '#ff6b35' }}>Creează-ți</span> contul
+                  <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#E5E4E2' }}>
+                    <span style={{ color: '#FE5F01' }}>Creează-ți</span> contul
                   </h1>
                   <p className={`keypad-description ${isMobile ? 'text-center' : ''}`}>
                     Alătură-te comunității de creatori. Împărtășește-ți munca, inspiră-te și dezvoltă-ți călătoria creativă.
@@ -232,7 +232,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
                 </div>
                 <form ref={formRef} onSubmit={handleSignUpSubmit} className={`keypad-form ${isMobile ? 'w-full overflow-visible' : ''}`}>
                   <div className="relative">
-                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
+                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#FE5F01', opacity: 0.8 }}>
                       Nume Complet
                     </label>
                     <input
@@ -242,11 +242,11 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       value={signUpName}
                       onChange={(e) => setSignUpName(e.target.value)}
                       className="keypad-input w-full"
-                      style={{ borderColor: signUpName ? '#ff6b35' : 'rgba(255, 255, 255, 0.25)' }}
+                      style={{ borderColor: signUpName ? '#FE5F01' : 'rgba(229, 228, 226, 0.25)' }}
                     />
                   </div>
                   <div className="relative">
-                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
+                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#FE5F01', opacity: 0.8 }}>
                       Adresa Email
                     </label>
                     <input
@@ -256,11 +256,11 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       value={signUpEmail}
                       onChange={(e) => setSignUpEmail(e.target.value)}
                       className="keypad-input w-full"
-                      style={{ borderColor: signUpEmail ? '#ff6b35' : 'rgba(255, 255, 255, 0.25)' }}
+                      style={{ borderColor: signUpEmail ? '#FE5F01' : 'rgba(229, 228, 226, 0.25)' }}
                     />
                   </div>
                   <div className="relative">
-                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#ff6b35', opacity: 0.8 }}>
+                    <label className={`text-xs uppercase tracking-wider mb-2 block ${isMobile ? 'text-center' : ''}`} style={{ color: '#FE5F01', opacity: 0.8 }}>
                       Parolă
                     </label>
                     <input
@@ -270,13 +270,13 @@ export function Keypad({ onSubmit }: KeypadProps) {
                       value={signUpPassword}
                       onChange={(e) => setSignUpPassword(e.target.value)}
                       className="keypad-input w-full"
-                      style={{ borderColor: signUpPassword ? '#ff6b35' : 'rgba(255, 255, 255, 0.25)' }}
+                      style={{ borderColor: signUpPassword ? '#FE5F01' : 'rgba(229, 228, 226, 0.25)' }}
                     />
                   </div>
                   {!isMobile && (
                     <div className="mt-4 text-center">
-                      <p className="text-xs" style={{ color: '#c5c7ce', opacity: 0.6 }}>
-                        Apasă <span style={{ color: '#ff6b35' }}>ENTER</span> pentru a crea contul
+                      <p className="text-xs" style={{ color: '#E5E4E2', opacity: 0.6 }}>
+                        Apasă <span style={{ color: '#FE5F01' }}>ENTER</span> pentru a crea contul
                       </p>
                     </div>
                   )}

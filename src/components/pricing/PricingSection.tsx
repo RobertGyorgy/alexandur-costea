@@ -173,7 +173,7 @@ export function PricingSection() {
     <section
       id="pricing"
       ref={sectionRef}
-      className="relative w-full bg-gradient-to-b from-[#003049] via-[#002540] to-[#002035] text-white overflow-hidden py-20 md:py-32"
+      className="relative w-full bg-gradient-to-b from-[#102837] via-[#0d1f2a] to-[#0a1620] text-white overflow-hidden py-20 md:py-32"
       aria-labelledby="pricing-heading"
     >
       {/* Background Word "Cursuri" with Parallax */}
@@ -182,7 +182,7 @@ export function PricingSection() {
                aria-hidden="true"
                style={{ y: isMounted && !isMobile ? textY : 0 }}
              >
-               <span className="font-garnet text-[16vw] leading-none tracking-[-0.04em] text-[#FCBF49]/50" style={{ textShadow: '0 0 20px rgba(252, 191, 73, 0.4)' }}>
+               <span className="font-garnet text-[16vw] leading-none tracking-[-0.04em] text-[#FE5F01]/50" style={{ textShadow: '0 0 20px rgba(254, 95, 1, 0.4)' }}>
                  Cursuri
                </span>
              </motion.div>

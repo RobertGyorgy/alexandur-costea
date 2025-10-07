@@ -26,17 +26,17 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
     }
   }, [isTransitioning, onTransitionComplete]);
 
-  // Define the entrance color layers (slower timing)
+  // Define the entrance color layers (slower timing) - New Palette
   const entranceLayers = [
-    { color: '#FE7F2D', delay: 0, duration: 0.6 },      // Orange (accent)
-    { color: '#003049', delay: 0.25, duration: 0.6 },   // Dark blue
-    { color: '#D62828', delay: 0.5, duration: 0.6 },    // Red
-    { color: '#FCBF49', delay: 0.75, duration: 0.6 },   // Yellow
+    { color: '#FE5F01', delay: 0, duration: 0.6 },      // Orange (primary accent)
+    { color: '#102837', delay: 0.25, duration: 0.6 },   // Dark blue (main bg)
+    { color: '#ff7a2e', delay: 0.5, duration: 0.6 },    // Light orange (secondary)
+    { color: '#E5E4E2', delay: 0.75, duration: 0.6 },   // Platinum (text color)
   ];
 
   // Define the exit color layers (continue to the right with a small break)
   const exitLayers = [
-    { color: '#FCBF49', delay: 1.2, duration: 0.5 },    // Yellow continues
+    { color: '#E5E4E2', delay: 1.2, duration: 0.5 },    // Platinum continues
   ];
 
   return (
@@ -78,9 +78,9 @@ export function PageTransition({ isTransitioning, onTransitionComplete }: PageTr
             style={{ zIndex: 220 }}
           >
             <h1 
-              className="font-garnet text-[8vw] md:text-[6vw] font-bold tracking-tight text-[#EAE2B7]"
+              className="font-garnet text-[8vw] md:text-[6vw] font-bold tracking-tight text-[#102837]"
               style={{
-                textShadow: '0 0 40px rgba(234, 226, 183, 0.3)',
+                textShadow: '0 0 40px rgba(16, 40, 55, 0.3)',
               }}
             >
               ALEXANDRU COSTEA

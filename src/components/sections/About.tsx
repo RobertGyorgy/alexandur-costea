@@ -37,11 +37,22 @@ export function About() {
       spacing="xl"
       aria-labelledby="about-heading"
       ref={sectionRef}
-      className="bg-[#EAE2B7]"
+      className="bg-[#E5E4E2] relative overflow-hidden"
     >
-      <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
+      {/* Dark Blue Background Card with Rounded Bottom Corners */}
+      <div className="absolute inset-0 bg-[#102837] rounded-b-[2rem] md:rounded-b-[2.5rem] lg:rounded-b-[3rem]" />
+      
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-32 h-32 bg-[#FE5F01]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#E5E4E2]/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-[#FE5F01]/5 rounded-full blur-2xl" />
+      
+      <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center relative z-10">
         {/* Content Column */}
         <div className="space-y-8">
+          {/* Decorative accent line */}
+          <div className="w-20 h-1 bg-[#FE5F01] rounded-full mb-6" />
+          
           {/* Title with SplitText - Chars */}
           <div className="-mt-8 pt-2">
             {/* Split title by lines */}
@@ -51,7 +62,7 @@ export function About() {
                   key={`title-line-${idx}`}
                   text={line}
                   tag="h2"
-                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#003049] text-left block leading-[1.3]"
+                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-left block leading-[1.3]"
                   delay={20}
                   duration={0.3}
                   ease="power2.out"
@@ -69,7 +80,7 @@ export function About() {
             <SplitText
               text={content.description}
               tag="p"
-              className="text-lg md:text-xl text-[#003049]/80 leading-[1.8] text-left"
+              className="text-lg md:text-xl text-white/90 leading-[1.8] text-left"
               delay={15}
               duration={0.25}
               ease="power2.out"
@@ -89,7 +100,7 @@ export function About() {
                 key={index}
                 text={paragraph}
                 tag="p"
-                className="text-lg text-[#003049]/80 leading-[1.8] text-left"
+                className="text-lg text-white/80 leading-[1.8] text-left"
                 delay={10}
                 duration={0.2}
                 ease="power2.out"
