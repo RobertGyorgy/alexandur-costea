@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import './Keypad.css';
 
@@ -308,9 +309,12 @@ export function Keypad({ onSubmit }: KeypadProps) {
       {!isMobile && (
         <div className="keypad">
           <div className="keypad__base">
-            <img
+            <Image
               src="https://assets.codepen.io/605876/keypad-base.png?format=auto&quality=86"
-              alt=""
+              alt="Keypad base"
+              width={400}
+              height={300}
+              unoptimized
             />
           </div>
 
@@ -329,9 +333,12 @@ export function Keypad({ onSubmit }: KeypadProps) {
               <span className="key__text">
                 sign<br />in
               </span>
-              <img
+              <Image
                 src="https://assets.codepen.io/605876/keypad-single.png?format=auto&quality=86"
-                alt=""
+                alt="Keypad single button"
+                width={100}
+                height={100}
+                unoptimized
               />
             </span>
           </span>
@@ -352,9 +359,12 @@ export function Keypad({ onSubmit }: KeypadProps) {
               <span className="key__text">
                 sign<br />up
               </span>
-              <img
+              <Image
                 src="https://assets.codepen.io/605876/keypad-single.png?format=auto&quality=86"
-                alt=""
+                alt="Keypad single button"
+                width={100}
+                height={100}
+                unoptimized
               />
             </span>
           </span>
@@ -373,9 +383,12 @@ export function Keypad({ onSubmit }: KeypadProps) {
           <span className="key__mask">
             <span className="key__content">
               <span className="key__text">enter</span>
-              <img
+              <Image
                 src="https://assets.codepen.io/605876/keypad-double.png?format=auto&quality=86"
-                alt=""
+                alt="Keypad double button"
+                width={200}
+                height={100}
+                unoptimized
               />
             </span>
           </span>

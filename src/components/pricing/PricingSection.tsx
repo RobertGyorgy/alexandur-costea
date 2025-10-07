@@ -196,13 +196,13 @@ export function PricingSection() {
             const shouldApplyParallax = isMounted && !isMobile;
             
             // Mobile optimization
-            const mobileTransition = {
+            const _mobileTransition = {
               duration: 0.3,
               delay: index * 0.05,
               ease: "easeOut"
             };
             
-            const desktopTransition = {
+            const _desktopTransition = {
               duration: 0.6,
               delay: index * 0.1,
               ease: "easeOut"

@@ -34,11 +34,10 @@ export function NavBar({ className }: NavBarProps) {
     newsletter: 'NEWSLETTER'
   };
   
-  // Light background sections (need dark text)
-  const lightSections = ['about', 'testimonials', 'faq'];
-
   // Handle scroll detection and navbar sizing
   useEffect(() => {
+    // Light background sections (need dark text)
+    const lightSections = ['about', 'testimonials', 'faq'];
     let scrollTimeout: NodeJS.Timeout;
 
     const handleScroll = () => {

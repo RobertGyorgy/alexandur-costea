@@ -2,7 +2,6 @@
 
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
