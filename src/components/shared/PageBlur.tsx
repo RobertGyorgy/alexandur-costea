@@ -15,9 +15,9 @@ export function PageBlur() {
       
       if (isMobile) {
         if (isSafari) {
-          // Safari-specific: Use full window height to place blur behind search bar
-          const height = window.innerHeight;
-          document.documentElement.style.setProperty('--mobile-vh', `${height}px`);
+          // Safari-specific: Use 100vh to stay fixed at bottom of full viewport
+          // This ensures blur stays at bottom even when search bar collapses
+          document.documentElement.style.setProperty('--mobile-vh', '100vh');
         } else if (window.visualViewport) {
           // Chrome and other browsers with visualViewport support
           const vh = window.visualViewport.height;

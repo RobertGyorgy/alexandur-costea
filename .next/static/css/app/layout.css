@@ -2179,12 +2179,15 @@ select {
   /* Safari-specific fixes - place blur behind search bar */
   @supports (-webkit-touch-callout: none) {
     .mobile-blur-container {
-      height: var(--mobile-vh, 100vh);
+      height: 100vh;
+      /* Ensure blur stays fixed at bottom of full viewport in Safari */
+      position: fixed;
+      bottom: 0;
       /* Ensure blur appears behind Safari's search bar but still visible */
       z-index: 1;
-      /* Force Safari to use the calculated height */
-      min-height: var(--mobile-vh, 100vh);
-      max-height: var(--mobile-vh, 100vh);
+      /* Force Safari to use full viewport height */
+      min-height: 100vh;
+      max-height: 100vh;
     }
   }
 }
