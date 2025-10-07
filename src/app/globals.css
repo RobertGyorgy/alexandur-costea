@@ -330,16 +330,40 @@ select {
   line-clamp: 3;
 }
 
-/* Prevent Safari search bar from collapsing */
+/* Safari-specific toolbar and search bar fixes */
 @supports (-webkit-touch-callout: none) {
   html {
     /* Use small viewport height to prevent Safari UI from collapsing */
     height: 100svh;
+    /* Force Safari to maintain toolbar */
+    -webkit-text-size-adjust: 100%;
   }
   
   body {
     height: 100svh;
     overflow-x: hidden;
+    /* Prevent Safari from hiding toolbar */
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Force Safari toolbar to stay visible and non-transparent */
+  @media screen and (max-width: 767px) {
+    html {
+      /* Prevent Safari from collapsing toolbar */
+      height: 100vh !important;
+      min-height: 100vh !important;
+      max-height: 100vh !important;
+    }
+    
+    body {
+      /* Force Safari to maintain toolbar visibility */
+      height: 100vh !important;
+      min-height: 100vh !important;
+      max-height: 100vh !important;
+      /* Prevent toolbar transparency */
+      background-color: var(--bg, #0a0a0a);
+    }
   }
 }
 

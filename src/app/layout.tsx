@@ -15,10 +15,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#FE7F2D',
+  themeColor: '#000000',
   colorScheme: 'dark',
   viewportFit: 'cover',
-  // Prevent Safari search bar from collapsing
+  // Force Safari to maintain toolbar and prevent collapsing
   interactiveWidget: 'resizes-content',
 };
 
@@ -35,10 +35,15 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Prevent Safari search bar from collapsing */}
+        {/* Safari toolbar and search bar control */}
         <meta name="format-detection" content="telephone=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Alexandru Costea" />
+        {/* Force Safari to use system colors and non-transparent toolbar */}
+        <meta name="theme-color" content="#000000" />
+        <meta name="msapplication-navbutton-color" content="#000000" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         {/* Structured Data */}
         <script
           type="application/ld+json"
