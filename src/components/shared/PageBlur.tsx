@@ -15,11 +15,9 @@ export function PageBlur() {
       
       if (isMobile) {
         if (isSafari) {
-          // Safari-specific handling: use window.innerHeight and add safe area
+          // Safari-specific: Use full window height to place blur behind search bar
           const height = window.innerHeight;
-          // Account for Safari's dynamic viewport units
-          const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom') || '0');
-          document.documentElement.style.setProperty('--mobile-vh', `${height - safeAreaBottom}px`);
+          document.documentElement.style.setProperty('--mobile-vh', `${height}px`);
         } else if (window.visualViewport) {
           // Chrome and other browsers with visualViewport support
           const vh = window.visualViewport.height;
