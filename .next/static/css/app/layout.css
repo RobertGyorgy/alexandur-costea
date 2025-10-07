@@ -2186,15 +2186,15 @@ select {
   /* Force Safari toolbar to stay visible and non-transparent */
   @media screen and (max-width: 767px) {
     html {
-      /* Prevent Safari from collapsing toolbar - more aggressive */
-      height: 100vh !important;
-      min-height: 100vh !important;
+      /* Prevent Safari from collapsing toolbar - less aggressive */
+      height: 100vh;
+      min-height: 100vh;
     }
     
     body {
-      /* Force Safari to maintain toolbar visibility - more aggressive */
-      height: 100vh !important;
-      min-height: 100vh !important;
+      /* Force Safari to maintain toolbar visibility - less aggressive */
+      height: 100vh;
+      min-height: 100vh;
       /* Prevent toolbar transparency */
       background-color: var(--bg, #0a0a0a);
     }
