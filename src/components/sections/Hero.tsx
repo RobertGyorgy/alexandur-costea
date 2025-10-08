@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
-import { Button } from '@/components/ui/Button';
 import { GlowButton } from '@/components/ui/GlowButton';
 import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
