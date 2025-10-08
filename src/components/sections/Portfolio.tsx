@@ -204,21 +204,21 @@ export function Portfolio() {
       className="bg-[#E5E4E2] relative overflow-hidden"
     >
       {/* Background Text Pattern */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-25">
         <div className="absolute inset-0" style={{ transform: 'rotate(45deg) scale(1.5)' }}>
-          {[...Array(20)].map((_, rowIndex) => (
+          {[...Array(25)].map((_, rowIndex) => (
             <div
               key={rowIndex}
               className="flex whitespace-nowrap"
               style={{
                 marginTop: rowIndex === 0 ? '-10%' : '0',
-                marginBottom: '2rem'
+                marginBottom: '0.5rem'
               }}
             >
-              {[...Array(10)].map((_, colIndex) => (
+              {[...Array(12)].map((_, colIndex) => (
                 <span
                   key={colIndex}
-                  className="font-garnet text-[#FE5F01] text-[8rem] md:text-[12rem] font-bold mx-8"
+                  className="font-garnet text-[#FE5F01] text-[4rem] md:text-[6rem] font-bold mx-4"
                 >
                   MY WORK
                 </span>

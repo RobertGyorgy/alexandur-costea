@@ -670,6 +670,10 @@ video {
   margin-left: 2rem;
   margin-right: 2rem;
 }
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .-mt-8 {
   margin-top: -2rem;
 }
@@ -1635,6 +1639,9 @@ video {
 .text-\[8rem\] {
   font-size: 8rem;
 }
+.text-\[4rem\] {
+  font-size: 4rem;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -1787,6 +1794,9 @@ video {
 }
 .opacity-10 {
   opacity: 0.1;
+}
+.opacity-25 {
+  opacity: 0.25;
 }
 .shadow-\[0_0_20px_rgba\(16\2c 40\2c 55\2c 0\.3\)\] {
   --tw-shadow: 0 0 20px rgba(16,40,55,0.3);
@@ -2665,6 +2675,10 @@ select {
 
   .md\:text-\[12rem\] {
     font-size: 12rem;
+  }
+
+  .md\:text-\[6rem\] {
+    font-size: 6rem;
   }
 
   .md\:opacity-50 {
