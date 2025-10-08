@@ -201,10 +201,35 @@ export function Portfolio() {
       spacing="xl"
       aria-labelledby="portfolio-heading"
       ref={sectionRef}
-      className="bg-[#E5E4E2]"
+      className="bg-[#E5E4E2] relative overflow-hidden"
     >
+      {/* Background Text Pattern */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+        <div className="absolute inset-0" style={{ transform: 'rotate(45deg) scale(1.5)' }}>
+          {[...Array(20)].map((_, rowIndex) => (
+            <div
+              key={rowIndex}
+              className="flex whitespace-nowrap"
+              style={{
+                marginTop: rowIndex === 0 ? '-10%' : '0',
+                marginBottom: '2rem'
+              }}
+            >
+              {[...Array(10)].map((_, colIndex) => (
+                <span
+                  key={colIndex}
+                  className="font-garnet text-[#FE5F01] text-[8rem] md:text-[12rem] font-bold mx-8"
+                >
+                  MY WORK
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Desktop & Mobile Layout */}
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-16 gap-8">
+      <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-16 gap-8 relative z-10">
         {/* Left Side: Phone Container with Overlaid Buttons */}
         <motion.div 
           className="relative lg:w-1/2 flex justify-center" 
