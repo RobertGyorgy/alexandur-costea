@@ -34,7 +34,7 @@ export function GlowButton({
           ? '2px solid rgb(254, 95, 1)' 
           : '2px solid rgb(229, 228, 226)',
         color: isOrange 
-          ? 'rgb(16, 40, 55)' 
+          ? 'rgb(255, 255, 255)' 
           : 'rgb(16, 40, 55)',
         backgroundColor: isOrange 
           ? 'rgb(254, 95, 1)' 
