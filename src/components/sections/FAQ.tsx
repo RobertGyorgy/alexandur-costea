@@ -64,7 +64,9 @@ export function FAQ() {
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
               transform: 'rotate(180deg)',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+              wordWrap: 'break-word',
+              wordBreak: 'keep-all'
             }}
           >
             ÎNTREBĂRI
@@ -75,7 +77,9 @@ export function FAQ() {
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
               transform: 'rotate(180deg)',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+              wordWrap: 'break-word',
+              wordBreak: 'keep-all'
             }}
           >
             FRECVENTE
@@ -123,7 +127,7 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${item.id}`}
       >
-        <span className="text-white font-semibold text-fib-2 pr-4 group-hover:text-[#102837] transition-colors duration-200" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}>
+        <span className="text-white font-semibold text-fib-2 pr-4 group-hover:text-[#102837] transition-colors duration-200" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', wordWrap: 'break-word', wordBreak: 'keep-all' }}>
           {item.question}
         </span>
         <motion.div
@@ -153,7 +157,7 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
             className="overflow-hidden"
           >
             <div className="pb-6">
-              <p className="text-white/90 leading-relaxed font-medium" style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.15)' }}>
+              <p className="text-white/90 leading-relaxed font-medium" style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.15)', wordWrap: 'break-word', wordBreak: 'keep-all' }}>
                 {item.answer}
               </p>
             </div>
