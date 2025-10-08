@@ -14,7 +14,6 @@ export function PageBlur() {
       const newsletterSection = document.getElementById('newsletter');
       if (!newsletterSection) {
         setShowBlur(true);
-        updateMainPadding(true);
         return;
       }
 
@@ -33,23 +32,11 @@ export function PageBlur() {
       // Hide blur when more than 50% of newsletter section is visible
       if (visibilityRatio > 0.5) {
         setShowBlur(false);
-        updateMainPadding(false);
       } else {
         setShowBlur(true);
-        updateMainPadding(true);
       }
     };
 
-    const updateMainPadding = (addPadding: boolean) => {
-      const mainElement = document.querySelector('main');
-      if (mainElement && window.innerWidth < 768) {
-        if (addPadding) {
-          mainElement.style.paddingBottom = 'calc(var(--blur-height) + var(--ios-bottom-ui))';
-        } else {
-          mainElement.style.paddingBottom = '0';
-        }
-      }
-    };
 
     handleScroll(); // Initial check
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -74,32 +61,20 @@ export function PageBlur() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed left-0 right-0 bottom-0 z-50 overflow-hidden pointer-events-none translate-z-0"
+          className="fixed left-0 right-0 bottom-0 z-10 overflow-hidden pointer-events-none translate-z-0"
           style={{ 
             height: 'calc(var(--blur-height) + var(--ios-bottom-ui))',
             transform: 'translateZ(0)'
           }}
         >
           <div
-            className="absolute left-0 right-0 rounded-[20px]"
+            className="absolute left-0 right-0 rounded-[20px] bg-[rgba(20,20,20,0.28)] backdrop-blur-[20px]"
             style={{
               bottom: 'var(--ios-bottom-ui)',
-              height: 'var(--blur-height)'
+              height: 'var(--blur-height)',
+              WebkitBackdropFilter: 'blur(20px)'
             }}
-          >
-            <GradualBlur
-              target="parent"
-              position="bottom"
-              height="8rem"
-              strength={2}
-              divCount={6}
-              curve="bezier"
-              exponential={false}
-              opacity={1}
-              animated={false}
-              zIndex={50}
-            />
-          </div>
+          />
         </motion.div>
       )}
     </AnimatePresence>
