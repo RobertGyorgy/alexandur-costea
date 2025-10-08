@@ -123,7 +123,7 @@ function FAQItem({ item, isOpen, onToggle, isLast }: FAQItemProps) {
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${item.id}`}
       >
-        <span className="text-white font-semibold text-lg pr-4 group-hover:text-[#102837] transition-colors duration-200" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}>
+        <span className="text-white font-semibold text-fib-2 pr-4 group-hover:text-[#102837] transition-colors duration-200" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}>
           {item.question}
         </span>
         <motion.div

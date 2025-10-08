@@ -51,6 +51,15 @@ const config: Config = {
         ],
       },
       fontSize: {
+        // Fibonacci sequence: 8, 13, 21, 34, 55, 89, 144
+        // Using clamp for responsive typography while maintaining Fibonacci ratios
+        'fib-1': 'clamp(0.625rem, 0.5rem + 0.5vw, 0.8125rem)', // 10-13px (base 13)
+        'fib-2': 'clamp(1rem, 0.95rem + 0.25vw, 1.3125rem)', // 16-21px (base 21)
+        'fib-3': 'clamp(1.75rem, 1.5rem + 1vw, 2.125rem)', // 28-34px (base 34)
+        'fib-4': 'clamp(2.75rem, 2.25rem + 2vw, 3.4375rem)', // 44-55px (base 55)
+        'fib-5': 'clamp(4rem, 3rem + 4vw, 5.5625rem)', // 64-89px (base 89)
+        'fib-6': 'clamp(6rem, 4.5rem + 6vw, 9rem)', // 96-144px (base 144)
+        // Keep existing fluid sizes for compatibility
         'fluid-xs': 'clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem)',
         'fluid-sm': 'clamp(0.875rem, 0.825rem + 0.25vw, 1rem)',
         'fluid-base': 'clamp(1rem, 0.95rem + 0.25vw, 1.125rem)',

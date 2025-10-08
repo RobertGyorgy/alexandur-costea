@@ -137,7 +137,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
           <div className="flex flex-row items-center justify-center gap-2 sm:gap-8 lg:gap-16 absolute z-0 pointer-events-none w-full overflow-hidden px-4 mt-8 sm:mt-0">
             {/* "Stay" - moves left and disappears */}
             <motion.h1
-              className="font-garnet text-4xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
+              className="font-garnet text-fib-3 sm:text-fib-5 lg:text-fib-6 font-bold text-fg uppercase leading-tight select-none"
               style={{ 
                 x: stayX,
                 opacity: textOpacity,
@@ -150,7 +150,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
             
             {/* "Updated" - moves right and disappears */}
             <motion.h1
-              className="font-garnet text-4xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-fg uppercase leading-tight select-none"
+              className="font-garnet text-fib-3 sm:text-fib-5 lg:text-fib-6 font-bold text-fg uppercase leading-tight select-none"
               style={{ 
                 x: updatedX,
                 opacity: textOpacity,
@@ -182,7 +182,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                   opacity: 1
                 }}
               >
-                <span className="font-arimo text-2xl sm:text-2xl lg:text-3xl xl:text-4xl font-light text-fg tracking-wider">
+                <span className="font-arimo text-fib-2 sm:text-fib-3 lg:text-fib-3 font-light text-fg tracking-wider">
                   introdu
                 </span>
               </motion.div>
@@ -198,7 +198,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
                   placeholder="emailul"
-                  className={`w-full bg-transparent border-b-2 text-fg text-lg sm:text-lg lg:text-xl xl:text-2xl text-center py-3 sm:py-3 px-6 sm:px-6 focus:outline-none transition-all duration-500 ease-out placeholder:text-muted ${
+                  className={`w-full bg-transparent border-b-2 text-fg text-fib-2 sm:text-fib-2 lg:text-fib-2 text-center py-3 sm:py-3 px-6 sm:px-6 focus:outline-none transition-all duration-500 ease-out placeholder:text-muted ${
                     isFocused 
                       ? 'border-accent placeholder:text-muted/60' 
                       : 'border-line'
@@ -226,7 +226,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                     transition: { duration: 0.1 }
                   }}
                 >
-                <span className="font-arimo text-2xl sm:text-2xl lg:text-3xl xl:text-4xl font-light tracking-wider transition-colors duration-300 whitespace-nowrap">
+                <span className="font-arimo text-fib-2 sm:text-fib-3 lg:text-fib-3 font-light tracking-wider transition-colors duration-300 whitespace-nowrap">
                   {isSubmitting ? 'sending...' : 'trimite'}
                 </span>
               </motion.button>
@@ -245,7 +245,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
             <div className="flex flex-col items-center justify-center gap-5">
               {/* Copyright and Links - Centered */}
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-                <p className="text-sm text-muted">
+                <p className="text-fib-1 text-muted">
                   © 2025 Alex Costea. All rights reserved.
                 </p>
               </div>

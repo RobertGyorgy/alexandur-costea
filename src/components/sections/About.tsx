@@ -62,7 +62,7 @@ export function About() {
                   key={`title-line-${idx}`}
                   text={line}
                   tag="h2"
-                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-left block leading-[1.3]"
+                  className="text-fib-3 md:text-fib-4 lg:text-fib-5 font-bold text-white text-left block leading-[1.3]"
                   delay={20}
                   duration={0.3}
                   ease="power2.out"
@@ -80,7 +80,7 @@ export function About() {
             <SplitText
               text={content.description}
               tag="p"
-              className="text-lg md:text-xl text-white/90 leading-[1.8] text-left"
+              className="text-fib-2 text-white/90 leading-[1.8] text-left"
               delay={15}
               duration={0.25}
               ease="power2.out"
@@ -100,7 +100,7 @@ export function About() {
                 key={index}
                 text={paragraph}
                 tag="p"
-                className="text-lg text-white/80 leading-[1.8] text-left"
+                className="text-fib-2 text-white/80 leading-[1.8] text-left"
                 delay={10}
                 duration={0.2}
                 ease="power2.out"

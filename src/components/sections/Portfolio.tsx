@@ -218,7 +218,7 @@ export function Portfolio() {
               {[...Array(12)].map((_, colIndex) => (
                 <span
                   key={colIndex}
-                  className="font-garnet text-[#FE5F01] text-[4rem] md:text-[6rem] font-bold mx-4"
+                  className="font-garnet text-[#FE5F01] text-fib-4 md:text-fib-5 font-bold mx-4"
                 >
                   MY WORK
                 </span>
@@ -291,10 +291,10 @@ export function Portfolio() {
                       <div className="flex items-start justify-between gap-3">
                         {/* Text Content */}
                         <div className="flex-1">
-                          <h3 className="!text-white font-bold text-lg mb-1">
+                          <h3 className="!text-white font-bold text-fib-2 mb-1">
                             {currentVideo.title}
                           </h3>
-                          <p className="!text-white/80 text-sm">
+                          <p className="!text-white/80 text-fib-1">
                             {currentVideo.description}
                           </p>
                         </div>
@@ -341,7 +341,7 @@ export function Portfolio() {
 
                   {/* Video Counter */}
                   <div className="absolute top-8 right-4 px-3 py-1 bg-bg/60 backdrop-blur-sm rounded-full">
-                    <span className="!text-white text-sm font-medium">
+                    <span className="!text-white text-fib-1 font-medium">
                       {currentIndex + 1} / {VERTICAL_VIDEOS.length}
                     </span>
                   </div>
@@ -433,14 +433,14 @@ export function Portfolio() {
                 {/* Header with title and counter */}
                 <div className="flex items-start justify-between gap-4 pb-3 border-b border-[#E5E4E2]/20">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-[#E5E4E2] mb-1">
+                    <h3 className="text-fib-3 font-bold text-[#E5E4E2] mb-1">
                       {currentVideo.title}
                     </h3>
-                    <p className="text-[#FE5F01] text-xs font-medium uppercase tracking-wider">
+                    <p className="text-[#FE5F01] text-fib-1 font-medium uppercase tracking-wider">
                       {currentVideo.description}
                     </p>
                   </div>
-                  <span className="text-[#E5E4E2]/70 text-xs font-medium px-2 py-1 bg-[#E5E4E2]/10 rounded-full">
+                  <span className="text-[#E5E4E2]/70 text-fib-1 font-medium px-2 py-1 bg-[#E5E4E2]/10 rounded-full">
                     {currentIndex + 1} / {VERTICAL_VIDEOS.length}
                   </span>
                 </div>
@@ -448,34 +448,34 @@ export function Portfolio() {
                 {/* Client and Role */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Client</p>
-                    <p className="text-[#E5E4E2] font-medium text-sm">{currentVideo.client}</p>
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Client</p>
+                    <p className="text-[#E5E4E2] font-medium text-fib-1">{currentVideo.client}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Role</p>
-                    <p className="text-[#E5E4E2] font-medium text-sm">{currentVideo.role}</p>
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Role</p>
+                    <p className="text-[#E5E4E2] font-medium text-fib-1">{currentVideo.role}</p>
                   </div>
                 </div>
 
                 {/* Project Details */}
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Project Overview</p>
-                    <p className="text-[#E5E4E2]/80 leading-relaxed text-sm">
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Project Overview</p>
+                    <p className="text-[#E5E4E2]/80 leading-relaxed text-fib-1">
                       {currentVideo.details}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Key Achievements</p>
-                    <p className="text-[#E5E4E2]/80 leading-relaxed text-sm">
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Key Achievements</p>
+                    <p className="text-[#E5E4E2]/80 leading-relaxed text-fib-1">
                       {currentVideo.achievements}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Techniques & Approach</p>
-                    <p className="text-[#E5E4E2]/80 leading-relaxed text-sm">
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Techniques & Approach</p>
+                    <p className="text-[#E5E4E2]/80 leading-relaxed text-fib-1">
                       {currentVideo.techniques}
                     </p>
                   </div>

@@ -23,7 +23,7 @@ export function GlowButton({
     <motion.button
       onClick={onClick}
       className={cn(
-        "relative px-8 md:px-12 py-3 md:py-4 text-sm md:text-base font-bold rounded-2xl outline-none transition-all duration-300 overflow-hidden",
+        "relative px-8 md:px-12 py-3 md:py-4 text-fib-1 font-bold rounded-2xl outline-none transition-all duration-300 overflow-hidden",
         "min-w-[140px] md:min-w-[180px]",
         "backdrop-blur-xl",
         isOrange ? "glow-button-orange" : "glow-button-white",

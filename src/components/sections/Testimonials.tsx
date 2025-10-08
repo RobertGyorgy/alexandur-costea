@@ -166,20 +166,20 @@ export function Testimonials() {
                 >
                   <div className="absolute inset-0 flex flex-col justify-center items-center p-6">
                     {!isActive && (
-                      <h3 className={`${getTextColor(index)} font-bold text-2xl [writing-mode:vertical-rl] rotate-180 tracking-wider`}>
+                      <h3 className={`${getTextColor(index)} font-bold text-fib-3 [writing-mode:vertical-rl] rotate-180 tracking-wider`}>
                         {testimonial.name.split(' ')[0].toUpperCase()}
                       </h3>
                     )}
 
                     {isActive && (
                       <div className="flex flex-col justify-center h-full px-6">
-                        <h3 className={`${getTextColor(index)} font-bold text-3xl mb-4`}>
+                        <h3 className={`${getTextColor(index)} font-bold text-fib-3 mb-4`}>
                           {testimonial.name.toUpperCase()}
                         </h3>
-                        <p className={`${getTextColor(index)} opacity-90 text-base leading-relaxed mb-4 max-w-sm`}>
+                        <p className={`${getTextColor(index)} opacity-90 text-fib-2 leading-relaxed mb-4 max-w-sm`}>
                           {testimonial.quote}
                         </p>
-                        <p className={`${getTextColor(index)} opacity-70 text-sm mb-4`}>
+                        <p className={`${getTextColor(index)} opacity-70 text-fib-1 mb-4`}>
                           {testimonial.role}
                           {testimonial.company && ` • ${testimonial.company}`}
                         </p>
@@ -350,7 +350,7 @@ export function Testimonials() {
                       }}
                     >
                       <motion.h3 
-                        className={`${getTextColor(index)} font-bold text-3xl mb-6 text-center`}
+                        className={`${getTextColor(index)} font-bold text-fib-3 mb-6 text-center`}
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ 
                           scale: isActive ? 1 : 0.9,
@@ -365,7 +365,7 @@ export function Testimonials() {
                         {testimonial.name.toUpperCase()}
                       </motion.h3>
                       <motion.p 
-                        className={`${getTextColor(index)} opacity-90 text-lg leading-relaxed mb-6 text-center`}
+                        className={`${getTextColor(index)} opacity-90 text-fib-2 leading-relaxed mb-6 text-center`}
                         initial={{ y: 10, opacity: 0 }}
                         animate={{ 
                           y: isActive ? 0 : 10,
@@ -380,7 +380,7 @@ export function Testimonials() {
                         {testimonial.quote}
                       </motion.p>
                       <motion.p 
-                        className={`${getTextColor(index)} opacity-70 text-base text-center`}
+                        className={`${getTextColor(index)} opacity-70 text-fib-2 text-center`}
                         initial={{ y: 10, opacity: 0 }}
                         animate={{ 
                           y: isActive ? 0 : 10,

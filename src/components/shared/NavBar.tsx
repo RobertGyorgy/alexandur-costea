@@ -155,7 +155,7 @@ export function NavBar({ className }: NavBarProps) {
               }}
               className={cn(
                 "font-bold tracking-widest uppercase transition-all duration-300 focus-visible:outline-none w-full text-center",
-                isScrolling ? "text-base" : "text-lg",
+                isScrolling ? "text-fib-2" : "text-fib-2",
                 isDarkText ? "text-[#003049] hover:text-[#D62828]" : "text-accent hover:text-fg"
               )}
               aria-label="Go to home"
@@ -215,7 +215,7 @@ export function NavBar({ className }: NavBarProps) {
             }}
             className={cn(
               "font-bold tracking-widest uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg w-full text-center",
-              isScrolling ? "text-lg" : "text-xl",
+              isScrolling ? "text-fib-2" : "text-fib-2",
               isDarkText ? "text-[#003049] hover:text-[#D62828]" : "text-accent hover:text-fg"
             )}
             aria-label="Go to home"

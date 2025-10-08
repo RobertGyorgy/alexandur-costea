@@ -73,10 +73,10 @@ export function NeoPricingCard({
           <div className="h-full flex flex-col relative z-10">
             {/* Header */}
             <div className="px-8 pt-8 pb-6">
-              <p className="text-3xl text-[#E5E4E2] font-garnet mb-3">{subtitle || title}</p>
+              <p className="text-fib-3 text-[#E5E4E2] font-garnet mb-3">{subtitle || title}</p>
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-bold tracking-tight text-[#FE5F01]">{price}</span>
-                {period && <span className="text-[#E5E4E2]/60 font-medium text-sm">/{period}</span>}
+                <span className="text-fib-3 font-bold tracking-tight text-[#FE5F01]">{price}</span>
+                {period && <span className="text-[#E5E4E2]/60 font-medium text-fib-1">/{period}</span>}
               </div>
             </div>
 
@@ -85,7 +85,7 @@ export function NeoPricingCard({
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-3">
                   <CheckIcon />
-                  <span className="text-[#E5E4E2]/90 text-sm">{feature}</span>
+                  <span className="text-[#E5E4E2]/90 text-fib-1">{feature}</span>
                 </div>
               ))}
             </div>
@@ -96,7 +96,7 @@ export function NeoPricingCard({
               {/* Button */}
               <button
                 onClick={onCTAClick}
-                className="w-full rounded-full h-12 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#FE5F01] text-white hover:bg-[#ff7a2e] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
+                className="w-full rounded-full h-12 text-fib-1 font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#FE5F01] text-white hover:bg-[#ff7a2e] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
               >
                 {showInstagramIcon && (
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ export function NeoPricingCard({
               {description && (
                 <button
                   onClick={() => setIsFlipped(true)}
-                  className="w-full mt-4 py-2.5 px-4 text-sm font-semibold text-white bg-transparent border-2 border-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
+                  className="w-full mt-4 py-2.5 px-4 text-fib-1 font-semibold text-white bg-transparent border-2 border-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
                 >
                   <span>Vezi detalii</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@ export function NeoPricingCard({
             <div className="relative z-10 p-6 h-full flex flex-col gap-4">
               {/* Header */}
               <div className="flex items-center justify-between">
-                <h4 className="text-[#E5E4E2] font-bold text-xl">{title}</h4>
+                <h4 className="text-[#E5E4E2] font-bold text-fib-2">{title}</h4>
                 <button
                   onClick={() => setIsFlipped(false)}
                   className="w-10 h-10 rounded-full bg-[#F77F00]/10 hover:bg-[#F77F00]/20 border border-[#F77F00]/30 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 active:scale-95"
@@ -150,21 +150,21 @@ export function NeoPricingCard({
 
               {/* Description - Scrollable */}
               <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-[#F77F00]/30 scrollbar-track-transparent pr-2">
-                <p className="text-[#E5E4E2]/80 text-sm leading-relaxed">
+                <p className="text-[#E5E4E2]/80 text-fib-1 leading-relaxed">
                   {description}
                 </p>
                 
                 {/* Extra Info if available */}
                 {extras && extras.length > 0 && (
                   <div className="mt-6">
-                    <h5 className="text-[#FE5F01] font-semibold text-sm uppercase tracking-wider mb-3">Ce includem:</h5>
+                    <h5 className="text-[#FE5F01] font-semibold text-fib-1 uppercase tracking-wider mb-3">Ce includem:</h5>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 gap-y-2.5">
                       {extras.map((extra, idx) => (
                         <div key={idx} className="flex items-start gap-2">
                           <svg className="w-4 h-4 text-[#F77F00] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-[#E5E4E2]/80 text-xs leading-tight">{extra}</span>
+                          <span className="text-[#E5E4E2]/80 text-fib-1 leading-tight">{extra}</span>
                         </div>
                       ))}
                     </div>
@@ -175,12 +175,12 @@ export function NeoPricingCard({
               {/* Bottom Info */}
               <div className="pt-3 border-t border-[#F77F00]/20 flex justify-between items-center">
                 <div>
-                  <div className="text-[#FE5F01] font-bold text-lg">{price}</div>
-                  {period && <div className="text-[#E5E4E2]/60 text-xs">{period}</div>}
+                  <div className="text-[#FE5F01] font-bold text-fib-2">{price}</div>
+                  {period && <div className="text-[#E5E4E2]/60 text-fib-1">{period}</div>}
                 </div>
                 <button
                   onClick={() => setIsFlipped(false)}
-                  className="px-4 py-2 bg-transparent border-2 border-white hover:bg-white/10 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="px-4 py-2 bg-transparent border-2 border-white hover:bg-white/10 rounded-full text-white text-fib-1 font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
                 >
                   Înapoi
                 </button>
