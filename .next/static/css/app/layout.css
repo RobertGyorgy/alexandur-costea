@@ -1798,6 +1798,9 @@ video {
 .opacity-25 {
   opacity: 0.25;
 }
+.opacity-80 {
+  opacity: 0.8;
+}
 .shadow-\[0_0_20px_rgba\(16\2c 40\2c 55\2c 0\.3\)\] {
   --tw-shadow: 0 0 20px rgba(16,40,55,0.3);
   --tw-shadow-colored: 0 0 20px var(--tw-shadow-color);
