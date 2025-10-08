@@ -65,7 +65,7 @@ export function NeoPricingCard({
           style={{ 
             backfaceVisibility: 'hidden',
             boxShadow: isHovered 
-              ? '0 30px 60px -12px rgba(254, 95, 1, 0.35), 0 0 0 1px rgba(254, 95, 1, 0.2)' 
+              ? '0 30px 60px -12px rgba(254, 95, 1, 0.35)' 
               : '0 10px 30px -5px rgba(16, 40, 55, 0.3)'
           }}
         >
@@ -79,9 +79,6 @@ export function NeoPricingCard({
                 {period && <span className="text-[#E5E4E2]/60 font-medium text-sm">/{period}</span>}
               </div>
             </div>
-
-            {/* Divider */}
-            <div className="h-px bg-[#F77F00]/20" />
 
             {/* Features List */}
             <div className="px-8 py-6 space-y-4 flex-1">
