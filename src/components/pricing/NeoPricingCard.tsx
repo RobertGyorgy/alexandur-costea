@@ -69,20 +69,6 @@ export function NeoPricingCard({
               : '0 10px 30px -5px rgba(16, 40, 55, 0.3)'
           }}
         >
-          {/* Magnetic glow that follows mouse */}
-          {isHovered && (
-            <div
-              className="absolute w-96 h-96 rounded-full pointer-events-none transition-all duration-300 ease-out"
-              style={{
-                background: 'radial-gradient(circle, rgba(254, 95, 1, 0.15) 0%, transparent 70%)',
-                left: `${mousePosition.x * 100}%`,
-                top: `${mousePosition.y * 100}%`,
-                transform: 'translate(-50%, -50%)',
-                filter: 'blur(40px)'
-              }}
-            />
-          )}
-
           {/* Content Wrapper - Flex Column */}
           <div className="h-full flex flex-col relative z-10">
             {/* Header */}
@@ -122,11 +108,6 @@ export function NeoPricingCard({
                 )}
                 {ctaLabel}
               </button>
-              
-              {/* Bottom Glow */}
-              <div 
-                className="absolute left-1/2 -translate-x-1/2 -bottom-2 h-8 w-3/4 rounded-full blur-2xl opacity-60 pointer-events-none bg-orange-500"
-              />
               
               {/* Vezi Detalii Button (if description exists) */}
               {description && (
