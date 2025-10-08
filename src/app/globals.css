@@ -24,16 +24,12 @@
 
 /* Glow Button Hover Effects */
 .glow-button-orange:hover {
-  background-color: rgba(254, 95, 1, 0.8) !important;
-  color: rgb(16, 40, 55) !important;
   box-shadow: 0 0 1em 0.25em rgb(254, 95, 1),
               0 0 4em 2em rgba(254, 95, 1, 0.781),
               inset 0 0 0.75em 0.25em rgb(254, 95, 1) !important;
 }
 
 .glow-button-white:hover {
-  background-color: rgba(229, 228, 226, 0.8) !important;
-  color: rgb(16, 40, 55) !important;
   box-shadow: 0 0 1em 0.25em rgb(229, 228, 226),
               0 0 4em 2em rgba(229, 228, 226, 0.781),
               inset 0 0 0.75em 0.25em rgb(229, 228, 226) !important;
