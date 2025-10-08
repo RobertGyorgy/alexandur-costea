@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import GradualBlur from '@/components/ui/GradualBlur';
 
 export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
