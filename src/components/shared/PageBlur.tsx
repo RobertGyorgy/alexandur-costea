@@ -53,33 +53,25 @@ export function PageBlur() {
 
   return (
     <div 
-      className="fixed left-0 right-0 bottom-0 z-50 pointer-events-none"
+      className="hidden md:block fixed left-0 right-0 bottom-0 z-50 pointer-events-none"
       style={{ 
-        height: 'calc(var(--blur-height) + var(--ios-bottom-ui))',
+        height: 'var(--blur-height)',
         transform: 'translateZ(0)',
         willChange: 'transform'
       }}
     >
-      <div 
-        className="absolute inset-x-0"
-        style={{
-          bottom: 'var(--ios-bottom-ui)',
-          height: 'var(--blur-height)'
-        }}
-      >
-        <GradualBlur
-          target="parent"
-          position="bottom"
-          height="8rem"
-          strength={2}
-          divCount={6}
-          curve="bezier"
-          exponential={false}
-          opacity={1}
-          animated={false}
-          zIndex={50}
-        />
-      </div>
+      <GradualBlur
+        target="parent"
+        position="bottom"
+        height="8rem"
+        strength={2}
+        divCount={6}
+        curve="bezier"
+        exponential={false}
+        opacity={1}
+        animated={false}
+        zIndex={50}
+      />
     </div>
   );
 }
