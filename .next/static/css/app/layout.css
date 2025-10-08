@@ -658,6 +658,10 @@ video {
 .z-\[9999\] {
   z-index: 9999;
 }
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -665,14 +669,6 @@ video {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-.mx-8 {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 .-mt-8 {
   margin-top: -2rem;
@@ -1264,9 +1260,6 @@ video {
 .bg-\[\#102837\]\/30 {
   background-color: rgb(16 40 55 / 0.3);
 }
-.bg-\[\#102837\]\/70 {
-  background-color: rgb(16 40 55 / 0.7);
-}
 .bg-\[\#102837\]\/90 {
   background-color: rgb(16 40 55 / 0.9);
 }
@@ -1349,14 +1342,14 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
+.bg-white\/10 {
+  background-color: rgb(255 255 255 / 0.1);
+}
 .bg-white\/30 {
   background-color: rgb(255 255 255 / 0.3);
 }
 .bg-yellow-500\/10 {
   background-color: rgb(234 179 8 / 0.1);
-}
-.bg-white\/10 {
-  background-color: rgb(255 255 255 / 0.1);
 }
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
@@ -1596,6 +1589,9 @@ video {
 .text-\[16vw\] {
   font-size: 16vw;
 }
+.text-\[4rem\] {
+  font-size: 4rem;
+}
 .text-\[8vw\] {
   font-size: 8vw;
 }
@@ -1645,12 +1641,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-.text-\[8rem\] {
-  font-size: 8rem;
-}
-.text-\[4rem\] {
-  font-size: 4rem;
 }
 .font-bold {
   font-weight: 700;
@@ -1799,17 +1789,11 @@ video {
 .opacity-70 {
   opacity: 0.7;
 }
-.opacity-90 {
-  opacity: 0.9;
-}
-.opacity-10 {
-  opacity: 0.1;
-}
-.opacity-25 {
-  opacity: 0.25;
-}
 .opacity-80 {
   opacity: 0.8;
+}
+.opacity-90 {
+  opacity: 0.9;
 }
 .shadow-\[0_0_20px_rgba\(16\2c 40\2c 55\2c 0\.3\)\] {
   --tw-shadow: 0 0 20px rgba(16,40,55,0.3);
@@ -1864,11 +1848,6 @@ video {
 .shadow-soft-xl {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-.shadow-\[0_0_20px_rgba\(254\2c 95\2c 1\2c 0\.4\)\] {
-  --tw-shadow: 0 0 20px rgba(254,95,1,0.4);
-  --tw-shadow-colored: 0 0 20px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .outline-none {
@@ -2680,6 +2659,10 @@ select {
     line-height: 1;
   }
 
+  .md\:text-\[6rem\] {
+    font-size: 6rem;
+  }
+
   .md\:text-\[6vw\] {
     font-size: 6vw;
   }
@@ -2692,14 +2675,6 @@ select {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
-  }
-
-  .md\:text-\[12rem\] {
-    font-size: 12rem;
-  }
-
-  .md\:text-\[6rem\] {
-    font-size: 6rem;
   }
 
   .md\:opacity-50 {

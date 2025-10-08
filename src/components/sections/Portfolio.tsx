@@ -304,7 +304,7 @@ export function Portfolio() {
                           {/* Play/Pause Button */}
                           <button
                             onClick={togglePlayPause}
-                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-transparent border-2 border-white flex items-center justify-center hover:bg-white/10 transition-all duration-300 shadow-soft"
+                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft"
                             aria-label={isPlaying ? 'Pause video' : 'Play video'}
                           >
                             {isPlaying ? (
@@ -321,7 +321,7 @@ export function Portfolio() {
                           {/* Mute/Unmute Button */}
                           <button
                             onClick={toggleMute}
-                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-transparent border-2 border-white flex items-center justify-center hover:bg-white/10 transition-all duration-300 shadow-soft"
+                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft"
                             aria-label={isMuted ? 'Unmute video' : 'Mute video'}
                           >
                             {isMuted ? (
@@ -355,11 +355,11 @@ export function Portfolio() {
             {/* Up Button */}
             <button
               onClick={handlePrevious}
-              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#FE5F01] border-2 border-white flex items-center justify-center hover:bg-[#ff7a2e] transition-all duration-300 shadow-[0_0_20px_rgba(254,95,1,0.4)]"
+              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#102837]/90 border border-[#E5E4E2]/20 flex items-center justify-center hover:bg-[#102837] transition-all duration-300 hover:border-[#FE5F01] shadow-[0_0_20px_rgba(16,40,55,0.3)]"
               aria-label="Previous video"
             >
               <svg
-                className="w-6 h-6 text-white"
+                className="w-6 h-6 text-[#E5E4E2]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -376,11 +376,11 @@ export function Portfolio() {
             {/* Down Button */}
             <button
               onClick={handleNext}
-              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#FE5F01] border-2 border-white flex items-center justify-center hover:bg-[#ff7a2e] transition-all duration-300 shadow-[0_0_20px_rgba(254,95,1,0.4)]"
+              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#102837]/90 border border-[#E5E4E2]/20 flex items-center justify-center hover:bg-[#102837] transition-all duration-300 hover:border-[#FE5F01] shadow-[0_0_20px_rgba(16,40,55,0.3)]"
               aria-label="Next video"
             >
               <svg
-                className="w-6 h-6 text-white"
+                className="w-6 h-6 text-[#E5E4E2]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

@@ -113,7 +113,7 @@ export function NeoPricingCard({
               {/* Button */}
               <button
                 onClick={onCTAClick}
-                className="w-full rounded-full h-12 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#F77F00] text-white hover:bg-[#ff8c1a] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
+                className="w-full rounded-full h-12 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#FE5F01] text-white hover:bg-[#ff7a2e] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
               >
                 {showInstagramIcon && (
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export function NeoPricingCard({
               {description && (
                 <button
                   onClick={() => setIsFlipped(true)}
-                  className="w-full mt-4 py-2.5 px-4 text-sm font-semibold text-white bg-[#FE5F01] hover:bg-[#ff7a2e] rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                  className="w-full mt-4 py-2.5 px-4 text-sm font-semibold text-white bg-transparent border-2 border-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
                 >
                   <span>Vezi detalii</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,7 +202,7 @@ export function NeoPricingCard({
                 </div>
                 <button
                   onClick={() => setIsFlipped(false)}
-                  className="px-4 py-2 bg-[#FE5F01]/20 hover:bg-[#FE5F01]/30 rounded-full text-[#E5E4E2] text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
+                  className="px-4 py-2 bg-transparent border-2 border-white hover:bg-white/10 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
                 >
                   Înapoi
                 </button>
