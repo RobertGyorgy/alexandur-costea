@@ -11,7 +11,9 @@ export default function IosBottomUIFix() {
       const ui = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop))
       // Cap at something sane; prevents weird spikes during rotations
       const clamped = Math.min(ui, 200)
-      document.documentElement.style.setProperty('--ios-bottom-ui', `${clamped}px`)
+      // Add offset to push blur further down in Safari
+      const offset = 20 // Push blur 20px further down
+      document.documentElement.style.setProperty('--ios-bottom-ui', `${clamped + offset}px`)
     }
     
     setBottomUI()
