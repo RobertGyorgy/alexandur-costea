@@ -8,6 +8,24 @@ export function PageBlur() {
   const [showBlur, setShowBlur] = useState(true);
   const pathname = usePathname();
 
+  // Debug: Log CSS variables
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      const checkVars = () => {
+        const blurHeight = getComputedStyle(document.documentElement).getPropertyValue('--blur-height');
+        const iosBottomUI = getComputedStyle(document.documentElement).getPropertyValue('--ios-bottom-ui');
+        console.log('CSS Variables:', {
+          '--blur-height': blurHeight,
+          '--ios-bottom-ui': iosBottomUI
+        });
+      };
+      
+      checkVars();
+      const interval = setInterval(checkVars, 2000); // Check every 2 seconds
+      return () => clearInterval(interval);
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const newsletterSection = document.getElementById('newsletter');
@@ -60,10 +78,12 @@ export function PageBlur() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="fixed left-0 right-0 bottom-0 z-10 overflow-hidden pointer-events-none translate-z-0"
+          className="fixed left-0 right-0 bottom-0 z-10 overflow-hidden pointer-events-none"
           style={{ 
             height: 'calc(var(--blur-height) + var(--ios-bottom-ui))',
-            transform: 'translateZ(0)'
+            transform: 'translateZ(0)',
+            // Debug: Add a visible border to see the container
+            border: '1px solid red'
           }}
         >
           <div
@@ -71,7 +91,9 @@ export function PageBlur() {
             style={{
               bottom: 'var(--ios-bottom-ui)',
               height: 'var(--blur-height)',
-              WebkitBackdropFilter: 'blur(20px)'
+              WebkitBackdropFilter: 'blur(20px)',
+              // Debug: Add a visible border to see the blur element
+              border: '1px solid blue'
             }}
           />
         </motion.div>
