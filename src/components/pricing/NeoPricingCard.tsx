@@ -61,7 +61,7 @@ export function NeoPricingCard({
       >
         {/* FRONT SIDE */}
         <div 
-          className="absolute inset-0 w-full h-full rounded-3xl bg-[#102837]/70 backdrop-blur-md overflow-hidden transition-all duration-500 ease-out"
+          className="absolute inset-0 w-full h-full rounded-3xl bg-white/10 backdrop-blur-md overflow-hidden transition-all duration-500 ease-out"
           style={{ 
             backfaceVisibility: 'hidden',
             boxShadow: isHovered 
@@ -148,7 +148,7 @@ export function NeoPricingCard({
         {/* BACK SIDE */}
         {description && (
           <div 
-            className="absolute inset-0 w-full h-full rounded-3xl bg-[#102837]/70 backdrop-blur-md overflow-hidden transition-all duration-500"
+            className="absolute inset-0 w-full h-full rounded-3xl bg-white/10 backdrop-blur-md overflow-hidden transition-all duration-500"
             style={{ 
               backfaceVisibility: 'hidden',
               transform: 'rotateY(180deg)',
