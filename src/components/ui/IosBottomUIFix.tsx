@@ -11,18 +11,6 @@ export default function IosBottomUIFix() {
       const ui = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop))
       // Cap at something sane; prevents weird spikes during rotations
       const clamped = Math.min(ui, 200)
-      
-      // Debug logging for Safari
-      if (window.innerWidth < 768) {
-        console.log('Safari toolbar detection:', {
-          windowHeight: window.innerHeight,
-          viewportHeight: vv.height,
-          offsetTop: vv.offsetTop,
-          calculatedUI: ui,
-          clampedUI: clamped
-        })
-      }
-      
       document.documentElement.style.setProperty('--ios-bottom-ui', `${clamped}px`)
     }
     

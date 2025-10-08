@@ -109,7 +109,7 @@ export default function RootLayout({
           <PageBlur />
           
           {/* Main content */}
-          <main className="relative overflow-x-hidden pb-[calc(var(--blur-height)+var(--ios-bottom-ui))]">
+          <main className="relative overflow-x-hidden">
             {children}
           </main>
           </PageTransitionProvider>

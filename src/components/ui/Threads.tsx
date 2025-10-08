@@ -190,7 +190,7 @@ const Threads: React.FC<ThreadsProps> = ({
     window.addEventListener('resize', resize);
     resize();
 
-    const currentMouse = [0.5, 0.5];
+    let currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
 
     function handleMouseMove(e: MouseEvent) {
@@ -236,7 +236,7 @@ const Threads: React.FC<ThreadsProps> = ({
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [enableMouseInteraction]); // Include enableMouseInteraction in dependencies
+  }, []); // Empty dependency array - only run once on mount
 
   return <div ref={containerRef} className="threads-container" {...rest} />;
 };

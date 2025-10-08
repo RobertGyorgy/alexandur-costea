@@ -64,9 +64,25 @@ export function NeoPricingCard({
           className="absolute inset-0 w-full h-full rounded-3xl bg-[#102837]/70 backdrop-blur-md overflow-hidden transition-all duration-500 ease-out"
           style={{ 
             backfaceVisibility: 'hidden',
-            boxShadow: '0 10px 30px -5px rgba(16, 40, 55, 0.3)'
+            boxShadow: isHovered 
+              ? '0 30px 60px -12px rgba(254, 95, 1, 0.35), 0 0 0 1px rgba(254, 95, 1, 0.2)' 
+              : '0 10px 30px -5px rgba(16, 40, 55, 0.3)'
           }}
         >
+          {/* Magnetic glow that follows mouse */}
+          {isHovered && (
+            <div
+              className="absolute w-96 h-96 rounded-full pointer-events-none transition-all duration-300 ease-out"
+              style={{
+                background: 'radial-gradient(circle, rgba(254, 95, 1, 0.15) 0%, transparent 70%)',
+                left: `${mousePosition.x * 100}%`,
+                top: `${mousePosition.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                filter: 'blur(40px)'
+              }}
+            />
+          )}
+
           {/* Content Wrapper - Flex Column */}
           <div className="h-full flex flex-col relative z-10">
             {/* Header */}
@@ -94,69 +110,34 @@ export function NeoPricingCard({
             {/* CTA Section - Always at bottom */}
             <div className="px-8 pb-8 pt-4 mt-auto">
             <div className="relative">
-              {/* Main CTA Button - Vibrant Orange */}
+              {/* Button */}
               <button
                 onClick={onCTAClick}
-                className="w-full rounded-full h-12 text-sm font-bold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FE5F01]/60 text-white active:scale-95 hover:scale-105 flex items-center justify-center gap-2 relative overflow-hidden"
-                style={{
-                  background: 'linear-gradient(135deg, #FE5F01 0%, #ff7a2e 100%)',
-                  boxShadow: '0 4px 15px rgba(254, 95, 1, 0.4)',
-                }}
+                className="w-full rounded-full h-12 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#F77F00] text-white hover:bg-[#ff8c1a] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
               >
                 {showInstagramIcon && (
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                   </svg>
                 )}
-                <span className="relative z-10">{ctaLabel}</span>
-                
-                {/* Hover glow effect */}
-                <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: 'linear-gradient(135deg, #ff7a2e 0%, #FE5F01 100%)',
-                  }}
-                />
+                {ctaLabel}
               </button>
               
-              {/* Vezi Detalii Button - Glowing Card Design */}
+              {/* Bottom Glow */}
+              <div 
+                className="absolute left-1/2 -translate-x-1/2 -bottom-2 h-8 w-3/4 rounded-full blur-2xl opacity-60 pointer-events-none bg-orange-500"
+              />
+              
+              {/* Vezi Detalii Button (if description exists) */}
               {description && (
                 <button
                   onClick={() => setIsFlipped(true)}
-                  className="w-full mt-4 py-2.5 px-4 text-sm font-semibold rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95 relative overflow-hidden backdrop-blur-xl"
-                  style={{
-                    border: '0.2em solid rgb(229, 228, 226)',
-                    color: 'rgb(229, 228, 226)',
-                    backgroundColor: 'rgba(229, 228, 226, 0.1)',
-                    boxShadow: `0 0 0.5em 0.1em rgba(229, 228, 226, 0.3),
-                                0 0 1em 0.3em rgba(229, 228, 226, 0.2),
-                                inset 0 0 0.3em 0.1em rgba(229, 228, 226, 0.2)`,
-                    textShadow: '0 0 0.3em rgba(229, 228, 226, 0.5)',
-                  }}
+                  className="w-full mt-4 py-2.5 px-4 text-sm font-semibold text-white bg-[#FE5F01] hover:bg-[#ff7a2e] rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                 >
-                  {/* Glass shimmer effect */}
-                  <div 
-                    className="absolute inset-0 opacity-20 pointer-events-none"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%)',
-                    }}
-                  />
-                  
-                  <span className="relative z-10">Vezi detalii</span>
-                  <svg className="w-4 h-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span>Vezi detalii</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                  
-                  {/* Hover state */}
-                  <style jsx>{`
-                    button:hover {
-                      background-color: rgba(229, 228, 226, 0.8);
-                      color: rgb(16, 40, 55);
-                      box-shadow: 0 0 0.8em 0.2em rgba(229, 228, 226, 0.5),
-                                  0 0 2em 0.8em rgba(229, 228, 226, 0.4),
-                                  inset 0 0 0.5em 0.2em rgba(229, 228, 226, 0.3);
-                      text-shadow: none;
-                    }
-                  `}</style>
                 </button>
               )}
             </div>
@@ -213,46 +194,17 @@ export function NeoPricingCard({
                 )}
               </div>
 
-              {/* Bottom section with price and back button */}
-              <div className="pt-4 border-t border-[#E5E4E2]/10 flex items-center justify-between">
+              {/* Bottom Info */}
+              <div className="pt-3 border-t border-[#F77F00]/20 flex justify-between items-center">
                 <div>
-                  <span className="text-2xl font-bold text-[#FE5F01]">{price}</span>
-                  {period && <span className="text-[#E5E4E2]/60 text-xs ml-1">/{period}</span>}
+                  <div className="text-[#FE5F01] font-bold text-lg">{price}</div>
+                  {period && <div className="text-[#E5E4E2]/60 text-xs">{period}</div>}
                 </div>
                 <button
                   onClick={() => setIsFlipped(false)}
-                  className="px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 active:scale-95 relative overflow-hidden backdrop-blur-xl"
-                  style={{
-                    border: '0.2em solid rgb(229, 228, 226)',
-                    color: 'rgb(229, 228, 226)',
-                    backgroundColor: 'rgba(229, 228, 226, 0.1)',
-                    boxShadow: `0 0 0.5em 0.1em rgba(229, 228, 226, 0.3),
-                                0 0 1em 0.3em rgba(229, 228, 226, 0.2),
-                                inset 0 0 0.3em 0.1em rgba(229, 228, 226, 0.2)`,
-                    textShadow: '0 0 0.3em rgba(229, 228, 226, 0.5)',
-                  }}
+                  className="px-4 py-2 bg-[#FE5F01]/20 hover:bg-[#FE5F01]/30 rounded-full text-[#E5E4E2] text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95"
                 >
-                  {/* Glass shimmer effect */}
-                  <div 
-                    className="absolute inset-0 opacity-20 pointer-events-none"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%)',
-                    }}
-                  />
-                  
-                  <span className="relative z-10">Înapoi</span>
-                  
-                  {/* Hover state */}
-                  <style jsx>{`
-                    button:hover {
-                      background-color: rgba(229, 228, 226, 0.8);
-                      color: rgb(16, 40, 55);
-                      box-shadow: 0 0 0.8em 0.2em rgba(229, 228, 226, 0.5),
-                                  0 0 2em 0.8em rgba(229, 228, 226, 0.4),
-                                  inset 0 0 0.5em 0.2em rgba(229, 228, 226, 0.3);
-                      text-shadow: none;
-                    }
-                  `}</style>
+                  Înapoi
                 </button>
               </div>
             </div>
@@ -262,3 +214,9 @@ export function NeoPricingCard({
     </div>
   );
 }
+
+
+
+
+
+

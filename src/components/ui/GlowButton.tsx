@@ -22,12 +22,11 @@ export function GlowButton({
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
       className={cn(
         "relative px-8 md:px-12 py-3 md:py-4 text-sm md:text-base font-bold rounded-2xl outline-none transition-all duration-300 overflow-hidden",
         "min-w-[140px] md:min-w-[180px]",
         "backdrop-blur-xl",
+        isOrange ? "glow-button-orange" : "glow-button-white",
         className
       )}
       style={{
@@ -40,17 +39,16 @@ export function GlowButton({
         backgroundColor: isOrange 
           ? 'rgba(16, 40, 55, 0.3)' 
           : 'rgba(229, 228, 226, 0.15)',
-        // Reduced glow for default state
         boxShadow: isOrange
-          ? `0 0 0.5em 0.15em rgb(254, 95, 1),
-             0 0 1.5em 0.4em rgba(254, 95, 1, 0.4),
-             inset 0 0 0.5em 0.15em rgb(254, 95, 1)`
-          : `0 0 0.5em 0.15em rgb(229, 228, 226),
-             0 0 1.5em 0.4em rgba(229, 228, 226, 0.4),
-             inset 0 0 0.5em 0.15em rgb(229, 228, 226)`,
+          ? `0 0 1em 0.25em rgb(254, 95, 1),
+             0 0 4em 1em rgba(254, 95, 1, 0.781),
+             inset 0 0 0.75em 0.25em rgb(254, 95, 1)`
+          : `0 0 1em 0.25em rgb(229, 228, 226),
+             0 0 4em 1em rgba(229, 228, 226, 0.781),
+             inset 0 0 0.75em 0.25em rgb(229, 228, 226)`,
         textShadow: isOrange
-          ? '0 0 0.3em rgb(254, 95, 1)'
-          : '0 0 0.3em rgb(229, 228, 226)',
+          ? '0 0 0.5em rgb(254, 95, 1)'
+          : '0 0 0.5em rgb(229, 228, 226)',
       }}
     >
       {/* Glass shimmer effect */}
@@ -72,9 +70,9 @@ export function GlowButton({
       {/* Content */}
       <span className="relative z-10">{children}</span>
       
-      {/* Glow reflection underneath - reduced opacity */}
+      {/* Glow reflection underneath */}
       <div
-        className="pointer-events-none absolute top-full left-0 h-full w-full opacity-40 transition-opacity duration-300"
+        className="pointer-events-none absolute top-full left-0 h-full w-full opacity-70"
         style={{
           backgroundColor: isOrange 
             ? 'rgba(254, 95, 1, 0.781)' 
@@ -84,38 +82,7 @@ export function GlowButton({
         }}
       />
       
-      {/* Hover state styles */}
-      <style jsx>{`
-        button:hover {
-          background-color: ${isOrange ? 'rgba(254, 95, 1, 0.8)' : 'rgba(229, 228, 226, 0.8)'};
-          color: ${isOrange ? 'rgb(16, 40, 55)' : 'rgb(16, 40, 55)'};
-          /* Full glow on hover */
-          box-shadow: ${isOrange
-            ? `0 0 1em 0.25em rgb(254, 95, 1),
-               0 0 4em 2em rgba(254, 95, 1, 0.781),
-               inset 0 0 0.75em 0.25em rgb(254, 95, 1)`
-            : `0 0 1em 0.25em rgb(229, 228, 226),
-               0 0 4em 2em rgba(229, 228, 226, 0.781),
-               inset 0 0 0.75em 0.25em rgb(229, 228, 226)`
-          };
-          text-shadow: ${isOrange ? '0 0 0.5em rgb(254, 95, 1)' : '0 0 0.5em rgb(229, 228, 226)'};
-        }
-        
-        button:hover + div {
-          opacity: 0.7;
-        }
-        
-        button:active {
-          box-shadow: ${isOrange
-            ? `0 0 0.6em 0.25em rgb(254, 95, 1),
-               0 0 2.5em 2em rgba(254, 95, 1, 0.781),
-               inset 0 0 0.5em 0.25em rgb(254, 95, 1)`
-            : `0 0 0.6em 0.25em rgb(229, 228, 226),
-               0 0 2.5em 2em rgba(229, 228, 226, 0.781),
-               inset 0 0 0.5em 0.25em rgb(229, 228, 226)`
-          };
-        }
-      `}</style>
     </motion.button>
   );
 }
+

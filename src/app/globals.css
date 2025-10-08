@@ -22,6 +22,35 @@
 /* Fallback: Inter Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+/* Glow Button Hover Effects */
+.glow-button-orange:hover {
+  background-color: rgba(254, 95, 1, 0.8) !important;
+  color: rgb(16, 40, 55) !important;
+  box-shadow: 0 0 1em 0.25em rgb(254, 95, 1),
+              0 0 4em 2em rgba(254, 95, 1, 0.781),
+              inset 0 0 0.75em 0.25em rgb(254, 95, 1) !important;
+}
+
+.glow-button-white:hover {
+  background-color: rgba(229, 228, 226, 0.8) !important;
+  color: rgb(16, 40, 55) !important;
+  box-shadow: 0 0 1em 0.25em rgb(229, 228, 226),
+              0 0 4em 2em rgba(229, 228, 226, 0.781),
+              inset 0 0 0.75em 0.25em rgb(229, 228, 226) !important;
+}
+
+.glow-button-orange:active {
+  box-shadow: 0 0 0.6em 0.25em rgb(254, 95, 1),
+              0 0 2.5em 2em rgba(254, 95, 1, 0.781),
+              inset 0 0 0.5em 0.25em rgb(254, 95, 1) !important;
+}
+
+.glow-button-white:active {
+  box-shadow: 0 0 0.6em 0.25em rgb(229, 228, 226),
+              0 0 2.5em 2em rgba(229, 228, 226, 0.781),
+              inset 0 0 0.5em 0.25em rgb(229, 228, 226) !important;
+}
+
 /* CSS Custom Properties for Dark Theme */
 :root,
 :root[data-theme="dark"] {
@@ -38,7 +67,7 @@
   
   /* iOS Safari toolbar fix */
   --ios-bottom-ui: env(safe-area-inset-bottom);
-  --blur-height: 72px;
+  --blur-height: 8rem;
   
   /* Shadows */
   --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.15), 0 2px 4px -2px rgb(0 0 0 / 0.15);
@@ -369,4 +398,11 @@ select {
   }
 }
 
-/* iOS Safari toolbar fix - Padding managed dynamically by PageBlur component */
+/* iOS Safari toolbar fix - Reserved for GradualBlur component */
+
+/* Reserve space for fixed blur so content never sits under it */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui));
+  }
+}
