@@ -355,7 +355,7 @@ export function Portfolio() {
             {/* Up Button */}
             <button
               onClick={handlePrevious}
-              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#102837]/90 border border-[#E5E4E2]/20 flex items-center justify-center hover:bg-[#102837] transition-all duration-300 hover:border-[#FE5F01] shadow-[0_0_20px_rgba(16,40,55,0.3)]"
+              className="w-14 h-14 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:border-[#FE5F01] shadow-soft-lg"
               aria-label="Previous video"
             >
               <svg
@@ -376,7 +376,7 @@ export function Portfolio() {
             {/* Down Button */}
             <button
               onClick={handleNext}
-              className="w-14 h-14 rounded-full backdrop-blur-lg bg-[#102837]/90 border border-[#E5E4E2]/20 flex items-center justify-center hover:bg-[#102837] transition-all duration-300 hover:border-[#FE5F01] shadow-[0_0_20px_rgba(16,40,55,0.3)]"
+              className="w-14 h-14 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:border-[#FE5F01] shadow-soft-lg"
               aria-label="Next video"
             >
               <svg
