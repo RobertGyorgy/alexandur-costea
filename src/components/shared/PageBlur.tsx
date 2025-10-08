@@ -24,6 +24,7 @@ export function PageBlur() {
       const interval = setInterval(checkVars, 2000); // Check every 2 seconds
       return () => clearInterval(interval);
     }
+    return undefined; // Explicit return for non-mobile case
   }, []);
 
   useEffect(() => {
