@@ -166,7 +166,7 @@ export function Portfolio() {
   // Swipe variants for video transitions
   const slideVariants = {
     enter: (direction: number) => ({
-      y: direction > 0 ? 1000 : -1000,
+      y: direction > 0 ? 50 : -50,
       opacity: 0,
     }),
     center: {
@@ -174,7 +174,7 @@ export function Portfolio() {
       opacity: 1,
     },
     exit: (direction: number) => ({
-      y: direction < 0 ? 1000 : -1000,
+      y: direction < 0 ? 50 : -50,
       opacity: 0,
     }),
   };
@@ -279,7 +279,7 @@ export function Portfolio() {
                     y: { type: 'spring', stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 },
                   }}
-                  className="absolute inset-0"
+                  className="absolute inset-0 overflow-hidden"
                 >
                   {/* Video */}
                   <video
