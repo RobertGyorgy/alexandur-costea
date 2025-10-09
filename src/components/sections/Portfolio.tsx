@@ -266,7 +266,7 @@ export function Portfolio() {
             <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-24 h-6 bg-black rounded-full z-10 shadow-soft" />
 
             {/* Video Content Area */}
-            <div className="relative w-full h-full overflow-hidden bg-[#0a1620]">
+            <div className="relative w-full h-full overflow-hidden bg-[#0a1620] rounded-[2.5rem]">
               <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.div
                   key={currentIndex}
@@ -279,7 +279,7 @@ export function Portfolio() {
                     y: { type: 'spring', stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 },
                   }}
-                  className="absolute inset-0 overflow-hidden"
+                  className="absolute inset-0 overflow-hidden rounded-[2.5rem]"
                 >
                   {/* Video */}
                   <video
@@ -289,7 +289,7 @@ export function Portfolio() {
                     loop
                     muted={isMuted}
                     playsInline
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-[2.5rem]"
                   >
                     <source src={currentVideo.src} type="video/mp4" />
                   </video>
