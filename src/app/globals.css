@@ -395,6 +395,11 @@ select {
 /* Reserve space for fixed blur so content never sits under it */
 @media (max-width: 767px) {
   main {
-    padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui));
+    padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui) + 2rem);
+  }
+  
+  /* Ensure last section has proper spacing */
+  main > *:last-child {
+    padding-bottom: 2rem;
   }
 }
