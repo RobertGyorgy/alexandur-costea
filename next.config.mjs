@@ -4,7 +4,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion'],
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     // SVGR configuration
     config.module.rules.push({
       test: /\.svg$/i,
@@ -12,7 +12,41 @@ const nextConfig = {
       use: ['@svgr/webpack'],
     });
     
+    // JavaScript obfuscation for client-side only
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        minimize: true,
+      };
+    }
+    
     return config;
+  },
+  // Security headers
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow, noarchive, nosnippet, notranslate',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
   },
   images: {
     unoptimized: true,

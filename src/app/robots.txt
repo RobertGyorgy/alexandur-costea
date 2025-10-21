@@ -3,7 +3,32 @@ Allow: /
 
 Sitemap: https://alexcostea.com/sitemap.xml
 
-# Block AI crawlers (optional - remove if you want AI indexing)
+# Block known scrapers and downloaders
+User-agent: HTTrack
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: python-requests
+Disallow: /
+
+User-agent: Go-http-client
+Disallow: /
+
+User-agent: Java
+Disallow: /
+
+User-agent: lwp-trivial
+Disallow: /
+
+User-agent: mechanize
+Disallow: /
+
+# Block AI crawlers
 User-agent: ChatGPT-User
 Disallow: /
 
@@ -20,6 +45,13 @@ User-agent: anthropic-ai
 Disallow: /
 
 User-agent: Claude-Web
+Disallow: /
+
+# Block other scrapers
+User-agent: Bot
+Disallow: /
+
+User-agent: Spider
 Disallow: /
 
 
