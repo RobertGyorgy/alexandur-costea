@@ -105,21 +105,14 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
       id="newsletter"
       ref={containerRef}
       className={`relative bg-bg ${className}`}
-      style={{ 
-        minHeight: isMobile ? ['100dvh', '-webkit-fill-available'] : '100vh'
-      } as React.CSSProperties}
+      style={{ minHeight: '100vh' }}
     >
       {/* Fallback gradient background for mobile */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-bg via-bg/95 to-bg opacity-100" />
       
       {/* LightRays Background - extends full height */}
       {!disableBackground && shouldLoadBackground && (
-          <div 
-            className="absolute inset-0 z-0 w-full h-full" 
-            style={{ 
-              minHeight: isMobile ? ['100dvh', '-webkit-fill-available'] : '100vh'
-            } as React.CSSProperties}
-          >
+          <div className="absolute inset-0 z-0 w-full h-full" style={{ minHeight: '100vh' }}>
             <LightRays
               raysOrigin="top-center"
               raysColor="#F77F00"
@@ -137,12 +130,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
           </div>
       )}
 
-      <div 
-        className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col"
-        style={{
-          minHeight: isMobile ? ['100dvh', '-webkit-fill-available'] : '100vh'
-        } as React.CSSProperties}
-      >
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col min-h-screen">
         {/* Combined text and form container */}
         <div className="flex items-center justify-center flex-1 relative pt-24 md:pt-24 overflow-hidden">
           {/* Split text animation - completely non-interactive */}

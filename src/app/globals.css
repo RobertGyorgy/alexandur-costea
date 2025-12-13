@@ -374,15 +374,14 @@ select {
     -webkit-tap-highlight-color: transparent;
   }
   
-  /* Mobile Safari specific - use dvh for full screen on scroll */
+  /* Mobile Safari specific */
   @media screen and (max-width: 767px) {
     html {
-      height: 100dvh;
       height: -webkit-fill-available;
     }
     
     body {
-      min-height: 100dvh;
+      min-height: 100vh;
       min-height: -webkit-fill-available;
       background-color: var(--bg, #102837);
     }
@@ -391,19 +390,12 @@ select {
 
 /* iOS Safari toolbar fix - Reserved for GradualBlur component */
 
-/* Reserve space for fixed blur so content never sits under it - ONLY on desktop where blur is visible */
-@media (min-width: 768px) {
-  main {
-    padding-bottom: var(--blur-height, 8rem);
-  }
-}
-
-/* On mobile, no padding needed since blur is hidden */
+/* Reserve space for fixed blur so content never sits under it */
 @media (max-width: 767px) {
   main {
-    min-height: 100dvh;
+    padding-bottom: calc(var(--blur-height, 8rem) + var(--ios-bottom-ui, env(safe-area-inset-bottom)));
+    min-height: 100vh;
     min-height: -webkit-fill-available;
-    padding-bottom: 0;
   }
 }
 
