@@ -83,56 +83,56 @@ export default function RootLayout({
                 document.documentElement.classList.add('no-backdrop-filter');
               }
               
-              // Security protection
-              (function() {
-                'use strict';
-                
-                // Detect developer tools
-                let devtools = {open: false, orientation: null};
-                const threshold = 160;
-                
-                setInterval(() => {
-                  if (window.outerHeight - window.innerHeight > threshold || 
-                      window.outerWidth - window.innerWidth > threshold) {
-                    if (!devtools.open) {
-                      devtools.open = true;
-                      console.clear();
-                      console.log('%c🚫 Access Denied', 'color: red; font-size: 30px; font-weight: bold;');
-                      console.log('%cThis section of the console is restricted.', 'color: red; font-size: 14px;');
-                    }
-                  } else {
-                    devtools.open = false;
-                  }
-                }, 500);
-                
-                // Disable right-click and key combinations
-                document.addEventListener('contextmenu', e => e.preventDefault());
-                document.addEventListener('keydown', e => {
-                  if (e.key === 'F12' || 
-                      (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-                      (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-                      (e.ctrlKey && e.key === 'u') ||
-                      (e.ctrlKey && e.key === 's')) {
-                    e.preventDefault();
-                    return false;
-                  }
-                });
-                
-                // Override console methods for production
-                const originalConsole = {};
-                ['log', 'warn', 'error', 'info', 'debug'].forEach(method => {
-                  originalConsole[method] = console[method];
-                  console[method] = function() {
-                    // In production, optionally disable console
-                  };
-                });
-                
-                // Anti-scraping detection
-                if (window.outerHeight === 0 && window.outerWidth === 0) {
-                  console.log('Automation detected');
-                }
-                
-              })();
+              // Security protection - DISABLED FOR TESTING
+              // (function() {
+              //   'use strict';
+              //   
+              //   // Detect developer tools
+              //   let devtools = {open: false, orientation: null};
+              //   const threshold = 160;
+              //   
+              //   setInterval(() => {
+              //     if (window.outerHeight - window.innerHeight > threshold || 
+              //         window.outerWidth - window.innerWidth > threshold) {
+              //       if (!devtools.open) {
+              //         devtools.open = true;
+              //         console.clear();
+              //         console.log('%c🚫 Access Denied', 'color: red; font-size: 30px; font-weight: bold;');
+              //         console.log('%cThis section of the console is restricted.', 'color: red; font-size: 14px;');
+              //       }
+              //     } else {
+              //       devtools.open = false;
+              //     }
+              //   }, 500);
+              //   
+              //   // Disable right-click and key combinations
+              //   document.addEventListener('contextmenu', e => e.preventDefault());
+              //   document.addEventListener('keydown', e => {
+              //     if (e.key === 'F12' || 
+              //         (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+              //         (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+              //         (e.ctrlKey && e.key === 'u') ||
+              //         (e.ctrlKey && e.key === 's')) {
+              //       e.preventDefault();
+              //       return false;
+              //     }
+              //   });
+              //   
+              //   // Override console methods for production
+              //   const originalConsole = {};
+              //   ['log', 'warn', 'error', 'info', 'debug'].forEach(method => {
+              //     originalConsole[method] = console[method];
+              //     console[method] = function() {
+              //       // In production, optionally disable console
+              //     };
+              //   });
+              //   
+              //   // Anti-scraping detection
+              //   if (window.outerHeight === 0 && window.outerWidth === 0) {
+              //     console.log('Automation detected');
+              //   }
+              //   
+              // })();
               
               // Remove no-js class when JS loads
               document.addEventListener('DOMContentLoaded', function() {

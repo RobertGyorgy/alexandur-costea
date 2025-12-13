@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
 
 export function middleware(request) {
+  // Skip middleware in development mode
+  if (process.env.NODE_ENV === 'development') {
+    return NextResponse.next();
+  }
+  
   const userAgent = request.headers.get('user-agent') || '';
   
-  // Lista de user agents pentru HTTrack și alte scraper-e
+  // Lista de user agents pentru HTTrack și alte scraper-e (doar în producție)
   const blockedAgents = [
     'httrack',
     'wget',
-    'curl',
     'python-requests',
     'go-http-client',
     'java/',

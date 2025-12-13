@@ -1,119 +1,147 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
-import { GlowButton } from '@/components/ui/GlowButton';
+import { AnimatedSlogan } from '@/components/ui/AnimatedSlogan';
 import { siteContent } from '@/lib/content';
-import { analytics } from '@/lib/analytics';
 
 export function Hero() {
   const content = siteContent.hero;
-  const [bottomOffset, setBottomOffset] = useState('0px');
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start']
   });
   
-  // Parallax effects
-  const videoY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  useEffect(() => {
-    const updatePosition = () => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) {
-        const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        const windowHeight = window.innerHeight;
-        const difference = windowHeight - viewportHeight;
-        setBottomOffset(`${Math.max(0, difference)}px`);
-      } else {
-        setBottomOffset('0px');
-      }
-    };
-
-    updatePosition();
-
-    window.addEventListener('resize', updatePosition);
-    window.visualViewport?.addEventListener('resize', updatePosition);
-    window.visualViewport?.addEventListener('scroll', updatePosition);
-
-    return () => {
-      window.removeEventListener('resize', updatePosition);
-      window.visualViewport?.removeEventListener('resize', updatePosition);
-      window.visualViewport?.removeEventListener('scroll', updatePosition);
-    };
-  }, []);
-
-  const handleCTAClick = (href: string, label: string) => {
-    if (href.startsWith('#')) {
-      const element = document.getElementById(href.slice(1));
-      if (element) {
-        element.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-            ? 'auto' 
-            : 'smooth',
-          block: 'start',
-        });
-      }
-    }
-    analytics.trackCTAClick(label, 'hero');
-  };
+  // Parallax effects - optimized with clamp
+  const videoY = useTransform(scrollYProgress, [0, 1], [0, 200], { clamp: true });
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.2], { clamp: true });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -100], { clamp: true });
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0], { clamp: true });
 
   return (
     <Section
       id="hero"
       as="header"
-      className="relative min-h-screen flex items-end justify-center overflow-hidden pb-32 md:pb-20"
+      className="relative min-h-screen flex items-end justify-center overflow-hidden pb-8 md:pb-12"
       spacing="xl"
       ref={sectionRef}
     >
-      {/* Background Video */}
-      <motion.div className="absolute inset-0 z-0 overflow-hidden" style={{ y: videoY, scale: videoScale }}>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        >
-          <source src="/video prezentare_landscape_web.mp4" type="video/mp4" />
-        </video>
-        {/* Subtle overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/20 via-bg/30 to-bg/40" />
+      {/* Background Video - YouTube Embed */}
+      <motion.div 
+        className="absolute inset-0 z-0 overflow-hidden" 
+        style={{ 
+          y: videoY, 
+          scale: videoScale,
+          willChange: 'transform'
+        }}
+      >
+        <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ zIndex: 0 }}>
+          <iframe
+            src="https://www.youtube.com/embed/suOmT0gt7YI?autoplay=1&mute=1&loop=1&playlist=suOmT0gt7YI&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1&vq=hd1080"
+            className="absolute"
+            style={{ 
+              width: '100vw',
+              height: '56.25vw',
+              minHeight: '100%',
+              minWidth: '177.77vh',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%) scale(1.1)',
+              willChange: 'transform',
+              pointerEvents: 'none',
+              border: 'none',
+              zIndex: 0,
+              // Crop to hide YouTube UI elements at edges
+              clipPath: 'inset(0)'
+            }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen={false}
+            title="Hero background video"
+          />
+        </div>
+        {/* Complete overlay to hide all YouTube UI elements */}
+        <div 
+          className="absolute inset-0"
+          style={{ 
+            zIndex: 1,
+            pointerEvents: 'none',
+            background: 'transparent'
+          }} 
+        />
       </motion.div>
 
-      {/* CTA Buttons - Positioned lower with mobile browser bar compensation */}
+      {/* Animated Slogan - Temporarily disabled for performance testing */}
+      {/* <AnimatedSlogan /> */}
+
+      {/* Hero Content - Only Subheading */}
       <motion.div 
-        className="relative z-[60] px-4"
-        style={{ marginBottom: bottomOffset, y: contentY, opacity: contentOpacity }}
+        className="relative z-[60] px-4 sm:px-6 max-w-6xl mx-auto text-center"
+        style={{ 
+          y: contentY, 
+          opacity: contentOpacity, 
+          transform: isMobile ? 'translateY(20px)' : 'translateY(80px)' 
+        }}
       >
-        <motion.div
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-row gap-3 md:gap-4 justify-center items-center"
+          className="font-garnet text-white text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl leading-tight md:leading-relaxed"
         >
-          <GlowButton
-            variant="orange"
-            onClick={() => handleCTAClick(content.ctaPrimary.href, content.ctaPrimary.label)}
-          >
-            {content.ctaPrimary.label}
-          </GlowButton>
-          
-          <GlowButton
-            variant="white"
-            onClick={() => handleCTAClick(content.ctaSecondary.href, content.ctaSecondary.label)}
-          >
-            {content.ctaSecondary.label}
-          </GlowButton>
-        </motion.div>
+          {(() => {
+            const text = content.subheading;
+            const orangeWords = ['transformăm', 'în storytelling autentic', 'viral', 'Reels', 'retelele sociale'];
+            const boldWords = ['ideile', 'impact viral'];
+            const allWords = [...orangeWords, ...boldWords];
+            const regex = new RegExp(`(${allWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+            
+            // Split at "storytelling autentic," for line break
+            const breakPoint = text.indexOf('storytelling autentic,');
+            const firstPart = text.substring(0, breakPoint + 'storytelling autentic,'.length);
+            const secondPart = text.substring(breakPoint + 'storytelling autentic,'.length);
+            
+            const formatText = (textPart: string) => {
+              const parts = textPart.split(regex);
+              return parts.map((part, index) => {
+                const isOrange = orangeWords.some(word => part.toLowerCase().includes(word.toLowerCase()));
+                const isBold = boldWords.some(word => part.toLowerCase() === word.toLowerCase());
+                
+                if (isOrange) {
+                  return <span key={index} className="text-[#FE5F01] font-black">{part}</span>;
+                } else if (isBold) {
+                  return <span key={index} className="font-black">{part}</span>;
+                }
+                return <React.Fragment key={index}>{part}</React.Fragment>;
+              });
+            };
+            
+            return (
+              <>
+                <span className="block sm:inline-block">
+                  {formatText(firstPart)}
+                </span>
+                <br className="block sm:hidden md:inline" />
+                <span className="block sm:inline-block sm:ml-1">
+                  {formatText(secondPart)}
+                </span>
+              </>
+            );
+          })()}
+        </motion.p>
       </motion.div>
     </Section>
   );

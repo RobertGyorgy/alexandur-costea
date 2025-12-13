@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function LoaderScreen() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Auto-dismiss loader after 3 seconds
   useEffect(() => {
@@ -30,6 +31,33 @@ export function LoaderScreen() {
     }
   }, [isLoaded]);
 
+  // Load YouTube IFrame API and set playback rate to 2x
+  useEffect(() => {
+    if (!isLoaded && iframeRef.current) {
+      // Load YouTube IFrame API
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+      // Wait for API to load
+      const checkYT = setInterval(() => {
+        if ((window as any).YT && (window as any).YT.Player) {
+          clearInterval(checkYT);
+          const player = new (window as any).YT.Player(iframeRef.current, {
+            events: {
+              onReady: (event: any) => {
+                event.target.setPlaybackRate(1.5); // Set to 1.5x speed
+              }
+            }
+          });
+        }
+      }, 100);
+
+      return () => clearInterval(checkYT);
+    }
+  }, [isLoaded]);
+
   return (
     <AnimatePresence mode="wait">
       {!isLoaded && (
@@ -41,31 +69,31 @@ export function LoaderScreen() {
           className="fixed inset-0 z-[9999] overflow-hidden"
           style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0 }}
         >
-          {/* Background Video */}
+          {/* Background Video - YouTube Embed */}
           <div className="absolute inset-0 overflow-hidden bg-black">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              webkit-playsinline="true"
-              x5-playsinline="true"
-              className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto transform -translate-x-1/2 -translate-y-1/2 object-cover"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              onLoadedMetadata={(e) => {
-                const video = e.currentTarget;
-                video.playbackRate = 2.0; // Play at 2x speed
-              }}
-              onError={(e) => {
-                console.log('Video failed to load:', e);
-              }}
-            >
-              <source src="/LOOP_3_web.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 w-full h-full">
+              <iframe
+                ref={iframeRef}
+                src="https://www.youtube.com/embed/suOmT0gt7YI?autoplay=1&mute=1&loop=1&playlist=suOmT0gt7YI&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1"
+                className="absolute"
+                style={{ 
+                  width: '100vw',
+                  height: '56.25vw',
+                  minHeight: '100%',
+                  minWidth: '177.77vh',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%) scale(1.1)',
+                  pointerEvents: 'none',
+                  border: 'none',
+                  zIndex: 0
+                }}
+                allow="autoplay; encrypted-media"
+                allowFullScreen={false}
+                title="Loader background video"
+              />
+            </div>
           </div>
         </motion.div>
       )}

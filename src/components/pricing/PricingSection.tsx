@@ -99,68 +99,57 @@ export function PricingSection() {
       essential: {
         subtitle: 'ReelUp',
         features: [
-          'Idei fresh',
-          'Cadre simple dar wow',
-          'Creare de reel-uri captivante',
-          'Tehnici de story telling'
+          'Structură completă în 6 module',
+          'Suport video',
+          'Preproducție: concept, scenariu, plan de filmare',
+          'Bazele imaginii: setări, iluminare, compoziție, mișcări de cameră',
+          'Gândirea în montaj & editare',
+          'Informații utile pentru orice program de editare',
+          'Ușor de accesat oricând și de oriunde.',
+          'Acces pe viață în Creators\' Club'
         ],
-        description: 'Vrei să faci reel-uri care atrag atenția? Cu doar un telefon și un laptop, vei învăța pas cu pas: cum să găsești idei fresh ori de câte ori scoți telefonul din buzunar, cum să filmezi cadre simple dar wow, cum să le transformi în reel-uri care adună like-uri și share-uri. Nu ai nevoie de experiență. Înveți în ritmul tău, de oriunde. Și ai acces pe viață în Clubul Creatorilor de Conținut.',
-        extras: [
-          'Nu ai nevoie de echipament scump',
-          'Înveți în ritmul tău',
-          'Acces pe viață la materiale',
-          'Comunitate privată de creatori',
-          'Feedback personalizat'
-        ],
-        price: '297 RON',
-        period: '4 săptămâni',
-        ctaLabel: 'Abonează-te la newsletter',
+        description: 'ReelUp este programul care îți dezvoltă o bază solidă în materie de creare de conținut video. Construit ca un parcurs complet pentru începători, cursul te ajută să înțelegi esențialul: cum transformi o idee într-un material final, structurat și editat profesionist. Acest curs nu cere experiență anterioară, doar dorința de a învăța și un mindset creativ. Vei învăța bazele filmării și editării, noțiuni aplicabile atât în DaVinci Resolve, cât și în CapCut sau în orice program de editare, astfel încât să poți crea conținut eficient, curat și estetic. ReelUp este o investiție în fundația ta ca creator, nu doar în încă un tutorial.',
+        extras: [],
+        price: '290 euro inc. TVA',
+        period: '',
+        ctaLabel: 'Achiziționează acum',
         ctaAction: 'newsletter'
       },
       professional: {
-        subtitle: 'Masterclass',
+        subtitle: 'Masterclass de la Idee la Reel',
         features: [
-          'Concept',
-          'Setări',
-          'Filmare',
-          'Editare DaVinci',
-          'Tranziții & Efecte',
-          'Colorizare & Sound'
+          '8 module live pe Discord timp de 2 luni',
+          'Acces la modulele înregistrate pe viață',
+          '10 locuri disponibile per ediție',
+          'Producție video completă la standard de industrie',
+          'Concept, scenariu, plan filmare, producție, editare',
+          'Înveți cum gândește un regizor: vizual, logic, cu sens',
+          'Tehnici avansate de imagine și montaj',
+          'Editare în DaVinci Resolve cu workflow profesional',
+          'Dezvolți skill-uri pe care le poți aplica în freelancing, branduri, campanii',
+          'Acces pe viață la Creators\' Club'
         ],
-        description: 'Prima ediție a Masterclass-ului "De la Idee la Reel" a fost mai mult decât un curs - a fost o experiență intensă, cu oameni curioși, implicați și plini de energie. Am trecut prin toți pașii unui reel reușit: Alegerea temei și crearea conceptului, Setări corecte pentru telefon sau cameră, Filmare creativă: compoziție, lumină, mișcare, Editare pas cu pas în DaVinci Resolve, Tranziții și efecte pentru reel-uri catchy, Colorizare și sound design pentru un look & sound profesionist. A fost doar începutul. Urmează o nouă ediție și mai tare.',
-        extras: [
-          'Sesiuni live interactive',
-          'Materiale bonus și templates',
-          'Acces la comunitatea privată',
-          'Feedback personalizat pe proiectele tale',
-          'Certificat de absolvire',
-          'Acces pe viață la actualizări'
-        ],
-        price: '897 RON',
-        period: '8 săptămâni',
-        ctaLabel: 'Abonează-te la newsletter',
+        description: 'Masterclass-ul De la Idee la Reel este primul program complet din România pe care l-am creat pentru creatorii de conținut care se bucură de un succes real. Am structurat programul astfel încât să includă doar informațiile relevante și tehnicile pe care le folosesc în proiectele mele profesionale, organizate pas cu pas într-un proces clar, eficient și aplicat. Pe parcursul celor 8 module live, trecem împreună prin toate etapele unei producții video la standarde de industrie: de la concept și preproducție, la filmare și editare avansată. Începem cu generarea ideii, structurare, scenariu și organizarea filmării. Continuăm cu partea tehnică, setări pentru telefon și cameră, compoziție, iluminare și mișcare de cameră. În etapa finală lucrăm pe montaj non-liniar, efecte vizuale, ritm, sunet și colorizare, astfel încât să transformi orice idee într-un reel coerent, dinamic și creativ. Este creat pentru creatori cu minimă experiență sau pentru cei care vor să ducă skill-urile la nivel profesionist. Te ghidez pas cu pas până creezi propriul reel, bine executat. Tot ce ai nevoie ca să te înscrii este un telefon, un laptop cu DaVinci Resolve și dorința de a învăța.',
+        extras: [],
+        price: '950 euro inc. TVA',
+        period: '',
+        ctaLabel: 'Înscrie-te pe lista pentru următoarea ediție',
         ctaAction: 'newsletter'
       },
       enterprise: {
-        subtitle: 'Newbie',
+        subtitle: 'CREATORS\' FEED',
         features: [
-          'Tips',
-          'Inspirație',
-          'Challenge-uri',
-          'Stories'
+          'Tips rapide & insight-uri din producție',
+          'Inspirație vizuală și concepte noi',
+          'Breakdown-uri și explicații tehnice pe exemple reale',
+          'Challenge-uri creative & exerciții',
+          'Toate postările și stories relevante într-un singur loc'
         ],
-        description: 'Resurse gratuite, idei și exerciții practice direct pe Instagram. Începe ușor și crește constant cu provocări și inspirație săptămânală.',
-        extras: [
-          'Conținut gratuit zilnic',
-          'Challenge-uri creative săptămânale',
-          'Sfaturi rapide de filmare',
-          'Inspirație și trend-uri actuale',
-          'Comunitate activă pe Instagram',
-          'Acces la toate postările și stories'
-        ],
+        description: 'Conținut educativ, inspirație și exemple reale din procesul meu creativ. Aici postez analize video, breakdown-uri, seria „Cine v-a filmat aici?", experimente vizuale și idei pe care le poți aplica imediat în propriile proiecte. Este punctul de intrare în comunitate dacă vrei să înveți organic, constant și să vezi cum gândesc în spatele camerelor, fără costuri și fără barieră de acces.',
+        extras: [],
         price: 'Gratuit',
-        period: 'Instagram',
-        ctaLabel: 'Follow',
+        period: '/Instagram',
+        ctaLabel: 'Follow pe Instagram',
         ctaAction: 'instagram',
         instagramUrl: 'https://www.instagram.com/alexandrucostea.ro/'
       }

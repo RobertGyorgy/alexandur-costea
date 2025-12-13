@@ -47,22 +47,22 @@ export function About() {
       <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#E5E4E2]/5 rounded-full blur-3xl" />
       <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-[#FE5F01]/5 rounded-full blur-2xl" />
       
-      <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center relative z-10">
+      <div className="grid lg:grid-cols-[1.8fr_1fr] gap-12 lg:gap-16 items-center relative z-10">
         {/* Content Column */}
-        <div className="space-y-8">
+        <div className="space-y-8 max-w-6xl">
           {/* Decorative accent line */}
           <div className="w-20 h-1 bg-[#FE5F01] rounded-full mb-6" />
           
           {/* Title with SplitText - Chars */}
           <div className="-mt-8 pt-2">
             {/* Split title by lines */}
-            <div className="mb-6 overflow-visible">
+            <div className="mb-8 overflow-visible">
               {content.title.split('\n').map((line, idx) => (
                 <SplitText
                   key={`title-line-${idx}`}
-                  text={line}
+                  text={line.trim()}
                   tag="h2"
-                  className="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-left block leading-[1.3]"
+                  className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white text-left block leading-[1.3] uppercase whitespace-nowrap"
                   delay={20}
                   duration={0.3}
                   ease="power2.out"
@@ -76,11 +76,11 @@ export function About() {
               ))}
             </div>
             
-            {/* Description with SplitText - Words */}
+            {/* Description with SplitText - Words - Uniformized */}
             <SplitText
               text={content.description}
               tag="p"
-              className="text-lg md:text-xl text-white/90 leading-[1.8] text-left"
+              className="text-lg text-white/90 leading-[1.8] text-left mb-6"
               delay={15}
               duration={0.25}
               ease="power2.out"
@@ -93,14 +93,14 @@ export function About() {
             />
           </div>
 
-          {/* Content Paragraphs with SplitText */}
-          <div className="prose prose-lg max-w-none space-y-6">
+          {/* Content Paragraphs with SplitText - Uniformized */}
+          <div className="space-y-6">
             {content.content.split('\n\n').map((paragraph, index) => (
               <SplitText
                 key={index}
                 text={paragraph}
                 tag="p"
-                className="text-lg text-white/80 leading-[1.8] text-left"
+                className="text-lg text-white/90 leading-[1.8] text-left"
                 delay={10}
                 duration={0.2}
                 ease="power2.out"
@@ -112,6 +112,24 @@ export function About() {
                 textAlign="left"
               />
             ))}
+          </div>
+
+          {/* CTA Section - Uniformized */}
+          <div className="pt-6">
+            <SplitText
+              text="Dacă simți că ai ceva de spus prin conținutul vizual, locul tău e alături de mine. Aplică la cursul potrivit pentru tine și hai în Clubul Creatorilor."
+              tag="p"
+              className="text-lg text-white/90 leading-[1.8] text-left"
+              delay={5}
+              duration={0.2}
+              ease="power2.out"
+              splitType="words"
+              from={{ opacity: 0, y: 10 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.2}
+              rootMargin="-30px"
+              textAlign="left"
+            />
           </div>
         </div>
 
@@ -129,7 +147,7 @@ export function About() {
           }}
         >
           <motion.div 
-            className="relative rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(247,127,0,0.3)] max-w-sm w-full"
+            className="relative rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(247,127,0,0.3)] max-w-md w-full"
             whileHover={{ 
               scale: 1.05,
               rotateY: 5,
@@ -139,8 +157,8 @@ export function About() {
             <Image
               src="/img1.jpeg"
               alt="Alexandru Costea"
-              width={400}
-              height={600}
+              width={500}
+              height={750}
               className="w-full h-auto object-cover"
               unoptimized
               quality={100}

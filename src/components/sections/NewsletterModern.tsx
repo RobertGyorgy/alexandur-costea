@@ -252,22 +252,36 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
 
               {/* Images Below */}
               <div className="flex items-center gap-6">
-                <Image
-                  src="/1.png"
-                  alt="Logo 1"
-                  width={100}
-                  height={50}
-                  className="h-10 w-auto object-contain opacity-70"
-                  unoptimized
-                />
-                <Image
-                  src="/2.png"
-                  alt="Logo 2"
-                  width={100}
-                  height={50}
-                  className="h-10 w-auto object-contain opacity-70"
-                  unoptimized
-                />
+                <a
+                  href="https://anpc.ro/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-100 transition-opacity"
+                >
+                  <Image
+                    src="/1.png"
+                    alt="Logo 1"
+                    width={100}
+                    height={50}
+                    className="h-10 w-auto object-contain opacity-70"
+                    unoptimized
+                  />
+                </a>
+                <a
+                  href="https://reclamatiisal.anpc.ro/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-100 transition-opacity"
+                >
+                  <Image
+                    src="/2.png"
+                    alt="Logo 2"
+                    width={100}
+                    height={50}
+                    className="h-10 w-auto object-contain opacity-70"
+                    unoptimized
+                  />
+                </a>
               </div>
             </div>
           </div>

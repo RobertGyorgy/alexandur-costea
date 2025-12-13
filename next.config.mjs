@@ -1,19 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export', // Commented for dev server
   experimental: {
     optimizePackageImports: ['framer-motion'],
   },
-  webpack: (config, { isServer }) => {
-    // SVGR configuration
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    });
-    
-    // JavaScript obfuscation for client-side only
-    if (!isServer) {
+  typescript: {
+    // Ignore build errors for now (warnings about function props in client components are false positives)
+    ignoreBuildErrors: false,
+  },
+  webpack: (config, { isServer, dev }) => {
+    // Only minimize in production builds, not in dev mode (this was slowing down dev server!)
+    if (!isServer && !dev) {
       config.optimization = {
         ...config.optimization,
         minimize: true,

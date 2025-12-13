@@ -8,80 +8,80 @@ import { Section } from '@/components/ui/Section';
 const VERTICAL_VIDEOS = [
   {
     id: 1,
-    src: '/Alex - iPhone 16 Pro_web.mp4',
-    title: 'iPhone 16 Pro',
+    youtubeId: 'DIYWlHpiI-4',
+    title: 'iPhone 16 PRO',
     description: 'Prezentare produs',
-    client: 'Apple Inc.',
-    role: 'Director Creativ & Cineast',
-    details: 'O călătorie vizuală cuprinzătoare care prezintă caracteristicile revoluționare ale iPhone 16 Pro. Acest proiect s-a concentrat pe captarea esenței inovației prin cinematografie dinamică și storytelling artistic.',
-    achievements: 'Am creat o narațiune convingătoare care evidențiază tehnologia de ultimă generație a dispozitivului, menținând în același timp o conexiune emoțională cu publicul. Campania a îmbinat cu succes precizia tehnică cu expresia creativă.',
-    techniques: 'Tehnici avansate de color grading, motion tracking și framing cinematic au fost folosite pentru a crea o experiență vizuală premium care reflectă limbajul sofisticat de design al produsului.'
+    client: 'Apple',
+    role: 'Director creativ, acting și editor',
+    details: 'Un concept vizual dinamic non-narativ, realizat pentru a scoate în evidență noile funcții ale iPhone 16 Pro. Proiectul explorează estetica produsului prin mișcare, ritm și elemente cinematice.',
+    achievements: 'Am construit o narațiune scurtă, dar impactantă, care prezintă tehnologia dispozitivului prin cadre fluide, efecte vizuale și compoziție orientată pe detalii, astfel încât să țină privitorul conectat pe totă durata video-ului.',
+    techniques: 'A fost filmat cu Osmo Pocket 3 și am folosit efecte de măști, motion tracking, tranziții fluide, color grading, sound design și cadre diverse pentru a crea un reel energetic, premium, în acord cu limbajul vizual al produsului.'
   },
   {
     id: 2,
-    src: '/Alex x Arman _elixir_web.mp4',
+    youtubeId: '2YuORpHTpbA',
     title: 'Armani Elixir',
     description: 'Campanie parfum',
-    client: 'Giorgio Armani Beauty',
-    role: 'Videograf Principal & Povestitor Vizual',
-    details: 'O campanie elegantă și sofisticată de parfum care captează esența luxoasă a Armani Elixir. Proiectul îmbină estetica haute couture cu cinematografia modernă pentru a crea o experiență senzorială imersivă.',
-    achievements: 'Am tradus cu succes profilul olfactiv al parfumului într-un limbaj vizual, creând o narațiune emoțională care rezonează cu poziționarea premium a brandului. Campania a obținut un engagement excepțional pe multiple platforme.',
-    techniques: 'Am utilizat capturi slow-motion, configurații dramatice de iluminare și mișcări atent coreografiate pentru a evoca calitățile senzuale și misterioase ale parfumului. Munca de post-producție s-a concentrat pe îmbunătățirea esteticii golden hour.'
+    client: 'Sephora Romania',
+    role: 'Director creativ, acting și editor',
+    details: 'Un concept vizual personal inspirat de parfumul Armani Elixir, realizat ca proiect creativ pentru Sephora. Campania explorează felul în care aroma și estetica parfumului se leagă de identitatea mea ca regizor, folosind cadre cinematice dinamice și tranziții inspirate din lumea filmului.',
+    achievements: 'Am creat o narațiune vizuală în care parfumul devine elementul declanșator al unui „salt" între locații și stări, simbolizând modul în care inspirația mă poartă între diferite lumi vizuale. Conceptul a generat engagement organic și a fost apreciat pentru abordarea cinematică și ritmul energetic.',
+    techniques: 'Proiectul a fost filmat cu RED Komodo 6K, folosind match cuts pe scaunul de regizor ca element narativ central, măști pe produs, tranziții dinamice între natură și spații urbane, iluminare dramatică și colorizare cu tonuri calde, dar și monocrom. Post-producția a pus accent pe ritm, sunet, coerență vizuală și flow.'
   },
   {
     id: 3,
-    src: '/ALEX x ARMANI_web.mp4',
-    title: 'Colecția Armani',
-    description: 'Editorial fashion',
-    client: 'Armani Fashion House',
-    role: 'Videograf Fashion & Director Editorial',
-    details: 'O piesă editorială high-fashion care celebrează eleganța intemporală a celei mai recente colecții Armani. Acest proiect îmbină principiile fotografiei editoriale cu storytelling-ul video dinamic pentru a crea o narațiune fashion modernă.',
-    achievements: 'Am dezvoltat un limbaj vizual care onorează moștenirea Armani în timp ce împinge granițele creative. Editorialul a primit recunoaștere pentru abordarea sa inovatoare a videografiei fashion și atenția la detaliile textile.',
-    techniques: 'Am folosit adâncime de câmp redusă, mișcări precise de cameră și compoziție strategică pentru a evidenția detaliile vestimentare și fluxul țesăturilor. Color grading-ul a subliniat paleta sofisticată de culori a colecției.'
+    youtubeId: '4UyHJwnQe4c',
+    title: 'Armani Aqua di Gio',
+    description: 'Campanie parfum',
+    client: 'Sephora Romania',
+    role: 'Director creativ, acting și editor',
+    details: 'O campanie personală creată pentru Sephora, inspirată de parfumul Armani Aqua di Gio. Conceptul urmărește descoperirea parfumului ca metaforă a descoperirii de sine. O tranziție fluidă între natură, haos urban și revenirea la esență, în cadrul unui ciclu vizual complet.',
+    achievements: 'Am construit o narațiune cinematografică în care parfumul devine punctul de trecere între lumi contrastante: liniște vs. agitație, introspecție vs. ritm urban. Mixul dintre locații, styling și ritmul montajului a generat o diversitate vizuală puternică și o experiență autentică.',
+    techniques: 'Filmările au fost realizate cu RED Komodo 6K, folosind compoziții fashion, unghiuri exagerate și mișcări de cameră, tranziții simbolice și cadre dramatice. Aspectul monocrom scoate în evidență un contrast puternic și amplifică emoția.'
   },
   {
     id: 4,
-    src: '/Alex x Trussardi_draft001 2_web.mp4',
-    title: 'Trussardi',
-    description: 'Colaborare brand de lux',
-    client: 'Trussardi Group',
-    role: 'Povestitor Brand & Lead Creativ',
-    details: 'O colaborare prestigioasă cu brandul italian de lux Trussardi, prezentând angajamentul lor față de meșteșug și design inemporal. Acest proiect explorează intersecția dintre moștenire și stilul contemporan.',
-    achievements: 'Am creat o narațiune brand convingătoare care face legătura între meșteșugul tradițional italian și stilul de viață luxury modern. Campania a poziționat cu succes identitatea unică a Trussardi pe piața competitivă a luxului.',
-    techniques: 'Am combinat framing arhitectural cu close-up-uri intime pentru a prezenta detaliile produsului. Design-ul de iluminare a subliniat materialele și texturile luxoase, menținând estetica sofisticată a brandului.'
+    youtubeId: 'tAuxjw4iOSM',
+    title: 'TRUSSARDI PRIMO',
+    description: 'Campanie parfum',
+    client: 'Sephora Romania',
+    role: 'Director creativ, acting și editor',
+    details: 'Un concept cinematic filmat la răsărit pe plaja din Tuzla, inspirat de esența parfumului Trussardi Primo. Proiectul explorează libertatea, auto-descoperirea și relația dintre natură, identitate și rafinament personal.',
+    achievements: 'Am creat o narațiune vizuală în care parfumul devine un simbol al reconectării cu sine, folosind momente de introspecție și mișcare liberă în spațiu deschis. Stilul și ritmul montajului au consolidat estetica luxury într-un mod natural și autentic.',
+    techniques: 'Filmat cu RED Komodo 6K, am folosit compoziții wide pentru spațialitate și close-up-uri pentru emoție și textură. Montaj dinamic cu cut-uri pe mișcare, iluminare naturală aurie și colorizare caldă pentru a accentua senzația de libertate pe plajă și prospețime.'
   },
   {
     id: 5,
-    src: '/Alex_Franui_draft001_web.mp4',
-    title: 'Franui',
-    description: 'Direcție creativă',
-    client: 'Franui Brand',
-    role: 'Director Creativ & Strateg de Conținut',
-    details: 'Un proiect inovator de direcție creativă care explorează noi posibilități de storytelling prin tehnici vizuale experimentale. Această lucrare împinge limitele conținutului brand convențional.',
-    achievements: 'Am dezvoltat o identitate vizuală unică care distinge brandul în segmentul său de piață. Abordarea creativă a primit recunoaștere în industrie pentru metodele sale îndrăznețe și neconvenționale de storytelling.',
-    techniques: 'Am integrat lucrul experimental cu camera cu ritmuri de editare contemporane. Post-producția a încorporat efecte vizuale subtile pentru a îmbunătăți narațiunea fără a copleși momentele autentice.'
+    youtubeId: 'rI8mz6KgBMk',
+    title: 'FRANUI',
+    description: 'Reel',
+    client: 'Proiect personal realizat împreună cu participanții din Masterclass De la Idee la Reel',
+    role: 'Director creativ, acting și editor',
+    details: 'O producție cinematografică experimentală realizată în cadrul Masterclass-ului, în care am aplicat toți pașii parcurși în curs, de la concept și scenariu, la filmare și postproducție. Conceptul explorează dinamica a două personaje care descoperă Franui și sunt proiectate într-o fantezie psihologică, inspirată din jocuri video.',
+    achievements: 'Am transformat o situație cotidiană într-o poveste vizuală cu elemente de umor, suprapuneri narative și „lume interioară". Alternanța dintre lumea reală și cea imaginară, plus montajul paralel, creează un ritm vizual dinamic și o reprezentare simbolică a dorinței și „irezistibilității" produsului.',
+    techniques: 'Filmarea a fost realizată cu iPhone 16 Pro, folosind cut-uri pe mișcare, tranziții prin măști, efecte speciale cu green screen și montaj accelerat pentru a reda energia fanteziei. Am integrat cadre realiste în parc cu secvențe suprarealiste, inspirate de universul jocurilor video, pentru a crea o experiență vizuală fluidă și satisfăcătoare.'
   },
   {
     id: 6,
-    src: '/BTS SPILL THE. TEA_web.mp4',
-    title: 'Spill The Tea BTS',
-    description: 'În culise',
-    client: 'Proiect Independent',
-    role: 'Regizor Documentar',
-    details: 'O privire autentică în culisele procesului creativ de producție a "Spill The Tea". Această piesă în stil documentar dezvăluie dedicarea, colaborarea și viziunea artistică care dau viață unui proiect.',
-    achievements: 'Am capturat momente autentice de colaborare creativă și rezolvare de probleme, oferind perspective asupra fluxului de producție. Conținutul BTS a generat engagement semnificativ din partea audienței și a adăugat valoare proiectului principal.',
-    techniques: 'Filmare în stil documentar cu lucru manual cu camera și iluminare naturală pentru a menține autenticitatea. Post-producție minimală pentru a păstra natura brută și nefiltrată a procesului creativ.'
+    youtubeId: 'nJ8XvNHIFOc',
+    title: 'SPILL THE TEA',
+    description: 'Reel',
+    client: 'Spill the tea - contest',
+    role: 'Director creativ, acting și editor',
+    details: 'Reel creat pentru concursul „Spill The Tea", conceput ca o demonstrație de skill creativ și execuție video full-stack. Proiectul explorează storytelling-ul vizual prin ritm alert, tranziții complexe și schimbări de context care mențin atenția până la final.',
+    achievements: 'Am valorificat oportunitatea competiției pentru a crea un material dinamic și de impact, construit pe o idee fresh, montaj cu un ritm alert și efecte vizuale. Materialul se remarcă prin diversitatea cadrelor, energia vizuală și finalul surpriză, în care ecranul se „sparge", ducând direct către home screen.',
+    techniques: 'Filmat cu iPhone 16 Pro, tranziții prin măști, layering vizual, cut-uri pe mișcare, schimbări controlate de lumină, editare accelerată și sound design sincron cu acțiunea. Montajul construiește un flux continuu, cu elemente vizuale noi la fiecare secvență pentru a menține interesul până la ultimul cadru.'
   },
   {
     id: 7,
-    src: '/SpillTheTea_web.mp4',
-    title: 'Spill The Tea',
-    description: 'Producție completă',
-    client: 'Conținut Original',
-    role: 'Producător, Regizor & Editor',
-    details: 'O producție completă de la concept la livrare finală, demonstrând abilități comprehensive de storytelling. Acest proiect demonstrează control creativ end-to-end și expertiză multidisciplinară în producția video.',
-    achievements: 'Am gestionat cu succes toate aspectele producției incluzând planificarea pre-producției, direcția pe set și finalizarea post-producției. Piesa finală a avut succes viral și a stabilit o prezență puternică de brand.',
-    techniques: 'Pipeline complet de producție incluzând scripting, scouting de locații, direcție de talente și editare avansată. Color grading și sound design au fost realizate meticulos pentru a crea un rezultat profesional și rafinat.'
+    youtubeId: 'bj1SprScBZQ',
+    title: 'SPILL THE TEA',
+    description: 'BTS',
+    client: 'Spill the tea - contest',
+    role: 'Director creativ, acting și editor',
+    details: 'Un material behind-the-scenes care documentează procesul de filmare al proiectului Spill The Tea. Videoul surprinde modul în care conceptul a fost transpus vizual prin soluții creative, rigging improvizat și testare practică pe set.',
+    achievements: 'Am capturat momente reale din procesul de producție, inclusiv modul în care au fost pregătite cutiile pentru filmare pe green screen și cum au fost generate tranzițiile finale. Materialul a oferit transparență asupra procesului și a crescut engagementul proiectului.',
+    techniques: 'Filmări cu iPhone 16 Pro montat pe gimbal, produsele prinse pe green screen pentru tranziții create ulterior din măști și cadre suplimentare. Editare minimală pentru a păstra caracterul raw al procesului.'
   }
 ];
 
@@ -92,7 +92,7 @@ export function Portfolio() {
   const [isMuted, setIsMuted] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const youtubePlayerRefs = useRef<{ [key: number]: any }>({});
   const sectionRef = useRef<HTMLElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -121,32 +121,196 @@ export function Portfolio() {
   };
 
   const togglePlayPause = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
+    const player = youtubePlayerRefs.current[currentIndex];
+    if (player && typeof player.pauseVideo === 'function' && typeof player.playVideo === 'function') {
+      try {
+        if (isPlaying) {
+          player.pauseVideo();
+        } else {
+          player.playVideo();
+        }
+        setIsPlaying(!isPlaying);
+      } catch (e) {
+        console.error('Error toggling play/pause:', e);
       }
+    } else {
+      // If player not ready, just toggle state - it will be applied when player is ready
       setIsPlaying(!isPlaying);
     }
   };
 
   const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
+    const player = youtubePlayerRefs.current[currentIndex];
+    if (player && typeof player.mute === 'function' && typeof player.unMute === 'function') {
+      try {
+        if (isMuted) {
+          player.unMute();
+        } else {
+          player.mute();
+        }
+        setIsMuted(!isMuted);
+      } catch (e) {
+        console.error('Error toggling mute:', e);
+      }
+    } else {
+      // If player not ready, just toggle state - it will be applied when player is ready
       setIsMuted(!isMuted);
     }
   };
 
-  // Reset video when index changes
+  // Initialize YouTube IFrame API
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = isMuted;
-      if (isPlaying) {
-        videoRef.current.play();
+    if (typeof window === 'undefined') return;
+
+    // Load YouTube IFrame API
+    if (!(window as any).YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    }
+
+    // Function to initialize player for a specific video
+    const initPlayer = (videoIndex: number) => {
+      const video = VERTICAL_VIDEOS[videoIndex];
+      const iframeId = `youtube-player-${video.id}`;
+      const iframe = document.getElementById(iframeId);
+      
+      if (iframe && !youtubePlayerRefs.current[videoIndex]) {
+        youtubePlayerRefs.current[videoIndex] = new (window as any).YT.Player(iframeId, {
+          videoId: video.youtubeId,
+          playerVars: {
+            autoplay: videoIndex === currentIndex && isPlaying ? 1 : 0,
+            mute: isMuted ? 1 : 0,
+            loop: 1,
+            playlist: video.youtubeId,
+            controls: 0,
+            playsinline: 1,
+            rel: 0,
+            modestbranding: 1,
+            iv_load_policy: 3,
+            showinfo: 0,
+            disablekb: 1,
+            fs: 0,
+            cc_load_policy: 0,
+          },
+          events: {
+            onReady: (event: any) => {
+              if (videoIndex === currentIndex) {
+                if (isMuted) {
+                  event.target.mute();
+                } else {
+                  event.target.unMute();
+                }
+                if (isPlaying) {
+                  event.target.playVideo();
+                } else {
+                  event.target.pauseVideo();
+                }
+              }
+            }
+          }
+        });
+      }
+    };
+
+    // Wait for API to load
+    const checkYT = setInterval(() => {
+      if ((window as any).YT && (window as any).YT.Player) {
+        clearInterval(checkYT);
+        
+        // Initialize player for current video
+        setTimeout(() => {
+          initPlayer(currentIndex);
+        }, 100);
+      }
+    }, 100);
+
+    return () => clearInterval(checkYT);
+  }, []);
+
+  // Initialize player when index changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !(window as any).YT || !(window as any).YT.Player) return;
+
+    const currentVideo = VERTICAL_VIDEOS[currentIndex];
+    const iframeId = `youtube-player-${currentVideo.id}`;
+    const iframe = document.getElementById(iframeId);
+    
+    if (iframe) {
+      // If player doesn't exist, initialize it
+      if (!youtubePlayerRefs.current[currentIndex]) {
+        setTimeout(() => {
+          youtubePlayerRefs.current[currentIndex] = new (window as any).YT.Player(iframeId, {
+            videoId: currentVideo.youtubeId,
+            playerVars: {
+              autoplay: isPlaying ? 1 : 0,
+              mute: isMuted ? 1 : 0,
+              loop: 1,
+              playlist: currentVideo.youtubeId,
+              controls: 0,
+              playsinline: 1,
+              rel: 0,
+              modestbranding: 1,
+              iv_load_policy: 3,
+              showinfo: 0,
+              disablekb: 1,
+              fs: 0,
+              cc_load_policy: 0,
+            },
+            events: {
+              onReady: (event: any) => {
+                if (isMuted) {
+                  event.target.mute();
+                } else {
+                  event.target.unMute();
+                }
+                if (isPlaying) {
+                  event.target.playVideo();
+                } else {
+                  event.target.pauseVideo();
+                }
+              }
+            }
+          });
+        }, 200);
+      } else {
+        // Player exists, just update state
+        const player = youtubePlayerRefs.current[currentIndex];
+        if (isMuted) {
+          player.mute();
+        } else {
+          player.unMute();
+        }
+        if (isPlaying) {
+          player.playVideo();
+        } else {
+          player.pauseVideo();
+        }
       }
     }
-  }, [currentIndex, isMuted, isPlaying]);
+  }, [currentIndex]);
+
+  // Update player state when mute/play state changes
+  useEffect(() => {
+    const player = youtubePlayerRefs.current[currentIndex];
+    if (player && player.getPlayerState) {
+      try {
+        if (isMuted) {
+          player.mute();
+        } else {
+          player.unMute();
+        }
+        if (isPlaying) {
+          player.playVideo();
+        } else {
+          player.pauseVideo();
+        }
+      } catch (e) {
+        // Player might not be ready yet
+      }
+    }
+  }, [isMuted, isPlaying, currentIndex]);
 
   // Mobile detection
   useEffect(() => {
@@ -281,18 +445,28 @@ export function Portfolio() {
                   }}
                   className="absolute inset-0 overflow-hidden rounded-[2.5rem]"
                 >
-                  {/* Video */}
-                  <video
-                    ref={videoRef}
-                    key={currentVideo.id}
-                    autoPlay
-                    loop
-                    muted={isMuted}
-                    playsInline
-                    className="w-full h-full object-cover rounded-[2.5rem]"
-                  >
-                    <source src={currentVideo.src} type="video/mp4" />
-                  </video>
+                  {/* YouTube Video */}
+                  <div className="absolute inset-0 w-full h-full overflow-hidden rounded-[2.5rem]">
+                    <iframe
+                      id={`youtube-player-${currentVideo.id}`}
+                      src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=${isPlaying ? 1 : 0}&mute=${isMuted ? 1 : 0}&loop=1&playlist=${currentVideo.youtubeId}&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1`}
+                      className="absolute"
+                      style={{ 
+                        border: 'none',
+                        width: '100%',
+                        height: '177.78%', // 16:9 aspect ratio scaled up
+                        minHeight: '100%',
+                        minWidth: '56.25%',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%) scale(1.2)',
+                        pointerEvents: 'none'
+                      }}
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen={false}
+                      title={currentVideo.title}
+                    />
+                  </div>
 
                   {/* Video Info Overlay - Glass Card with Controls */}
                   <div className="absolute bottom-6 left-4 right-4">

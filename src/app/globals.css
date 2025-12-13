@@ -2,6 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* Fallback: Inter Font - must be before other rules */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 /* Custom Fonts */
 @font-face {
   font-family: 'Garnet';
@@ -18,9 +21,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* Fallback: Inter Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 /* Glow Button Hover Effects */
 .glow-button-orange:hover {
@@ -397,4 +397,22 @@ select {
   main {
     padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui));
   }
+}
+
+/* Hide YouTube UI elements completely */
+iframe[src*="youtube.com"] {
+  position: relative;
+}
+
+/* Hide YouTube player controls and UI elements */
+iframe[src*="youtube.com"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: transparent;
 }

@@ -104,7 +104,7 @@ export function Testimonials() {
       <BackgroundEffects variant="lines" color="#FE5F01" opacity={0.15} animated />
       {/* Slider with Gray Background Container - Dolly Zoom Effect (Desktop Only) */}
       <motion.div 
-        className="max-w-[1400px] mx-auto overflow-hidden px-2 md:px-5" 
+        className="w-full max-w-[100vw] mx-auto overflow-hidden px-1" 
         style={{ 
           y: isMounted && !isMobile ? containerY : 0, 
           scale: isMounted && !isMobile ? containerScale : 1,
@@ -112,29 +112,29 @@ export function Testimonials() {
         }}
       >
         {/* Gray Background Container */}
-        <div className="bg-gray-800/20 dark:bg-gray-200/15 rounded-3xl p-3 md:p-8 backdrop-blur-sm">
+        <div className="bg-gray-800/20 dark:bg-gray-200/15 rounded-3xl p-2 sm:p-4 md:p-10 backdrop-blur-sm w-full">
           <div
             ref={wrapRef}
-            className="overflow-x-auto md:overflow-x-visible scrollbar-hide"
+            className="overflow-x-auto md:overflow-x-visible scrollbar-hide flex md:justify-center w-full"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
           {/* Desktop: Horizontal Layout */}
           <div
             ref={trackRef}
-            className="hidden md:flex gap-5 items-center justify-center"
+            className="hidden md:flex gap-3 items-center justify-center min-w-max mx-auto"
             style={{ scrollBehavior: 'smooth', scrollSnapType: 'x mandatory' }}
           >
             {content.items.map((testimonial, index) => {
               const isActive = index === current;
               // Cycle through colors
               const getCardBg = (idx: number) => {
-                const colors = ['bg-[#FE5F01]', 'bg-[#102837]', 'bg-[#ff7a2e]', 'bg-[#102837]', 'bg-[#FE5F01]'];
+                const colors = ['bg-[#FE5F01]', 'bg-[#102837]', 'bg-[#ff7a2e]', 'bg-[#102837]', 'bg-[#FE5F01]', 'bg-[#102837]'];
                 return colors[idx % colors.length];
               };
 
               const getTextColor = (idx: number) => {
-                if (idx % 5 === 0 || idx % 5 === 4) return 'text-[#EAE2B7]'; // Red cards
-                if (idx % 5 === 2) return 'text-[#EAE2B7]'; // Orange card
+                if (idx % 6 === 0 || idx % 6 === 4) return 'text-[#EAE2B7]'; // Orange cards
+                if (idx % 6 === 2) return 'text-[#EAE2B7]'; // Orange card
                 return 'text-[#EAE2B7]'; // Blue cards
               };
 
@@ -153,9 +153,9 @@ export function Testimonials() {
                   key={testimonial.id}
                   className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-[550ms] ease-out ${getCardBg(index)} ${
                     isActive
-                      ? 'flex-[0_0_26rem]'
+                      ? 'flex-[0_0_28rem]'
                       : 'flex-[0_0_10rem]'
-                  } h-[34rem]`}
+                  } h-[36rem]`}
                   onClick={() => activate(index, true)}
                   onMouseEnter={() => activate(index, true)}
                   style={{
@@ -172,11 +172,11 @@ export function Testimonials() {
                     )}
 
                     {isActive && (
-                      <div className="flex flex-col justify-center h-full px-6">
+                      <div className="flex flex-col justify-center h-full px-8 max-w-xl">
                         <h3 className={`${getTextColor(index)} font-bold text-fib-3 mb-4`}>
                           {testimonial.name.toUpperCase()}
                         </h3>
-                        <p className={`${getTextColor(index)} opacity-90 text-fib-2 leading-relaxed mb-4 max-w-sm`}>
+                        <p className={`${getTextColor(index)} opacity-90 text-fib-2 leading-relaxed mb-4`}>
                           {testimonial.quote}
                         </p>
                         <p className={`${getTextColor(index)} opacity-70 text-fib-1 mb-4`}>
@@ -192,7 +192,7 @@ export function Testimonials() {
           </div>
 
           {/* Mobile: Landscape Layout with Navigation */}
-          <div className="md:hidden">
+          <div className="md:hidden w-full">
             {/* Navigation Buttons */}
             <div className="flex justify-between items-center mb-6">
               <motion.button
@@ -293,17 +293,17 @@ export function Testimonials() {
             </div>
 
             {/* Single Card Display */}
-            <div className="relative h-[40rem]">
+            <div className="relative h-[40rem] w-full">
               {content.items.map((testimonial, index) => {
                 const isActive = index === current;
                 const getCardBg = (idx: number) => {
-                  const colors = ['bg-[#FE5F01]', 'bg-[#102837]', 'bg-[#ff7a2e]', 'bg-[#102837]', 'bg-[#FE5F01]'];
+                  const colors = ['bg-[#FE5F01]', 'bg-[#102837]', 'bg-[#ff7a2e]', 'bg-[#102837]', 'bg-[#FE5F01]', 'bg-[#102837]'];
                   return colors[idx % colors.length];
                 };
 
                 const getTextColor = (idx: number) => {
-                  if (idx % 5 === 0 || idx % 5 === 4) return 'text-[#EAE2B7]'; // Red cards
-                  if (idx % 5 === 2) return 'text-[#EAE2B7]'; // Orange card
+                  if (idx % 6 === 0 || idx % 6 === 4) return 'text-[#EAE2B7]'; // Orange cards
+                  if (idx % 6 === 2) return 'text-[#EAE2B7]'; // Orange card
                   return 'text-[#EAE2B7]'; // Blue cards
                 };
 
@@ -337,7 +337,7 @@ export function Testimonials() {
                     }}
                   >
                     <motion.div 
-                      className="flex flex-col justify-center p-6 w-full h-full"
+                      className="flex flex-col justify-center p-8 sm:p-10 md:p-6 w-full h-full"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ 
                         y: isActive ? 0 : 20,
@@ -350,7 +350,7 @@ export function Testimonials() {
                       }}
                     >
                       <motion.h3 
-                        className={`${getTextColor(index)} font-bold text-fib-3 mb-6 text-center`}
+                        className={`${getTextColor(index)} font-bold text-fib-3 mb-8 sm:mb-10 md:mb-6 text-center`}
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ 
                           scale: isActive ? 1 : 0.9,
@@ -365,7 +365,7 @@ export function Testimonials() {
                         {testimonial.name.toUpperCase()}
                       </motion.h3>
                       <motion.p 
-                        className={`${getTextColor(index)} opacity-90 text-fib-2 leading-relaxed mb-6 text-center`}
+                        className={`${getTextColor(index)} opacity-90 text-fib-2 leading-relaxed mb-8 sm:mb-10 md:mb-6 text-center`}
                         initial={{ y: 10, opacity: 0 }}
                         animate={{ 
                           y: isActive ? 0 : 10,

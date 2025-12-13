@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '@/components/ui/Button';
 import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
@@ -9,10 +11,14 @@ import { cn } from '@/lib/utils';
 import type { FAQItem } from '@/lib/content';
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function FAQ() {
   const content = siteContent.faq;
   const [openItem, setOpenItem] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const leftColumnRef = useRef<HTMLDivElement | null>(null);
+  const faqListRef = useRef<HTMLDivElement | null>(null);
 
   const toggleItem = (id: string) => {
     // Toggle: if clicking the same item, close it; otherwise open the new one
@@ -45,6 +51,54 @@ export function FAQ() {
     },
   };
 
+  // Scroll-driven pin for the vertical desktop title (only inside the FAQ section on desktop)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const sectionEl = sectionRef.current;
+    const leftEl = leftColumnRef.current;
+    const faqListEl = faqListRef.current;
+    if (!sectionEl || !leftEl || !faqListEl) return;
+
+    const mm = window.matchMedia('(min-width: 768px)');
+
+    const setup = () => {
+      // Clear previous instance
+      ScrollTrigger.getAll().forEach((st) => {
+        if ((st as any).vars?.id === 'faq-left-pin') st.kill();
+      });
+
+      if (!mm.matches) {
+        gsap.set(leftEl, { clearProps: 'all' });
+        return;
+      }
+
+      ScrollTrigger.create({
+        id: 'faq-left-pin',
+        trigger: sectionEl,
+        start: 'top top',
+        // Pin while the list of questions is visible; stop when the last question is almost at the bottom
+        endTrigger: faqListEl,
+        // Keep pin until bottom of list reaches ~90% din înălțimea viewport-ului
+        end: 'bottom 90%',
+        pin: leftEl,
+        pinSpacing: false,
+        anticipatePin: 1,
+      });
+    };
+
+    setup();
+    mm.addEventListener('change', setup);
+
+    return () => {
+      mm.removeEventListener('change', setup);
+      ScrollTrigger.getAll().forEach((st) => {
+        if ((st as any).vars?.id === 'faq-left-pin') st.kill();
+      });
+      gsap.set(leftEl, { clearProps: 'all' });
+    };
+  }, []);
+
   return (
     <section
       id="faq"
@@ -57,9 +111,15 @@ export function FAQ() {
       {/* Two Column Layout */}
       <div className="grid md:grid-cols-[auto_1fr] gap-8 md:gap-16 lg:gap-24 max-w-7xl mx-auto px-4 md:px-6 items-start">
         {/* Left Column: Sticky Vertical Title (Desktop Only) */}
-        <div className="hidden md:flex sticky top-8 gap-6 self-start">
+        <div
+          ref={leftColumnRef}
+          className="hidden md:flex self-start"
+        >
+          {/* Wrapper pentru control fin al poziției verticale a textului pin-uit */}
+          {/* MODIFICĂ DOAR valorile de mai jos pentru a urca / coborî textul */}
+          <div className="flex gap-2 relative top-18 lg:top-30">
           <h2 
-            className="font-garnet text-[11vw] lg:text-[8.5vw] font-bold text-white leading-none whitespace-nowrap"
+              className="font-garnet text-[7vw] lg:text-[5vw] font-bold text-white leading-none whitespace-nowrap"
             style={{ 
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
@@ -72,7 +132,7 @@ export function FAQ() {
             ÎNTREBĂRI
           </h2>
           <h2 
-            className="font-garnet text-[11vw] lg:text-[8.5vw] font-bold text-white leading-none whitespace-nowrap"
+              className="font-garnet text-[7vw] lg:text-[5vw] font-bold text-white leading-none whitespace-nowrap"
             style={{ 
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
@@ -84,15 +144,18 @@ export function FAQ() {
           >
             FRECVENTE
           </h2>
+          </div>
         </div>
         
         {/* Right Column: FAQ Items */}
         <motion.div
+          ref={faqListRef}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="w-full max-w-3xl"
+          // Mută lista de întrebări puțin mai la dreapta pe desktop pentru mai mult spațiu față de titlul vertical
+          className="w-full max-w-3xl md:ml-6 lg:ml-10"
         >
           {content.items.map((item, index) => (
             <motion.div key={item.id} variants={itemVariants}>

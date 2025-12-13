@@ -38,7 +38,7 @@ export function NavBar({ className }: NavBarProps) {
   useEffect(() => {
     // Light background sections (need dark text)
     const lightSections = ['testimonials', 'faq'];
-    let scrollTimeout: NodeJS.Timeout;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
 
     const handleScroll = () => {
       // Set scrolling state to true
