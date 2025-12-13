@@ -393,7 +393,7 @@ select {
 /* Reserve space for fixed blur so content never sits under it - ONLY on desktop */
 @media (min-width: 768px) {
   main {
-    padding-bottom: var(--blur-height, 8rem);
+    padding-bottom: 0;
   }
 }
 
