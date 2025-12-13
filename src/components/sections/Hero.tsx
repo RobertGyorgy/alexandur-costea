@@ -3,7 +3,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
-import { AnimatedSlogan } from '@/components/ui/AnimatedSlogan';
 import { siteContent } from '@/lib/content';
 
 export function Hero() {

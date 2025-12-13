@@ -65,7 +65,8 @@ export function FAQ() {
     const setup = () => {
       // Clear previous instance
       ScrollTrigger.getAll().forEach((st) => {
-        if ((st as any).vars?.id === 'faq-left-pin') st.kill();
+        const scrollTrigger = st as ScrollTrigger & { vars?: { id?: string } };
+        if (scrollTrigger.vars?.id === 'faq-left-pin') st.kill();
       });
 
       if (!mm.matches) {
@@ -93,7 +94,8 @@ export function FAQ() {
     return () => {
       mm.removeEventListener('change', setup);
       ScrollTrigger.getAll().forEach((st) => {
-        if ((st as any).vars?.id === 'faq-left-pin') st.kill();
+        const scrollTrigger = st as ScrollTrigger & { vars?: { id?: string } };
+        if (scrollTrigger.vars?.id === 'faq-left-pin') st.kill();
       });
       gsap.set(leftEl, { clearProps: 'all' });
     };

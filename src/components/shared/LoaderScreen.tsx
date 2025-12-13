@@ -3,6 +3,25 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// YouTube IFrame API types
+interface YouTubePlayer {
+  setPlaybackRate: (rate: number) => void;
+}
+
+interface YouTubePlayerEvent {
+  target: YouTubePlayer;
+}
+
+interface YouTubeWindow extends Window {
+  YT?: {
+    Player: new (elementId: string | HTMLElement | null, config: {
+      events?: {
+        onReady?: (event: YouTubePlayerEvent) => void;
+      };
+    }) => YouTubePlayer;
+  };
+}
+
 export function LoaderScreen() {
   const [isLoaded, setIsLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -31,7 +50,7 @@ export function LoaderScreen() {
     }
   }, [isLoaded]);
 
-  // Load YouTube IFrame API and set playback rate to 2x
+  // Load YouTube IFrame API and set playback rate to 1.5x
   useEffect(() => {
     if (!isLoaded && iframeRef.current) {
       // Load YouTube IFrame API
@@ -41,12 +60,13 @@ export function LoaderScreen() {
       firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
       // Wait for API to load
+      const ytWindow = window as YouTubeWindow;
       const checkYT = setInterval(() => {
-        if ((window as any).YT && (window as any).YT.Player) {
+        if (ytWindow.YT && ytWindow.YT.Player && iframeRef.current) {
           clearInterval(checkYT);
-          const player = new (window as any).YT.Player(iframeRef.current, {
+          new ytWindow.YT.Player(iframeRef.current, {
             events: {
-              onReady: (event: any) => {
+              onReady: (event: YouTubePlayerEvent) => {
                 event.target.setPlaybackRate(1.5); // Set to 1.5x speed
               }
             }
@@ -56,6 +76,7 @@ export function LoaderScreen() {
 
       return () => clearInterval(checkYT);
     }
+    return undefined;
   }, [isLoaded]);
 
   return (

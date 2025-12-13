@@ -4,6 +4,32 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 
+// YouTube IFrame API types
+interface YouTubePlayer {
+  playVideo: () => void;
+  pauseVideo: () => void;
+  mute: () => void;
+  unMute: () => void;
+  setPlaybackRate: (rate: number) => void;
+  getPlayerState: () => number;
+}
+
+interface YouTubePlayerEvent {
+  target: YouTubePlayer;
+}
+
+interface YouTubeWindow extends Window {
+  YT?: {
+    Player: new (elementId: string, config: {
+      videoId: string;
+      playerVars: Record<string, number | string>;
+      events?: {
+        onReady?: (event: YouTubePlayerEvent) => void;
+      };
+    }) => YouTubePlayer;
+  };
+}
+
 // Video list - all vertical videos from public folder
 const VERTICAL_VIDEOS = [
   {
@@ -92,7 +118,7 @@ export function Portfolio() {
   const [isMuted, setIsMuted] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const youtubePlayerRefs = useRef<{ [key: number]: any }>({});
+  const youtubePlayerRefs = useRef<{ [key: number]: YouTubePlayer | undefined }>({});
   const sectionRef = useRef<HTMLElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -130,8 +156,8 @@ export function Portfolio() {
           player.playVideo();
         }
         setIsPlaying(!isPlaying);
-      } catch (e) {
-        console.error('Error toggling play/pause:', e);
+      } catch (_e) {
+        console.error('Error toggling play/pause:', _e);
       }
     } else {
       // If player not ready, just toggle state - it will be applied when player is ready
@@ -149,8 +175,8 @@ export function Portfolio() {
           player.mute();
         }
         setIsMuted(!isMuted);
-      } catch (e) {
-        console.error('Error toggling mute:', e);
+      } catch (_e) {
+        console.error('Error toggling mute:', _e);
       }
     } else {
       // If player not ready, just toggle state - it will be applied when player is ready
@@ -163,7 +189,8 @@ export function Portfolio() {
     if (typeof window === 'undefined') return;
 
     // Load YouTube IFrame API
-    if (!(window as any).YT) {
+    const ytWindow = window as YouTubeWindow;
+    if (!ytWindow.YT) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -176,8 +203,8 @@ export function Portfolio() {
       const iframeId = `youtube-player-${video.id}`;
       const iframe = document.getElementById(iframeId);
       
-      if (iframe && !youtubePlayerRefs.current[videoIndex]) {
-        youtubePlayerRefs.current[videoIndex] = new (window as any).YT.Player(iframeId, {
+      if (iframe && !youtubePlayerRefs.current[videoIndex] && ytWindow.YT) {
+        youtubePlayerRefs.current[videoIndex] = new ytWindow.YT.Player(iframeId, {
           videoId: video.youtubeId,
           playerVars: {
             autoplay: videoIndex === currentIndex && isPlaying ? 1 : 0,
@@ -195,7 +222,7 @@ export function Portfolio() {
             cc_load_policy: 0,
           },
           events: {
-            onReady: (event: any) => {
+            onReady: (event: YouTubePlayerEvent) => {
               if (videoIndex === currentIndex) {
                 if (isMuted) {
                   event.target.mute();
@@ -216,7 +243,7 @@ export function Portfolio() {
 
     // Wait for API to load
     const checkYT = setInterval(() => {
-      if ((window as any).YT && (window as any).YT.Player) {
+      if (ytWindow.YT && ytWindow.YT.Player) {
         clearInterval(checkYT);
         
         // Initialize player for current video
@@ -227,11 +254,13 @@ export function Portfolio() {
     }, 100);
 
     return () => clearInterval(checkYT);
-  }, []);
+  }, [currentIndex, isMuted, isPlaying]);
 
   // Initialize player when index changes
   useEffect(() => {
-    if (typeof window === 'undefined' || !(window as any).YT || !(window as any).YT.Player) return;
+    if (typeof window === 'undefined') return;
+    const ytWindow = window as YouTubeWindow;
+    if (!ytWindow.YT || !ytWindow.YT.Player) return;
 
     const currentVideo = VERTICAL_VIDEOS[currentIndex];
     const iframeId = `youtube-player-${currentVideo.id}`;
@@ -241,7 +270,7 @@ export function Portfolio() {
       // If player doesn't exist, initialize it
       if (!youtubePlayerRefs.current[currentIndex]) {
         setTimeout(() => {
-          youtubePlayerRefs.current[currentIndex] = new (window as any).YT.Player(iframeId, {
+          youtubePlayerRefs.current[currentIndex] = new ytWindow.YT!.Player(iframeId, {
             videoId: currentVideo.youtubeId,
             playerVars: {
               autoplay: isPlaying ? 1 : 0,
@@ -259,7 +288,7 @@ export function Portfolio() {
               cc_load_policy: 0,
             },
             events: {
-              onReady: (event: any) => {
+              onReady: (event: YouTubePlayerEvent) => {
                 if (isMuted) {
                   event.target.mute();
                 } else {
@@ -277,24 +306,26 @@ export function Portfolio() {
       } else {
         // Player exists, just update state
         const player = youtubePlayerRefs.current[currentIndex];
-        if (isMuted) {
-          player.mute();
-        } else {
-          player.unMute();
-        }
-        if (isPlaying) {
-          player.playVideo();
-        } else {
-          player.pauseVideo();
+        if (player) {
+          if (isMuted) {
+            player.mute();
+          } else {
+            player.unMute();
+          }
+          if (isPlaying) {
+            player.playVideo();
+          } else {
+            player.pauseVideo();
+          }
         }
       }
     }
-  }, [currentIndex]);
+  }, [currentIndex, isMuted, isPlaying]);
 
   // Update player state when mute/play state changes
   useEffect(() => {
     const player = youtubePlayerRefs.current[currentIndex];
-    if (player && player.getPlayerState) {
+    if (player) {
       try {
         if (isMuted) {
           player.mute();
@@ -306,7 +337,7 @@ export function Portfolio() {
         } else {
           player.pauseVideo();
         }
-      } catch (e) {
+      } catch (_e) {
         // Player might not be ready yet
       }
     }

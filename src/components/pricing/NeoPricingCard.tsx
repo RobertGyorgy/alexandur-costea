@@ -11,7 +11,6 @@ interface NeoPricingCardProps {
   features: string[];
   ctaLabel: string;
   // This is a client component, functions are valid props
-  // @ts-ignore - Next.js serialization check (false positive for client components)
   onCTAClick: () => void;
   isPopular?: boolean;
   showInstagramIcon?: boolean;

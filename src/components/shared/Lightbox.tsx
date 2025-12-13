@@ -12,7 +12,6 @@ import type { MediaItem } from '@/lib/content';
 interface LightboxProps {
   isOpen: boolean;
   // This is a client component, functions are valid props
-  // @ts-ignore - Next.js serialization check (false positive for client components)
   onClose: () => void;
   media: MediaItem;
   title?: string;
