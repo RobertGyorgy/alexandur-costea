@@ -40,13 +40,13 @@ export function Footer() {
               rel="noopener noreferrer"
               className="hover:opacity-100 transition-opacity"
             >
-              <Image
-                src="/1.png"
-                alt="Logo 1"
-                width={100}
-                height={50}
-                className="h-10 w-auto object-contain opacity-70"
-              />
+            <Image
+              src="/1.png"
+              alt="Logo 1"
+              width={100}
+              height={50}
+              className="h-10 w-auto object-contain opacity-70"
+            />
             </a>
             <a
               href="https://reclamatiisal.anpc.ro/"
@@ -54,13 +54,13 @@ export function Footer() {
               rel="noopener noreferrer"
               className="hover:opacity-100 transition-opacity"
             >
-              <Image
-                src="/2.png"
-                alt="Logo 2"
-                width={100}
-                height={50}
-                className="h-10 w-auto object-contain opacity-70"
-              />
+            <Image
+              src="/2.png"
+              alt="Logo 2"
+              width={100}
+              height={50}
+              className="h-10 w-auto object-contain opacity-70"
+            />
             </a>
             </div>
         </div>

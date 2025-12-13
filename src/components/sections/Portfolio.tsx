@@ -150,9 +150,9 @@ export function Portfolio() {
     const player = youtubePlayerRefs.current[currentIndex];
     if (player && typeof player.pauseVideo === 'function' && typeof player.playVideo === 'function') {
       try {
-        if (isPlaying) {
+      if (isPlaying) {
           player.pauseVideo();
-        } else {
+      } else {
           player.playVideo();
         }
         setIsPlaying(!isPlaying);
@@ -312,7 +312,7 @@ export function Portfolio() {
           } else {
             player.unMute();
           }
-          if (isPlaying) {
+      if (isPlaying) {
             player.playVideo();
           } else {
             player.pauseVideo();

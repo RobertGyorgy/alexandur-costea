@@ -79,7 +79,7 @@ export function Hero() {
             zIndex: 1,
             pointerEvents: 'none',
             background: 'transparent'
-          }} 
+          }}
         />
       </motion.div>
 

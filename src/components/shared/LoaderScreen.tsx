@@ -25,174 +25,56 @@ interface YouTubeWindow extends Window {
 export function LoaderScreen() {
   const [isLoaded, setIsLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const apiCheckRef = useRef<NodeJS.Timeout | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isSafari, setIsSafari] = useState(false);
 
-  // Detect mobile device and Safari
+  // Auto-dismiss loader after 3 seconds
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const checkDevice = () => {
-        const mobile = window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        setIsMobile(mobile);
-        
-        // Detect Safari (iOS or desktop)
-        const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
-                      /iPad|iPhone|iPod/.test(navigator.userAgent);
-        setIsSafari(safari);
-      };
-      checkDevice();
-      window.addEventListener('resize', checkDevice);
-      return () => window.removeEventListener('resize', checkDevice);
-    }
-    return undefined;
-  }, []);
-
-  // Auto-dismiss loader (faster on mobile and Safari)
-  useEffect(() => {
-    // On Safari or mobile, dismiss faster to prevent blocking
-    let delay = 3000;
-    if (isSafari) {
-      delay = isMobile ? 1000 : 2000; // Very fast on Safari mobile, faster on Safari desktop
-    } else if (isMobile) {
-      delay = 1500;
-    }
-    
-    // Primary timer
-    timeoutRef.current = setTimeout(() => {
-      setIsLoaded(true);
-    }, delay);
-
-    // Safety timer - force dismiss after 3 seconds to prevent blocking (especially on Safari)
-    const safetyTimer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 3000);
 
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      clearTimeout(safetyTimer);
-    };
-  }, [isMobile, isSafari]);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Prevent scrolling while loader is active (Safari-specific fix)
+  // Prevent scrolling while loader is active
   useEffect(() => {
     if (!isLoaded) {
-      if (isSafari) {
-        // Safari-specific: use html overflow instead of body position fixed
-        document.documentElement.style.overflow = 'hidden';
-        document.documentElement.style.position = 'relative';
-        document.body.style.overflow = 'hidden';
-        document.body.style.position = 'relative';
-        document.body.style.width = '100%';
-        document.body.style.height = '100vh';
-      } else {
-        // Standard approach for other browsers
-        document.body.style.overflow = 'hidden';
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
-        document.body.style.height = '100%';
-      }
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
     } else {
-      // Restore styles
-      if (isSafari) {
-        document.documentElement.style.overflow = '';
-        document.documentElement.style.position = '';
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        document.body.style.height = '';
-      } else {
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        document.body.style.height = '';
-      }
+      document.body.style.overflow = 'auto';
+      document.body.style.position = 'relative';
+      document.body.style.width = 'auto';
+      document.body.style.height = 'auto';
     }
-    
-    return () => {
-      // Cleanup on unmount
-      if (isSafari) {
-        document.documentElement.style.overflow = '';
-        document.documentElement.style.position = '';
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        document.body.style.height = '';
-      } else {
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        document.body.style.height = '';
-      }
-    };
-  }, [isLoaded, isSafari]);
+  }, [isLoaded]);
 
   // Load YouTube IFrame API and set playback rate to 1.5x
   useEffect(() => {
-    if (!isLoaded && iframeRef.current && typeof window !== 'undefined') {
-      // Check if script already exists
-      const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
-      
-      if (!existingScript) {
-        // Load YouTube IFrame API
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        tag.async = true;
-        tag.defer = true;
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        if (firstScriptTag && firstScriptTag.parentNode) {
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-      }
+    if (!isLoaded && iframeRef.current) {
+      // Load YouTube IFrame API
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-      // Wait for API to load (with timeout)
+      // Wait for API to load
       const ytWindow = window as YouTubeWindow;
-      let attempts = 0;
-      const maxAttempts = 50; // 5 seconds max (50 * 100ms)
-      
-      apiCheckRef.current = setInterval(() => {
-        attempts++;
-        
-        // Stop checking after max attempts
-        if (attempts >= maxAttempts) {
-          if (apiCheckRef.current) {
-            clearInterval(apiCheckRef.current);
-            apiCheckRef.current = null;
-          }
-          return;
-        }
-        
+      const checkYT = setInterval(() => {
         if (ytWindow.YT && ytWindow.YT.Player && iframeRef.current) {
-          if (apiCheckRef.current) {
-            clearInterval(apiCheckRef.current);
-            apiCheckRef.current = null;
-          }
-          
-          try {
-            new ytWindow.YT.Player(iframeRef.current, {
-              events: {
-                onReady: (event: YouTubePlayerEvent) => {
-                  try {
-                    event.target.setPlaybackRate(1.5); // Set to 1.5x speed
-                  } catch (err) {
-                    console.warn('Could not set playback rate:', err);
-                  }
-                }
+          clearInterval(checkYT);
+          new ytWindow.YT.Player(iframeRef.current, {
+            events: {
+              onReady: (event: YouTubePlayerEvent) => {
+                event.target.setPlaybackRate(1.5); // Set to 1.5x speed
               }
-            });
-          } catch (err) {
-            console.warn('Could not initialize YouTube player:', err);
-          }
+            }
+          });
         }
       }, 100);
 
-      return () => {
-        if (apiCheckRef.current) {
-          clearInterval(apiCheckRef.current);
-          apiCheckRef.current = null;
-        }
-      };
+      return () => clearInterval(checkYT);
     }
     return undefined;
   }, [isLoaded]);
@@ -226,13 +108,11 @@ export function LoaderScreen() {
                   transform: 'translate(-50%, -50%) scale(1.1)',
                   pointerEvents: 'none',
                   border: 'none',
-                  zIndex: 0,
-                  WebkitTransform: 'translate(-50%, -50%) scale(1.1)', // Safari prefix
+                  zIndex: 0
                 }}
-                allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"
+                allow="autoplay; encrypted-media"
                 allowFullScreen={false}
                 title="Loader background video"
-                loading="eager"
               />
             </div>
           </div>

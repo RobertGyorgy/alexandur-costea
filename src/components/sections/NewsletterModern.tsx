@@ -258,14 +258,14 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                   rel="noopener noreferrer"
                   className="hover:opacity-100 transition-opacity"
                 >
-                  <Image
-                    src="/1.png"
-                    alt="Logo 1"
-                    width={100}
-                    height={50}
-                    className="h-10 w-auto object-contain opacity-70"
-                    unoptimized
-                  />
+                <Image
+                  src="/1.png"
+                  alt="Logo 1"
+                  width={100}
+                  height={50}
+                  className="h-10 w-auto object-contain opacity-70"
+                  unoptimized
+                />
                 </a>
                 <a
                   href="https://reclamatiisal.anpc.ro/"
@@ -273,14 +273,14 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
                   rel="noopener noreferrer"
                   className="hover:opacity-100 transition-opacity"
                 >
-                  <Image
-                    src="/2.png"
-                    alt="Logo 2"
-                    width={100}
-                    height={50}
-                    className="h-10 w-auto object-contain opacity-70"
-                    unoptimized
-                  />
+                <Image
+                  src="/2.png"
+                  alt="Logo 2"
+                  width={100}
+                  height={50}
+                  className="h-10 w-auto object-contain opacity-70"
+                  unoptimized
+                />
                 </a>
               </div>
             </div>
