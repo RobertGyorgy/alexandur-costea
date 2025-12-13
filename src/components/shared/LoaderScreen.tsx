@@ -25,15 +25,45 @@ interface YouTubeWindow extends Window {
 export function LoaderScreen() {
   const [isLoaded, setIsLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const apiCheckRef = useRef<NodeJS.Timeout | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Auto-dismiss loader after 3 seconds
+  // Detect mobile device
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        const mobile = window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        setIsMobile(mobile);
+      };
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+    return undefined;
   }, []);
+
+  // Auto-dismiss loader (faster on mobile)
+  useEffect(() => {
+    // On mobile, dismiss faster (1.5s) to prevent blocking
+    // On desktop, keep 3 seconds
+    const delay = isMobile ? 1500 : 3000;
+    
+    // Primary timer
+    timeoutRef.current = setTimeout(() => {
+      setIsLoaded(true);
+    }, delay);
+
+    // Safety timer - force dismiss after 4 seconds to prevent blocking
+    const safetyTimer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 4000);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      clearTimeout(safetyTimer);
+    };
+  }, [isMobile]);
 
   // Prevent scrolling while loader is active
   useEffect(() => {
@@ -43,38 +73,87 @@ export function LoaderScreen() {
       document.body.style.width = '100%';
       document.body.style.height = '100%';
     } else {
-      document.body.style.overflow = 'auto';
-      document.body.style.position = 'relative';
-      document.body.style.width = 'auto';
-      document.body.style.height = 'auto';
+      // Restore body styles
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
     }
+    
+    return () => {
+      // Cleanup on unmount
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    };
   }, [isLoaded]);
 
   // Load YouTube IFrame API and set playback rate to 1.5x
   useEffect(() => {
-    if (!isLoaded && iframeRef.current) {
-      // Load YouTube IFrame API
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    if (!isLoaded && iframeRef.current && typeof window !== 'undefined') {
+      // Check if script already exists
+      const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
+      
+      if (!existingScript) {
+        // Load YouTube IFrame API
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        tag.async = true;
+        tag.defer = true;
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        if (firstScriptTag && firstScriptTag.parentNode) {
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+      }
 
-      // Wait for API to load
+      // Wait for API to load (with timeout)
       const ytWindow = window as YouTubeWindow;
-      const checkYT = setInterval(() => {
+      let attempts = 0;
+      const maxAttempts = 50; // 5 seconds max (50 * 100ms)
+      
+      apiCheckRef.current = setInterval(() => {
+        attempts++;
+        
+        // Stop checking after max attempts
+        if (attempts >= maxAttempts) {
+          if (apiCheckRef.current) {
+            clearInterval(apiCheckRef.current);
+            apiCheckRef.current = null;
+          }
+          return;
+        }
+        
         if (ytWindow.YT && ytWindow.YT.Player && iframeRef.current) {
-          clearInterval(checkYT);
-          new ytWindow.YT.Player(iframeRef.current, {
-            events: {
-              onReady: (event: YouTubePlayerEvent) => {
-                event.target.setPlaybackRate(1.5); // Set to 1.5x speed
+          if (apiCheckRef.current) {
+            clearInterval(apiCheckRef.current);
+            apiCheckRef.current = null;
+          }
+          
+          try {
+            new ytWindow.YT.Player(iframeRef.current, {
+              events: {
+                onReady: (event: YouTubePlayerEvent) => {
+                  try {
+                    event.target.setPlaybackRate(1.5); // Set to 1.5x speed
+                  } catch (err) {
+                    console.warn('Could not set playback rate:', err);
+                  }
+                }
               }
-            }
-          });
+            });
+          } catch (err) {
+            console.warn('Could not initialize YouTube player:', err);
+          }
         }
       }, 100);
 
-      return () => clearInterval(checkYT);
+      return () => {
+        if (apiCheckRef.current) {
+          clearInterval(apiCheckRef.current);
+          apiCheckRef.current = null;
+        }
+      };
     }
     return undefined;
   }, [isLoaded]);
@@ -110,9 +189,10 @@ export function LoaderScreen() {
                   border: 'none',
                   zIndex: 0
                 }}
-                allow="autoplay; encrypted-media"
+                allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"
                 allowFullScreen={false}
                 title="Loader background video"
+                loading="eager"
               />
             </div>
           </div>

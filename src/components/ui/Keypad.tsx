@@ -224,7 +224,7 @@ export function Keypad({ onSubmit }: KeypadProps) {
               >
                 <div className="mb-6">
                   <h1 className={`keypad-title ${isMobile ? 'text-center' : ''}`} style={{ color: '#E5E4E2' }}>
-                    <span style={{ color: '#FE5F01' }}>Creează-ti</span> contul
+                    <span style={{ color: '#FE5F01' }}>Creează-ta i</span> contul
                   </h1>
                   <p className={`keypad-description ${isMobile ? 'text-center' : ''}`}>
                     Alătură-te comunității de creatori. Împărtășește-ți munca, inspiră-te și dezvoltă-ți călătoria creativă.
