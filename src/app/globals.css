@@ -139,8 +139,9 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   position: relative;
-  width: 100vw;
+  width: 100%;
   max-width: 100vw;
+  min-height: 100vh;
   transition: background-color 0.5s ease, color 0.5s ease;
   line-height: 1.6;
 }
@@ -355,37 +356,34 @@ select {
   line-clamp: 3;
 }
 
-/* Safari-specific toolbar and search bar fixes */
+/* Safari-specific fixes - simplified for better compatibility */
 @supports (-webkit-touch-callout: none) {
   html {
-    /* Use small viewport height to prevent Safari UI from collapsing */
-    height: 100svh;
-    /* Force Safari to maintain toolbar */
+    /* Use dynamic viewport height for iOS Safari */
+    height: 100%;
+    min-height: 100%;
     -webkit-text-size-adjust: 100%;
   }
   
   body {
-    height: 100svh;
+    /* Use min-height instead of fixed height to prevent cutting */
+    min-height: 100%;
+    min-height: -webkit-fill-available;
     overflow-x: hidden;
-    /* Prevent Safari from hiding toolbar */
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: transparent;
   }
   
-  /* Force Safari toolbar to stay visible and non-transparent */
+  /* Mobile Safari specific */
   @media screen and (max-width: 767px) {
     html {
-      /* Prevent Safari from collapsing toolbar - less aggressive */
-      height: 100vh;
-      min-height: 100vh;
+      height: -webkit-fill-available;
     }
     
     body {
-      /* Force Safari to maintain toolbar visibility - less aggressive */
-      height: 100vh;
       min-height: 100vh;
-      /* Prevent toolbar transparency */
-      background-color: var(--bg, #0a0a0a);
+      min-height: -webkit-fill-available;
+      background-color: var(--bg, #102837);
     }
   }
 }
@@ -395,7 +393,9 @@ select {
 /* Reserve space for fixed blur so content never sits under it */
 @media (max-width: 767px) {
   main {
-    padding-bottom: calc(var(--blur-height) + var(--ios-bottom-ui));
+    padding-bottom: calc(var(--blur-height, 8rem) + var(--ios-bottom-ui, env(safe-area-inset-bottom)));
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
   }
 }
 

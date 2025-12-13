@@ -35,19 +35,30 @@ export function LoaderScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Prevent scrolling while loader is active
+  // Prevent scrolling while loader is active - iOS Safari compatible
   useEffect(() => {
     if (!isLoaded) {
+      // Store original values
+      const originalOverflow = document.body.style.overflow;
+      const originalPosition = document.body.style.position;
+      const originalTop = document.body.style.top;
+      const scrollY = window.scrollY;
+      
+      // Prevent scroll
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
-      document.body.style.height = '100%';
-    } else {
-      document.body.style.overflow = 'auto';
-      document.body.style.position = 'relative';
-      document.body.style.width = 'auto';
-      document.body.style.height = 'auto';
+      
+      return () => {
+        // Restore original values
+        document.body.style.overflow = originalOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.top = originalTop;
+        window.scrollTo(0, scrollY);
+      };
     }
+    return undefined;
   }, [isLoaded]);
 
   // Load YouTube IFrame API and set playback rate to 1.5x
