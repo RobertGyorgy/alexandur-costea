@@ -235,7 +235,7 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
         </div>
 
         {/* Footer Content - Integrated into Newsletter Section */}
-        <div className="relative z-10 py-8 pb-12">
+        <div className="relative z-10 py-8 pb-4 md:pb-12">
           <div className="max-w-6xl mx-auto px-4">
             {/* Small centered separator line */}
             <div className="flex justify-center mb-6">
