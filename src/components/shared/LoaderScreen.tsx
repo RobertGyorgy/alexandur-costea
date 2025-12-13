@@ -28,66 +28,105 @@ export function LoaderScreen() {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const apiCheckRef = useRef<NodeJS.Timeout | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isSafari, setIsSafari] = useState(false);
 
-  // Detect mobile device
+  // Detect mobile device and Safari
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const checkMobile = () => {
+      const checkDevice = () => {
         const mobile = window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         setIsMobile(mobile);
+        
+        // Detect Safari (iOS or desktop)
+        const safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                      /iPad|iPhone|iPod/.test(navigator.userAgent);
+        setIsSafari(safari);
       };
-      checkMobile();
-      window.addEventListener('resize', checkMobile);
-      return () => window.removeEventListener('resize', checkMobile);
+      checkDevice();
+      window.addEventListener('resize', checkDevice);
+      return () => window.removeEventListener('resize', checkDevice);
     }
     return undefined;
   }, []);
 
-  // Auto-dismiss loader (faster on mobile)
+  // Auto-dismiss loader (faster on mobile and Safari)
   useEffect(() => {
-    // On mobile, dismiss faster (1.5s) to prevent blocking
-    // On desktop, keep 3 seconds
-    const delay = isMobile ? 1500 : 3000;
+    // On Safari or mobile, dismiss faster to prevent blocking
+    let delay = 3000;
+    if (isSafari) {
+      delay = isMobile ? 1000 : 2000; // Very fast on Safari mobile, faster on Safari desktop
+    } else if (isMobile) {
+      delay = 1500;
+    }
     
     // Primary timer
     timeoutRef.current = setTimeout(() => {
       setIsLoaded(true);
     }, delay);
 
-    // Safety timer - force dismiss after 4 seconds to prevent blocking
+    // Safety timer - force dismiss after 3 seconds to prevent blocking (especially on Safari)
     const safetyTimer = setTimeout(() => {
       setIsLoaded(true);
-    }, 4000);
+    }, 3000);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       clearTimeout(safetyTimer);
     };
-  }, [isMobile]);
+  }, [isMobile, isSafari]);
 
-  // Prevent scrolling while loader is active
+  // Prevent scrolling while loader is active (Safari-specific fix)
   useEffect(() => {
     if (!isLoaded) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      document.body.style.height = '100%';
+      if (isSafari) {
+        // Safari-specific: use html overflow instead of body position fixed
+        document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.position = 'relative';
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'relative';
+        document.body.style.width = '100%';
+        document.body.style.height = '100vh';
+      } else {
+        // Standard approach for other browsers
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.height = '100%';
+      }
     } else {
-      // Restore body styles
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.height = '';
+      // Restore styles
+      if (isSafari) {
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.position = '';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+      }
     }
     
     return () => {
       // Cleanup on unmount
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.height = '';
+      if (isSafari) {
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.position = '';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+      }
     };
-  }, [isLoaded]);
+  }, [isLoaded, isSafari]);
 
   // Load YouTube IFrame API and set playback rate to 1.5x
   useEffect(() => {
@@ -187,7 +226,8 @@ export function LoaderScreen() {
                   transform: 'translate(-50%, -50%) scale(1.1)',
                   pointerEvents: 'none',
                   border: 'none',
-                  zIndex: 0
+                  zIndex: 0,
+                  WebkitTransform: 'translate(-50%, -50%) scale(1.1)', // Safari prefix
                 }}
                 allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"
                 allowFullScreen={false}
