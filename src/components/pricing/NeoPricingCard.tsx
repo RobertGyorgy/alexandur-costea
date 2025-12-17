@@ -16,6 +16,7 @@ interface NeoPricingCardProps {
   showInstagramIcon?: boolean;
   description?: string;
   extras?: string[];
+  cardHeight?: string;
 }
 
 export function NeoPricingCard({
@@ -29,7 +30,8 @@ export function NeoPricingCard({
   isPopular: _isPopular = false,
   showInstagramIcon = false,
   description,
-  extras
+  extras,
+  cardHeight = 'h-[650px] md:h-[850px]'
 }: NeoPricingCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -45,7 +47,7 @@ export function NeoPricingCard({
 
   return (
     <div 
-      className="relative w-full h-[900px] md:h-[850px] group" 
+      className={`relative w-full ${cardHeight} group`}
       style={{ perspective: '1200px' }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
@@ -73,18 +75,18 @@ export function NeoPricingCard({
           {/* Content Wrapper - Flex Column */}
           <div className="h-full flex flex-col relative z-10">
             {/* Header - Fixed height for alignment */}
-            <div className="px-8 pt-8 pb-3 flex-shrink-0 h-[220px] flex flex-col justify-between">
+            <div className="px-6 md:px-8 pt-6 md:pt-8 pb-3 flex-shrink-0 h-auto md:h-[220px] flex flex-col justify-between">
               <p className="text-fib-3 text-[#E5E4E2] font-garnet">{subtitle || title}</p>
-              <div className="flex items-baseline gap-1">
+              <div className="flex items-baseline gap-1 mt-2 md:mt-0">
                 <span className="text-fib-3 font-bold tracking-tight text-[#FE5F01]">{price}</span>
                 {period && <span className="text-[#E5E4E2]/60 font-medium text-fib-1">/{period}</span>}
               </div>
             </div>
 
             {/* Features List - Scrollable only on mobile */}
-            <div className="px-8 pt-3 pb-6 flex-1 overflow-y-auto md:overflow-y-visible min-h-0 space-y-3 scrollbar-thin scrollbar-thumb-[#FE5F01]/30 scrollbar-track-transparent">
+            <div className="px-6 md:px-8 pt-2 md:pt-3 pb-3 md:pb-6 flex-1 overflow-y-auto md:overflow-y-visible min-h-0 space-y-2 md:space-y-3 scrollbar-thin scrollbar-thumb-[#FE5F01]/30 scrollbar-track-transparent">
               {features.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-3 flex-shrink-0">
+                <div key={idx} className="flex items-start gap-2 md:gap-3 flex-shrink-0">
                   <div className="flex-shrink-0 mt-0.5">
                     <CheckIcon />
                   </div>
@@ -94,7 +96,7 @@ export function NeoPricingCard({
             </div>
 
             {/* CTA Section - Always at bottom */}
-            <div className="px-8 pb-8 pt-6 flex-shrink-0 border-t border-white/10">
+            <div className="px-6 md:px-8 pb-6 md:pb-8 pt-4 md:pt-6 flex-shrink-0 border-t border-white/10">
             <div className="relative">
               {/* Button */}
               <button

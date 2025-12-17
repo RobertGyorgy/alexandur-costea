@@ -99,7 +99,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="font-garnet text-white text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl leading-tight md:leading-relaxed"
+          className="font-garnet text-white text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl leading-[1.2] sm:leading-[1.3] md:leading-relaxed"
         >
           {(() => {
             const text = content.subheading;
@@ -130,11 +130,11 @@ export function Hero() {
             
             return (
               <>
-                <span className="block sm:inline-block">
+                <span className="block sm:inline-block leading-[1.2] sm:leading-[1.3]">
                   {formatText(firstPart)}
                 </span>
-                <br className="block sm:hidden md:inline" />
-                <span className="block sm:inline-block sm:ml-1">
+                <span className="block sm:hidden" style={{ lineHeight: 0, height: 0, margin: 0, padding: 0, fontSize: 0, display: 'block' }} aria-hidden="true" />
+                <span className="block sm:inline-block sm:ml-1 leading-[1.2] sm:leading-[1.3]" style={{ marginTop: isMobile ? '-0.2em' : undefined }}>
                   {formatText(secondPart)}
                 </span>
               </>

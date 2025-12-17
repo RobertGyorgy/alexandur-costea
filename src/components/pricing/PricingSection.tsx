@@ -184,6 +184,21 @@ export function PricingSection() {
             const cardData = getCardData(plan);
             const shouldApplyParallax = isMounted && !isMobile;
             
+            // Different heights for each card (mobile only, desktop stays at 850px)
+            const getCardHeight = (planId: string) => {
+              if (planId === 'essential') {
+                // ReelUp - mai puțin înalt pe mobil
+                return 'h-[550px] md:h-[850px]';
+              } else if (planId === 'professional') {
+                // Masterclass - mai lung pe mobil
+                return 'h-[750px] md:h-[850px]';
+              } else if (planId === 'enterprise') {
+                // Instagram - mai puțin înalt pe mobil
+                return 'h-[550px] md:h-[850px]';
+              }
+              return 'h-[650px] md:h-[850px]';
+            };
+            
             // Mobile optimization
             const _mobileTransition = {
               duration: 0.3,
@@ -227,6 +242,7 @@ export function PricingSection() {
                   showInstagramIcon={cardData.ctaAction === 'instagram'}
                   description={cardData.description}
                   extras={cardData.extras}
+                  cardHeight={getCardHeight(plan.id)}
                 />
               </motion.div>
             );
