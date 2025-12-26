@@ -14,11 +14,11 @@ export default function IosBottomUIFix() {
     
     const setBottomUI = () => {
       try {
-        // How much vertical space the browser UI occupies at the bottom
-        const ui = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop))
-        // Cap at something sane; prevents weird spikes during rotations
-        const clamped = Math.min(ui, 200)
-        document.documentElement.style.setProperty('--ios-bottom-ui', `${clamped}px`)
+      // How much vertical space the browser UI occupies at the bottom
+      const ui = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop))
+      // Cap at something sane; prevents weird spikes during rotations
+      const clamped = Math.min(ui, 200)
+      document.documentElement.style.setProperty('--ios-bottom-ui', `${clamped}px`)
       } catch (_e) {
         // Fallback to safe-area-inset if calculation fails
         document.documentElement.style.setProperty('--ios-bottom-ui', 'env(safe-area-inset-bottom, 0px)')

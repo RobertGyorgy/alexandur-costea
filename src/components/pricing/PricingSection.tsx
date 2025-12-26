@@ -188,7 +188,7 @@ export function PricingSection() {
             const getCardHeight = (planId: string) => {
               if (planId === 'essential') {
                 // ReelUp - mai puțin înalt pe mobil
-                return 'h-[550px] md:h-[850px]';
+                return 'h-[600px] md:h-[850px]';
               } else if (planId === 'professional') {
                 // Masterclass - mai lung pe mobil
                 return 'h-[750px] md:h-[850px]';

@@ -11,6 +11,7 @@ interface YouTubePlayer {
   mute: () => void;
   unMute: () => void;
   setPlaybackRate: (rate: number) => void;
+  setPlaybackQuality: (quality: string) => void;
   getPlayerState: () => number;
 }
 
@@ -146,49 +147,60 @@ export function Portfolio() {
     setCurrentIndex((prev) => (prev - 1 + VERTICAL_VIDEOS.length) % VERTICAL_VIDEOS.length);
   };
 
-  const togglePlayPause = () => {
+  const togglePlayPause = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     const player = youtubePlayerRefs.current[currentIndex];
-    if (player && typeof player.pauseVideo === 'function' && typeof player.playVideo === 'function') {
+    const newPlayingState = !isPlaying;
+    
+    setIsPlaying(newPlayingState);
+    
+    if (player) {
       try {
-      if (isPlaying) {
-          player.pauseVideo();
-      } else {
-          player.playVideo();
+        // Check if methods exist before calling
+        if (typeof player.playVideo === 'function' && typeof player.pauseVideo === 'function') {
+          if (newPlayingState) {
+            player.playVideo();
+          } else {
+            player.pauseVideo();
+          }
         }
-        setIsPlaying(!isPlaying);
-      } catch (_e) {
-        console.error('Error toggling play/pause:', _e);
+      } catch (error) {
+        console.error('Error toggling play/pause:', error);
       }
-    } else {
-      // If player not ready, just toggle state - it will be applied when player is ready
-      setIsPlaying(!isPlaying);
     }
   };
 
-  const toggleMute = () => {
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     const player = youtubePlayerRefs.current[currentIndex];
-    if (player && typeof player.mute === 'function' && typeof player.unMute === 'function') {
+    const newMutedState = !isMuted;
+    
+    setIsMuted(newMutedState);
+    
+    if (player) {
       try {
-        if (isMuted) {
-          player.unMute();
-        } else {
-          player.mute();
+        // Check if methods exist before calling
+        if (typeof player.mute === 'function' && typeof player.unMute === 'function') {
+          if (newMutedState) {
+            player.mute();
+          } else {
+            player.unMute();
+          }
         }
-        setIsMuted(!isMuted);
-      } catch (_e) {
-        console.error('Error toggling mute:', _e);
+      } catch (error) {
+        console.error('Error toggling mute:', error);
       }
-    } else {
-      // If player not ready, just toggle state - it will be applied when player is ready
-      setIsMuted(!isMuted);
     }
   };
 
-  // Initialize YouTube IFrame API
+  // Load YouTube IFrame API (only once)
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Load YouTube IFrame API
     const ytWindow = window as YouTubeWindow;
     if (!ytWindow.YT) {
       const tag = document.createElement('script');
@@ -196,133 +208,143 @@ export function Portfolio() {
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
     }
+  }, []);
 
-    // Function to initialize player for a specific video
-    const initPlayer = (videoIndex: number) => {
-      const video = VERTICAL_VIDEOS[videoIndex];
-      const iframeId = `youtube-player-${video.id}`;
-      const iframe = document.getElementById(iframeId);
-      
-      if (iframe && !youtubePlayerRefs.current[videoIndex] && ytWindow.YT) {
-        youtubePlayerRefs.current[videoIndex] = new ytWindow.YT.Player(iframeId, {
-          videoId: video.youtubeId,
-          playerVars: {
-            autoplay: videoIndex === currentIndex && isPlaying ? 1 : 0,
-            mute: isMuted ? 1 : 0,
-            loop: 1,
-            playlist: video.youtubeId,
-            controls: 0,
-            playsinline: 1,
-            rel: 0,
-            modestbranding: 1,
-            iv_load_policy: 3,
-            showinfo: 0,
-            disablekb: 1,
-            fs: 0,
-            cc_load_policy: 0,
-          },
-          events: {
-            onReady: (event: YouTubePlayerEvent) => {
-              if (videoIndex === currentIndex) {
-                if (isMuted) {
-                  event.target.mute();
-                } else {
-                  event.target.unMute();
-                }
-                if (isPlaying) {
-                  event.target.playVideo();
-                } else {
-                  event.target.pauseVideo();
-                }
-              }
-            }
-          }
-        });
-      }
-    };
-
-    // Wait for API to load
-    const checkYT = setInterval(() => {
-      if (ytWindow.YT && ytWindow.YT.Player) {
-        clearInterval(checkYT);
-        
-        // Initialize player for current video
-        setTimeout(() => {
-          initPlayer(currentIndex);
-        }, 100);
-      }
-    }, 100);
-
-    return () => clearInterval(checkYT);
-  }, [currentIndex, isMuted, isPlaying]);
-
-  // Initialize player when index changes
+  // Initialize player when currentIndex changes
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const ytWindow = window as YouTubeWindow;
-    if (!ytWindow.YT || !ytWindow.YT.Player) return;
-
-    const currentVideo = VERTICAL_VIDEOS[currentIndex];
-    const iframeId = `youtube-player-${currentVideo.id}`;
-    const iframe = document.getElementById(iframeId);
     
-    if (iframe) {
-      // If player doesn't exist, initialize it
-      if (!youtubePlayerRefs.current[currentIndex]) {
-        setTimeout(() => {
-          youtubePlayerRefs.current[currentIndex] = new ytWindow.YT!.Player(iframeId, {
-            videoId: currentVideo.youtubeId,
-            playerVars: {
-              autoplay: isPlaying ? 1 : 0,
-              mute: isMuted ? 1 : 0,
-              loop: 1,
-              playlist: currentVideo.youtubeId,
-              controls: 0,
-              playsinline: 1,
-              rel: 0,
-              modestbranding: 1,
-              iv_load_policy: 3,
-              showinfo: 0,
-              disablekb: 1,
-              fs: 0,
-              cc_load_policy: 0,
-            },
-            events: {
-              onReady: (event: YouTubePlayerEvent) => {
-                if (isMuted) {
-                  event.target.mute();
-                } else {
-                  event.target.unMute();
-                }
-                if (isPlaying) {
-                  event.target.playVideo();
-                } else {
-                  event.target.pauseVideo();
-                }
-              }
-            }
-          });
-        }, 200);
-      } else {
-        // Player exists, just update state
-        const player = youtubePlayerRefs.current[currentIndex];
-        if (player) {
-          if (isMuted) {
-            player.mute();
-          } else {
-            player.unMute();
-          }
-      if (isPlaying) {
-            player.playVideo();
-          } else {
-            player.pauseVideo();
-          }
+    // Clean up previous player if switching videos
+    const prevIndex = Object.keys(youtubePlayerRefs.current).find(
+      (key) => parseInt(key) !== currentIndex && youtubePlayerRefs.current[parseInt(key)]
+    );
+    if (prevIndex !== undefined) {
+      const prevPlayer = youtubePlayerRefs.current[parseInt(prevIndex)];
+      if (prevPlayer && typeof prevPlayer.pauseVideo === 'function') {
+        try {
+          prevPlayer.pauseVideo();
+        } catch (e) {
+          // Ignore errors when pausing
         }
       }
     }
+    
+    const initPlayer = () => {
+      if (!ytWindow.YT || !ytWindow.YT.Player) return;
+
+      const currentVideo = VERTICAL_VIDEOS[currentIndex];
+      const playerId = `youtube-player-${currentVideo.id}`;
+      
+      // Check if player exists and if its DOM element still exists
+      const existingPlayer = youtubePlayerRefs.current[currentIndex];
+      if (existingPlayer) {
+        // Try to check if player is still valid by checking if we can access its methods
+        // If the DOM element was removed, the player might be invalid
+        const playerElement = document.getElementById(playerId);
+        if (playerElement) {
+          // Player exists and element exists, just update state
+          try {
+            if (isMuted) {
+              existingPlayer.mute();
+            } else {
+              existingPlayer.unMute();
+            }
+            if (isPlaying) {
+              existingPlayer.playVideo();
+            } else {
+              existingPlayer.pauseVideo();
+            }
+          } catch (e) {
+            // Player might be invalid, will recreate below
+            delete youtubePlayerRefs.current[currentIndex];
+          }
+          return;
+        } else {
+          // Element doesn't exist, player is invalid, remove reference
+          delete youtubePlayerRefs.current[currentIndex];
+        }
+      }
+      
+      // Wait for the DOM element to be available (AnimatePresence might still be transitioning)
+      // The spring animation can take up to ~500ms, so we wait a bit longer
+      const checkElement = setInterval(() => {
+        const playerElement = document.getElementById(playerId);
+        
+        if (playerElement && !youtubePlayerRefs.current[currentIndex]) {
+          clearInterval(checkElement);
+          
+          // Wait for AnimatePresence animation to complete (spring animation ~500ms)
+          setTimeout(() => {
+            // Double-check element still exists and player not already initialized
+            const element = document.getElementById(playerId);
+            if (element && !youtubePlayerRefs.current[currentIndex]) {
+              try {
+                youtubePlayerRefs.current[currentIndex] = new ytWindow.YT!.Player(playerId, {
+                  videoId: currentVideo.youtubeId,
+                  playerVars: {
+                    autoplay: isPlaying ? 1 : 0,
+                    mute: isMuted ? 1 : 0,
+                    loop: 1,
+                    playlist: currentVideo.youtubeId,
+                    controls: 0,
+                    playsinline: 1,
+                    rel: 0,
+                    modestbranding: 1,
+                    iv_load_policy: 3,
+                    showinfo: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    cc_load_policy: 0,
+                    vq: 'hd1080',
+                    enablejsapi: 1,
+                  },
+                  events: {
+                    onReady: (event: YouTubePlayerEvent) => {
+                      event.target.setPlaybackQuality('hd1080'); // Force 1080p quality
+                      if (isMuted) {
+                        event.target.mute();
+                      } else {
+                        event.target.unMute();
+                      }
+                      if (isPlaying) {
+                        event.target.playVideo();
+                      } else {
+                        event.target.pauseVideo();
+                      }
+                    }
+                  }
+                });
+              } catch (error) {
+                console.error('Error initializing YouTube player:', error);
+              }
+            }
+          }, 600); // Wait for animation to complete
+        }
+      }, 100);
+      
+      // Timeout after 5 seconds if element never appears
+      setTimeout(() => clearInterval(checkElement), 5000);
+      
+      return () => clearInterval(checkElement);
+    };
+
+    // Wait for API to load, then initialize player
+    if (ytWindow.YT && ytWindow.YT.Player) {
+      const cleanup = initPlayer();
+      return cleanup;
+    } else {
+      const checkYT = setInterval(() => {
+        if (ytWindow.YT && ytWindow.YT.Player) {
+          clearInterval(checkYT);
+          initPlayer();
+        }
+      }, 100);
+      return () => clearInterval(checkYT);
+    }
   }, [currentIndex, isMuted, isPlaying]);
 
-  // Update player state when mute/play state changes
+  // Sync player state when mute/play state changes (only if player exists)
   useEffect(() => {
     const player = youtubePlayerRefs.current[currentIndex];
     if (player) {
@@ -338,7 +360,7 @@ export function Portfolio() {
           player.pauseVideo();
         }
       } catch (_e) {
-        // Player might not be ready yet
+        // Player might not be ready yet, ignore
       }
     }
   }, [isMuted, isPlaying, currentIndex]);
@@ -476,11 +498,10 @@ export function Portfolio() {
                   }}
                   className="absolute inset-0 overflow-hidden rounded-[2.5rem]"
                 >
-                  {/* YouTube Video */}
+                  {/* YouTube Video - Div container for YouTube API to create iframe */}
                   <div className="absolute inset-0 w-full h-full overflow-hidden rounded-[2.5rem]">
-                    <iframe
+                    <div
                       id={`youtube-player-${currentVideo.id}`}
-                      src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=${isPlaying ? 1 : 0}&mute=${isMuted ? 1 : 0}&loop=1&playlist=${currentVideo.youtubeId}&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1`}
                       className="absolute"
                       style={{ 
                         border: 'none',
@@ -493,9 +514,6 @@ export function Portfolio() {
                         transform: 'translate(-50%, -50%) scale(1.2)',
                         pointerEvents: 'none'
                       }}
-                      allow="autoplay; encrypted-media"
-                      allowFullScreen={false}
-                      title={currentVideo.title}
                     />
                   </div>
 
@@ -514,12 +532,13 @@ export function Portfolio() {
                         </div>
 
                         {/* Video Controls - Right Side */}
-                        <div className="flex flex-row gap-2">
+                        <div className="flex flex-row gap-2" style={{ pointerEvents: 'auto' }}>
                           {/* Play/Pause Button */}
                           <button
                             onClick={togglePlayPause}
-                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft"
+                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft cursor-pointer"
                             aria-label={isPlaying ? 'Pause video' : 'Play video'}
+                            style={{ pointerEvents: 'auto' }}
                           >
                             {isPlaying ? (
                               <svg className="w-4 h-4 !text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -535,8 +554,9 @@ export function Portfolio() {
                           {/* Mute/Unmute Button */}
                           <button
                             onClick={toggleMute}
-                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft"
+                            className="w-10 h-10 rounded-full backdrop-blur-lg bg-bg-elev/90 border border-line flex items-center justify-center hover:bg-glass/80 transition-all duration-300 hover:border-accent shadow-soft cursor-pointer"
                             aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                            style={{ pointerEvents: 'auto' }}
                           >
                             {isMuted ? (
                               <svg className="w-4 h-4 !text-white" fill="currentColor" viewBox="0 0 24 24">

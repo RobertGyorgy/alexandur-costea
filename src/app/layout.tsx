@@ -89,10 +89,10 @@ export default function RootLayout({
                       document.documentElement.classList.remove('no-js');
                     }
                   });
-                } else {
+                  } else {
                   if (document.documentElement) {
                     document.documentElement.classList.remove('no-js');
-                  }
+                }
                 }
               })();
             `,

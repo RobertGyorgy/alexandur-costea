@@ -5,9 +5,29 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import { siteContent } from '@/lib/content';
 
+// YouTube IFrame API types
+interface YouTubePlayer {
+  setPlaybackQuality: (quality: string) => void;
+}
+
+interface YouTubePlayerEvent {
+  target: YouTubePlayer;
+}
+
+interface YouTubeWindow extends Window {
+  YT?: {
+    Player: new (elementId: string | HTMLElement | null, config: {
+      events?: {
+        onReady?: (event: YouTubePlayerEvent) => void;
+      };
+    }) => YouTubePlayer;
+  };
+}
+
 export function Hero() {
   const content = siteContent.hero;
   const sectionRef = useRef<HTMLElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
@@ -17,6 +37,35 @@ export function Hero() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Load YouTube IFrame API and force 1080p quality
+  useEffect(() => {
+    if (iframeRef.current) {
+      // Load YouTube IFrame API
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+      // Wait for API to load
+      const ytWindow = window as YouTubeWindow;
+      const checkYT = setInterval(() => {
+        if (ytWindow.YT && ytWindow.YT.Player && iframeRef.current) {
+          clearInterval(checkYT);
+          new ytWindow.YT.Player(iframeRef.current, {
+            events: {
+              onReady: (event: YouTubePlayerEvent) => {
+                event.target.setPlaybackQuality('hd1080'); // Force 1080p quality
+              }
+            }
+          });
+        }
+      }, 100);
+
+      return () => clearInterval(checkYT);
+    }
+    return undefined;
   }, []);
   
   const { scrollYProgress } = useScroll({
@@ -49,6 +98,7 @@ export function Hero() {
       >
         <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ zIndex: 0 }}>
           <iframe
+            ref={iframeRef}
             src="https://www.youtube.com/embed/suOmT0gt7YI?autoplay=1&mute=1&loop=1&playlist=suOmT0gt7YI&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1&vq=hd1080"
             className="absolute"
             style={{ 

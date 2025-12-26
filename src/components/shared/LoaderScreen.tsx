@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // YouTube IFrame API types
 interface YouTubePlayer {
   setPlaybackRate: (rate: number) => void;
+  setPlaybackQuality: (quality: string) => void;
 }
 
 interface YouTubePlayerEvent {
@@ -79,6 +80,7 @@ export function LoaderScreen() {
             events: {
               onReady: (event: YouTubePlayerEvent) => {
                 event.target.setPlaybackRate(1.5); // Set to 1.5x speed
+                event.target.setPlaybackQuality('hd1080'); // Force 1080p quality
               }
             }
           });
@@ -106,7 +108,7 @@ export function LoaderScreen() {
             <div className="absolute inset-0 w-full h-full">
               <iframe
                 ref={iframeRef}
-                src="https://www.youtube.com/embed/suOmT0gt7YI?autoplay=1&mute=1&loop=1&playlist=suOmT0gt7YI&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1"
+                src="https://www.youtube.com/embed/suOmT0gt7YI?autoplay=1&mute=1&loop=1&playlist=suOmT0gt7YI&controls=0&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1&vq=hd1080"
                 className="absolute"
                 style={{ 
                   width: '100vw',
