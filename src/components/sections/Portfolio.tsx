@@ -139,11 +139,13 @@ export function Portfolio() {
 
   const handleNext = () => {
     setDirection(1);
+    setIsPlaying(true); // Always autoplay when switching to next video
     setCurrentIndex((prev) => (prev + 1) % VERTICAL_VIDEOS.length);
   };
 
   const handlePrevious = () => {
     setDirection(-1);
+    setIsPlaying(true); // Always autoplay when switching to previous video
     setCurrentIndex((prev) => (prev - 1 + VERTICAL_VIDEOS.length) % VERTICAL_VIDEOS.length);
   };
 
@@ -250,11 +252,8 @@ export function Portfolio() {
             } else {
               existingPlayer.unMute();
             }
-            if (isPlaying) {
-              existingPlayer.playVideo();
-            } else {
-              existingPlayer.pauseVideo();
-            }
+            // Always play when switching to this video
+            existingPlayer.playVideo();
           } catch (_e) {
             // Player might be invalid, will recreate below
             delete youtubePlayerRefs.current[currentIndex];
@@ -283,7 +282,7 @@ export function Portfolio() {
                 youtubePlayerRefs.current[currentIndex] = new ytWindow.YT!.Player(playerId, {
                   videoId: currentVideo.youtubeId,
                   playerVars: {
-                    autoplay: isPlaying ? 1 : 0,
+                    autoplay: 1, // Always autoplay when switching videos
                     mute: isMuted ? 1 : 0,
                     loop: 1,
                     playlist: currentVideo.youtubeId,
@@ -307,11 +306,8 @@ export function Portfolio() {
                       } else {
                         event.target.unMute();
                       }
-                      if (isPlaying) {
-                        event.target.playVideo();
-                      } else {
-                        event.target.pauseVideo();
-                      }
+                      // Always play when video is ready (when switching)
+                      event.target.playVideo();
                     }
                   }
                 });
