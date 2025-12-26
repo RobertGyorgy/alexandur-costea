@@ -224,7 +224,7 @@ export function Portfolio() {
       if (prevPlayer && typeof prevPlayer.pauseVideo === 'function') {
         try {
           prevPlayer.pauseVideo();
-        } catch (e) {
+        } catch (_e) {
           // Ignore errors when pausing
         }
       }
@@ -255,7 +255,7 @@ export function Portfolio() {
             } else {
               existingPlayer.pauseVideo();
             }
-          } catch (e) {
+          } catch (_e) {
             // Player might be invalid, will recreate below
             delete youtubePlayerRefs.current[currentIndex];
           }
