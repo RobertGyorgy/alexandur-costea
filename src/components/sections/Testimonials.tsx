@@ -1,11 +1,20 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import { siteContent } from '@/lib/content';
 import { analytics } from '@/lib/analytics';
 import { BackgroundEffects } from '@/components/ui/BackgroundEffects';
+
+const TESTIMONIAL_AVATAR_BY_ID: Record<string, string> = {
+  criski: '/testimoniale/CRISKI.jpg',
+  amada: '/testimoniale/AMADA.jpg',
+  alexandru: '/testimoniale/ALEXANDRU GOMAN.jpg',
+  silvia: '/testimoniale/SILVIA.jpg',
+  david: '/testimoniale/DAVID.jpg',
+  // If you add more testimonials, map `id` -> `/testimoniale/<FILENAME>.jpg` here.
+};
 
 export function Testimonials() {
   const content = siteContent.testimonials;
@@ -151,10 +160,10 @@ export function Testimonials() {
               return (
                 <motion.article
                   key={testimonial.id}
-                  className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-[550ms] ease-out ${getCardBg(index)} ${
+                  className={`relative rounded-3xl overflow-hidden cursor-pointer transition-[flex,min-width] duration-[550ms] ease-out transform-gpu ${getCardBg(index)} ${
                     isActive
                       ? 'flex-[0_0_15rem] md:flex-[0_0_19rem] lg:flex-[0_0_23rem] xl:flex-[0_0_28rem]'
-                      : 'flex-[0_0_5.5rem] md:flex-[0_0_6.5rem] lg:flex-[0_0_7.5rem] xl:flex-[0_0_10rem]'
+                      : 'flex-[0_0_5.5rem] min-w-[5.5rem] md:flex-[0_0_6.5rem] md:min-w-[6.5rem] lg:flex-[0_0_7.5rem] lg:min-w-[7.5rem] xl:flex-[0_0_10rem] xl:min-w-[10rem]'
                   } h-[22rem] md:h-[26rem] lg:h-[30rem] xl:h-[36rem]`}
                   onClick={() => activate(index, true)}
                   onMouseEnter={() => activate(index, true)}
@@ -164,27 +173,54 @@ export function Testimonials() {
                     rotateZ: shouldApplyParallax ? transform.rotateZ : 0,
                   }}
                 >
-                  <div className="absolute inset-0 flex flex-col justify-center items-center p-4 md:p-5 lg:p-6">
-                    {!isActive && (
-                      <h3 className={`${getTextColor(index)} font-bold text-lg md:text-xl lg:text-fib-3 [writing-mode:vertical-rl] rotate-180 tracking-wider`}>
-                        {testimonial.name.split(' ')[0].toUpperCase()}
-                      </h3>
-                    )}
+                  <div className="absolute inset-0 flex flex-col justify-center items-center p-4 md:p-5 lg:p-6 transform-gpu">
+                    <AnimatePresence mode="wait">
+                      {!isActive && (
+                        <motion.h3
+                          key="vertical-title"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2 }}
+                          className={`${getTextColor(index)} absolute font-bold text-lg md:text-xl lg:text-fib-3 [writing-mode:vertical-rl] rotate-180 tracking-wider whitespace-nowrap`}
+                        >
+                          {testimonial.name.split(' ')[0].toUpperCase()}
+                        </motion.h3>
+                      )}
 
-                    {isActive && (
-                      <div className="flex flex-col justify-center h-full px-4 md:px-6 lg:px-8 max-w-xl">
-                        <h3 className={`${getTextColor(index)} font-bold text-xl md:text-2xl lg:text-fib-3 mb-3 md:mb-4`}>
-                          {testimonial.name.toUpperCase()}
-                        </h3>
-                        <p className={`${getTextColor(index)} opacity-90 text-sm md:text-base lg:text-fib-2 leading-relaxed mb-3 md:mb-4`}>
-                          {testimonial.quote}
-                        </p>
-                        <p className={`${getTextColor(index)} opacity-70 text-xs md:text-sm lg:text-fib-1 mb-3 md:mb-4`}>
-                          {testimonial.role}
-                          {testimonial.company && ` • ${testimonial.company}`}
-                        </p>
-                      </div>
-                    )}
+                      {isActive && (
+                        <motion.div
+                          key="content"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }} // Delay to allow card expansion
+                          className="flex flex-col justify-center h-full px-4 md:px-6 lg:px-8 max-w-xl w-full"
+                        >
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-white/30 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)] flex-shrink-0 bg-black/10">
+                              <img
+                                src={TESTIMONIAL_AVATAR_BY_ID[testimonial.id] ?? testimonial.avatar}
+                                alt={testimonial.name}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                            <div className="min-w-0">
+                              <h3 className={`${getTextColor(index)} font-bold text-xl md:text-2xl lg:text-fib-3 whitespace-nowrap truncate`}>
+                                {testimonial.name.toUpperCase()}
+                              </h3>
+                              <p className={`${getTextColor(index)} opacity-70 text-xs md:text-sm lg:text-fib-1 truncate`}>
+                                {testimonial.role}
+                                {testimonial.company && ` • ${testimonial.company}`}
+                              </p>
+                            </div>
+                          </div>
+                          <p className={`${getTextColor(index)} opacity-90 text-sm md:text-base lg:text-fib-2 leading-relaxed mb-3 md:mb-4`}>
+                            {testimonial.quote}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </motion.article>
               );
@@ -250,6 +286,22 @@ export function Testimonials() {
                         ease: [0.76, 0, 0.24, 1]
                       }}
                     >
+                      <motion.div
+                        className="flex items-center justify-center mb-4"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: isActive ? 1 : 0.9, opacity: isActive ? 1 : 0 }}
+                        transition={{ duration: 0.3, delay: isActive ? 0.25 : 0 }}
+                      >
+                        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/30 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)] bg-black/10">
+                          <img
+                            src={TESTIMONIAL_AVATAR_BY_ID[testimonial.id] ?? testimonial.avatar}
+                            alt={testimonial.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                      </motion.div>
                       <motion.h3 
                         className={`${getTextColor(index)} font-bold text-lg sm:text-xl md:text-fib-3 mb-4 sm:mb-6 md:mb-6 text-center`}
                         initial={{ scale: 0.9, opacity: 0 }}

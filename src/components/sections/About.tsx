@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
 import SplitText from '@/components/ui/SplitText';
+import { Modal } from '@/components/ui/Modal';
 import { siteContent } from '@/lib/content';
 import Image from 'next/image';
 
@@ -12,6 +13,7 @@ export function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -94,42 +96,39 @@ export function About() {
           </div>
 
           {/* Content Paragraphs with SplitText - Uniformized */}
-          <div className="space-y-6">
-            {content.content.split('\n\n').map((paragraph, index) => (
-              <SplitText
-                key={index}
-                text={paragraph}
-                tag="p"
-                className="text-lg text-white/90 leading-[1.8] text-left"
-                delay={10}
-                duration={0.2}
-                ease="power2.out"
-                splitType="words"
-                from={{ opacity: 0, y: 10 }}
-                to={{ opacity: 1, y: 0 }}
-                threshold={0.2}
-                rootMargin="-30px"
-                textAlign="left"
-              />
-            ))}
-          </div>
+          {/* Content Paragraphs with SplitText - Uniformized - Only render if content exists */}
+          {content.content && (
+            <div className="space-y-6">
+              {content.content.split('\n\n').map((paragraph, index) => (
+                <SplitText
+                  key={index}
+                  text={paragraph}
+                  tag="p"
+                  className="text-lg text-white/90 leading-[1.8] text-left"
+                  delay={10}
+                  duration={0.2}
+                  ease="power2.out"
+                  splitType="words"
+                  from={{ opacity: 0, y: 10 }}
+                  to={{ opacity: 1, y: 0 }}
+                  threshold={0.2}
+                  rootMargin="-30px"
+                  textAlign="left"
+                />
+              ))}
+            </div>
+          )}
 
           {/* CTA Section - Uniformized */}
           <div className="pt-6">
-            <SplitText
-              text="Dacă simți că ai ceva de spus prin conținutul vizual, locul tău e alături de mine. Aplică la cursul potrivit pentru tine și hai în Clubul Creatorilor."
-              tag="p"
-              className="text-lg text-white/90 leading-[1.8] text-left"
-              delay={5}
-              duration={0.2}
-              ease="power2.out"
-              splitType="words"
-              from={{ opacity: 0, y: 10 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.2}
-              rootMargin="-30px"
-              textAlign="left"
-            />
+            {/* CTA text removed from here */}
+            
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="mt-4 px-8 py-3 rounded-full bg-[#FE5F01] text-white font-bold hover:bg-[#FE5F01]/90 transition-all hover:scale-105 shadow-[0_0_20px_rgba(254,95,1,0.3)] hover:shadow-[0_0_30px_rgba(254,95,1,0.5)]"
+            >
+              {content.readMoreLabel}
+            </button>
           </div>
         </div>
 
@@ -166,6 +165,37 @@ export function About() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Centered CTA Text - Below everything */}
+      <div className="relative z-10 mt-8 lg:mt-12 max-w-4xl mx-auto text-center px-4">
+        <SplitText
+          text="Dacă simți că ai ceva de spus prin conținutul vizual, locul tău e alături de mine. Aplică la cursul potrivit pentru tine și hai în Clubul Creatorilor."
+          tag="p"
+          className="text-lg text-white/90 leading-[1.8] font-medium"
+          delay={5}
+          duration={0.2}
+          ease="power2.out"
+          splitType="words"
+          from={{ opacity: 0, y: 10 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.2}
+          rootMargin="-30px"
+          textAlign="center"
+        />
+      </div>
+      
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Povestea Mea"
+      >
+        <div className="prose prose-invert max-w-none">
+          {/* Re-render the initial content for context if needed, or just the extended part */}
+          <div className="text-lg text-white/90 leading-relaxed space-y-6 whitespace-pre-line font-sans">
+            {content.extendedContent}
+          </div>
+        </div>
+      </Modal>
     </Section>
   );
 }

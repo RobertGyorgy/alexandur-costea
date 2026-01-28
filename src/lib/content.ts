@@ -32,6 +32,7 @@ export interface PricingPlan {
   ctaUrl: string;
   badge?: string;
   highlighted?: boolean;
+  icon?: string;
 }
 
 export interface Testimonial {
@@ -80,12 +81,15 @@ export interface SiteContent {
       poster: string;
       alt: string;
     };
+    roles: string[];
   };
   about: {
     kicker: string;
     title: string;
     description: string;
-    content: string; // Rich text content
+    content: string; // Rich text content (intro)
+    extendedContent: string; // The rest of the content
+    readMoreLabel: string;
     stats: {
       label: string;
       value: string;
@@ -150,7 +154,21 @@ export const siteContent: SiteContent = {
   hero: {
     kicker: 'Content Creator & Digital Storyteller',
     heading: 'O nouă perspectivă pentru orice: filmmaker, creator de conținut, influencer, antreprenor etc.',
-    subheading: 'Hai să transformăm împreună ideile în storytelling autentic, cu impact viral pe Reels și pe retelele sociale.',
+    subheading: 'Un program creativ pentru orice:',
+    roles: [
+      'creator de conținut',
+      'influencer',
+      'filmmaker',
+      'editor video',
+      'începător',
+      'pasionat de video',
+      'antreprenor',
+      'social media manager',
+      'brand personal',
+      'freelancer',
+      'vlogger',
+      'artist'
+    ],
     ctaPrimary: {
       label: 'Descoperă cursurile',
       href: '#pricing',
@@ -169,7 +187,11 @@ export const siteContent: SiteContent = {
     kicker: 'About Me',
     title: 'Te învăț sau te ajut\nsă creezi conținut\nvideo creativ:\nde la Idee la Reel.',
     description: 'Sunt Alexandru Costea, director de imagine, creator de conținut și co-fondator CROProject. Lucrez în industria cinematografică de peste zece ani și fac parte din foarte multe proiecte creative pentru multe branduri mari din Romania. Sunt pasionat de artele audio-vizuale care transmit emoție, claritate și reacție. De la concept și filmare, până la montaj, efecte vizuale, sound design și colorizare, creez materiale video dinamice, creative și cu impact real.',
-    content: `În ultimii ani, am ales să îmi duc experiența din producție și în zona educației, prin cursuri și programe dedicate creatorilor. Așa a apărut primul meu masterclass, „De la Idee la Reel", care s-a bucurat de un succes real. Cred în învățarea aplicată, în ghidaj concret și în rezultate obținute prin practică, nu doar la întâmplare.\n\nScopul meu merge mai departe de a crea video-uri. Vreau să construiesc cea mai mare comunitate de creatori de conținut vizual din România, un spațiu în care învățăm împreună, schimbăm idei, primim feedback real și ne susținem dezvoltarea ca profesioniști. Nu doar un curs, ci un loc în care creativitatea devine colaborare, nu competiție.`,
+    content: '',
+    extendedContent: `În ultimii ani, am ales să îmi duc experiența din producție și în zona educației, prin cursuri și programe dedicate creatorilor. Așa a apărut primul meu masterclass, „De la Idee la Reel", care s-a bucurat de un succes real. Cred în învățarea aplicată, în ghidaj concret și în rezultate obținute prin practică, nu doar la întâmplare.
+    
+Scopul meu merge mai departe de a crea video-uri. Vreau să construiesc cea mai mare comunitate de creatori de conținut vizual din România, un spațiu în care învățăm împreună, schimbăm idei, primim feedback real și ne susținem dezvoltarea ca profesioniști. Nu doar un curs, ci un loc în care creativitatea devine colaborare, nu competiție.`,
+    readMoreLabel: 'Citește povestea completă',
     stats: [
       { label: 'Projects Completed', value: '200+' },
       { label: 'Brands Collaborated', value: '50+' },
@@ -259,6 +281,7 @@ export const siteContent: SiteContent = {
       {
         id: 'essential',
         title: 'Essential Package',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M7 3v18" /><path d="M3 7.5h4" /><path d="M3 12h18" /><path d="M3 16.5h4" /><path d="M17 3v18" /><path d="M17 7.5h4" /><path d="M17 16.5h4" /></svg>',
         price: '$2,500',
         period: 'per project',
         description: 'Perfect for small businesses and individual creators looking for high-quality content.',
@@ -278,6 +301,7 @@ export const siteContent: SiteContent = {
       {
         id: 'professional',
         title: 'Professional Package',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m14.31 8 5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"/></svg>',
         price: '$5,000',
         period: 'per project',
         description: 'Comprehensive content creation for established brands and growing businesses.',
@@ -299,6 +323,7 @@ export const siteContent: SiteContent = {
       {
         id: 'enterprise',
         title: 'Enterprise Package',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>',
         price: '$10,000+',
         period: 'per campaign',
         description: 'Full-service content creation and campaign management for large-scale projects.',

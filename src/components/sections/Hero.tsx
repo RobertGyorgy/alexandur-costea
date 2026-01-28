@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Section } from '@/components/ui/Section';
+import { WordCycler } from '@/components/ui/WordCycler';
 import { siteContent } from '@/lib/content';
 
 // YouTube IFrame API types
@@ -145,52 +146,21 @@ export function Hero() {
           transform: isMobile ? 'translateY(20px)' : 'translateY(80px)' 
         }}
       >
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-garnet text-white text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-3xl leading-[1.2] sm:leading-[1.3] md:leading-relaxed"
         >
-          {(() => {
-            const text = content.subheading;
-            const orangeWords = ['transformăm', 'în storytelling autentic', 'viral', 'Reels', 'retelele sociale'];
-            const boldWords = ['ideile', 'impact viral'];
-            const allWords = [...orangeWords, ...boldWords];
-            const regex = new RegExp(`(${allWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
-            
-            // Split at "storytelling autentic," for line break
-            const breakPoint = text.indexOf('storytelling autentic,');
-            const firstPart = text.substring(0, breakPoint + 'storytelling autentic,'.length);
-            const secondPart = text.substring(breakPoint + 'storytelling autentic,'.length);
-            
-            const formatText = (textPart: string) => {
-              const parts = textPart.split(regex);
-              return parts.map((part, index) => {
-                const isOrange = orangeWords.some(word => part.toLowerCase().includes(word.toLowerCase()));
-                const isBold = boldWords.some(word => part.toLowerCase() === word.toLowerCase());
-                
-                if (isOrange) {
-                  return <span key={index} className="text-[#FE5F01] font-black">{part}</span>;
-                } else if (isBold) {
-                  return <span key={index} className="font-black">{part}</span>;
-                }
-                return <React.Fragment key={index}>{part}</React.Fragment>;
-              });
-            };
-            
-            return (
-              <>
-                <span className="block sm:inline-block leading-[1.2] sm:leading-[1.3]">
-                  {formatText(firstPart)}
-                </span>
-                <span className="block sm:hidden" style={{ lineHeight: 0, height: 0, margin: 0, padding: 0, fontSize: 0, display: 'block' }} aria-hidden="true" />
-                <span className="block sm:inline-block sm:ml-1 leading-[1.2] sm:leading-[1.3]" style={{ marginTop: isMobile ? '-0.2em' : undefined }}>
-                  {formatText(secondPart)}
-                </span>
-              </>
-            );
-          })()}
-        </motion.p>
+          <span className="block w-full mb-2 md:mb-3">
+            {content.subheading}
+          </span>
+          <WordCycler 
+            words={content.roles} 
+            className="w-full"
+            interval={3500}
+          />
+        </motion.div>
       </motion.div>
     </Section>
   );

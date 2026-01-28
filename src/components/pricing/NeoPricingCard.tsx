@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CheckIcon } from './CheckIcon';
 
 interface NeoPricingCardProps {
@@ -17,6 +18,7 @@ interface NeoPricingCardProps {
   description?: string;
   extras?: string[];
   cardHeight?: string;
+  isMobile?: boolean;
 }
 
 export function NeoPricingCard({
@@ -31,9 +33,26 @@ export function NeoPricingCard({
   showInstagramIcon = false,
   description,
   extras,
-  cardHeight = 'h-[650px] md:h-[850px]'
-}: NeoPricingCardProps) {
+  cardHeight = 'h-[550px] md:h-[650px]',
+  isMobile = false,
+  icon
+}: NeoPricingCardProps & { icon?: string }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const ITEMS_PER_PAGE = 5;
+  
+  // Calculate total pages and current items
+  const totalPages = Math.ceil(features.length / ITEMS_PER_PAGE);
+  const currentFeatures = features.slice(
+    currentPage * ITEMS_PER_PAGE, 
+    (currentPage + 1) * ITEMS_PER_PAGE
+  );
+  const hasMultiplePages = totalPages > 1;
+
+  const handleNextPage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -64,7 +83,7 @@ export function NeoPricingCard({
       >
         {/* FRONT SIDE */}
         <div 
-          className="absolute inset-0 w-full h-full rounded-3xl bg-white/10 backdrop-blur-md overflow-hidden transition-all duration-500 ease-out"
+          className="relative w-full h-full rounded-3xl bg-white/10 backdrop-blur-md overflow-hidden transition-all duration-500 ease-out flex flex-col"
           style={{ 
             backfaceVisibility: 'hidden',
             boxShadow: isHovered 
@@ -75,33 +94,88 @@ export function NeoPricingCard({
           {/* Content Wrapper - Flex Column */}
           <div className="h-full flex flex-col relative z-10">
             {/* Header - Fixed height for alignment */}
-            <div className="px-6 md:px-8 pt-6 md:pt-8 pb-3 flex-shrink-0 h-auto md:h-[220px] flex flex-col justify-between">
-              <p className="text-fib-3 text-[#E5E4E2] font-garnet">{subtitle || title}</p>
-              <div className="flex items-baseline gap-1 mt-2 md:mt-0">
-                <span className="text-fib-3 font-bold tracking-tight text-[#FE5F01]">{price}</span>
+            <div className="px-6 md:px-8 pt-5 md:pt-6 pb-3 flex-shrink-0 h-auto md:h-[190px] flex flex-col justify-center gap-2">
+              <div className="flex items-center gap-3">
+                {icon && (
+                  <div 
+                    className="w-7 h-7 text-[#FE5F01] flex-shrink-0"
+                    dangerouslySetInnerHTML={{ __html: icon }}
+                  />
+                )}
+                <p className="text-2xl text-[#E5E4E2] font-garnet leading-tight pt-1">{subtitle || title}</p>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-bold tracking-tight text-[#FE5F01]">{price}</span>
                 {period && <span className="text-[#E5E4E2]/60 font-medium text-fib-1">/{period}</span>}
               </div>
             </div>
 
-            {/* Features List - Scrollable only on mobile */}
-            <div className="px-6 md:px-8 pt-2 md:pt-3 pb-3 md:pb-6 flex-1 overflow-y-auto md:overflow-y-visible min-h-0 space-y-2 md:space-y-3 scrollbar-thin scrollbar-thumb-[#FE5F01]/30 scrollbar-track-transparent">
-              {features.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-2 md:gap-3 flex-shrink-0">
-                  <div className="flex-shrink-0 mt-0.5">
-                    <CheckIcon />
+            {/* Features List - Conditional Rendering: Mobile (Scroll) vs Desktop (Pagination) */}
+            {isMobile ? (
+              // Mobile: Scrollable list (Original behavior)
+              <div className="px-6 md:px-8 pt-2 md:pt-3 pb-3 md:pb-6 flex-1 overflow-y-auto space-y-2 scrollbar-thin scrollbar-thumb-[#FE5F01]/30 scrollbar-track-transparent">
+                {features.map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-2 flex-shrink-0">
+                    <div className="flex-shrink-0 mt-0.5">
+                      <CheckIcon />
+                    </div>
+                    <span className="text-[#E5E4E2]/90 text-sm leading-relaxed">{feature}</span>
                   </div>
-                  <span className="text-[#E5E4E2]/90 text-fib-1 leading-relaxed">{feature}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              // Desktop: Paginated Animation
+              <div className="pt-2 md:pt-3 pb-3 md:pb-6 flex-1 relative overflow-hidden min-h-[200px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentPage}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-2 md:space-y-3 absolute inset-0 px-6 md:px-8"
+                  >
+                    {currentFeatures.map((feature, idx) => (
+                      <div key={`${currentPage}-${idx}`} className="flex items-start gap-2 md:gap-3 flex-shrink-0">
+                        <div className="flex-shrink-0 mt-0.5">
+                          <CheckIcon />
+                        </div>
+                        <span className="text-[#E5E4E2]/90 text-sm leading-relaxed">{feature}</span>
+                      </div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Pagination Controls - Positioned at bottom of container */}
+                {hasMultiplePages && (
+                   <div className="absolute bottom-0 left-0 right-0 flex justify-start items-center pt-8 pb-2 px-6 md:px-8">
+                    <button 
+                      onClick={handleNextPage}
+                      className="group/btn flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FE5F01]/10 text-[#FE5F01] text-xs font-bold uppercase tracking-wider hover:bg-[#FE5F01]/20 transition-all duration-300 active:scale-95"
+                    >
+                      <span>Vezi mai multe</span>
+                      <svg 
+                        className={`w-3 h-3 transition-transform duration-300 group-hover/btn:translate-x-0.5 ${currentPage === totalPages - 1 ? 'rotate-180' : ''}`}
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
 
             {/* CTA Section - Always at bottom */}
-            <div className="px-6 md:px-8 pb-6 md:pb-8 pt-4 md:pt-6 flex-shrink-0 border-t border-white/10">
+            <div className="px-6 md:px-8 pb-6 md:pb-8 pt-6 flex-shrink-0">
             <div className="relative">
               {/* Button */}
               <button
                 onClick={onCTAClick}
-                className="w-full rounded-full h-12 text-fib-1 font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#FE5F01] text-white hover:bg-[#ff7a2e] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
+                className="w-full rounded-full h-10 text-sm font-semibold transition-all duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 bg-[#FE5F01] text-white hover:bg-[#ff7a2e] hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 hover:scale-105 flex items-center justify-center gap-2"
               >
                 {showInstagramIcon && (
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -115,7 +189,7 @@ export function NeoPricingCard({
               {description && (
                 <button
                   onClick={() => setIsFlipped(true)}
-                  className="w-full mt-4 py-2.5 px-4 text-fib-1 font-semibold text-white bg-transparent border-2 border-white hover:bg-white/10 rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
+                  className="w-full mt-3 py-2 px-4 text-sm font-semibold text-white bg-transparent border border-white/30 hover:bg-white/10 rounded-full transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
                 >
                   <span>Vezi detalii</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -184,19 +184,19 @@ export function PricingSection() {
             const cardData = getCardData(plan);
             const shouldApplyParallax = isMounted && !isMobile;
             
-            // Different heights for each card (mobile only, desktop stays at 850px)
+            // Different heights: Mobile (original values) vs Desktop (fixed 650px)
             const getCardHeight = (planId: string) => {
               if (planId === 'essential') {
-                // ReelUp - mai puțin înalt pe mobil
-                return 'h-[600px] md:h-[850px]';
+                // ReelUp
+                return 'h-[600px] md:h-[620px]';
               } else if (planId === 'professional') {
-                // Masterclass - mai lung pe mobil
-                return 'h-[750px] md:h-[850px]';
+                // Masterclass
+                return 'h-[750px] md:h-[620px]';
               } else if (planId === 'enterprise') {
-                // Instagram - mai puțin înalt pe mobil
-                return 'h-[550px] md:h-[850px]';
+                // Instagram
+                return 'h-[550px] md:h-[620px]';
               }
-              return 'h-[650px] md:h-[850px]';
+              return 'h-[650px] md:h-[620px]';
             };
             
             // Mobile optimization
@@ -243,6 +243,8 @@ export function PricingSection() {
                   description={cardData.description}
                   extras={cardData.extras}
                   cardHeight={getCardHeight(plan.id)}
+                  isMobile={isMobile}
+                  icon={plan.icon}
                 />
               </motion.div>
             );

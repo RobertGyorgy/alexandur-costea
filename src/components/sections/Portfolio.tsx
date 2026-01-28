@@ -442,7 +442,7 @@ export function Portfolio() {
                   key={colIndex}
                   className="font-garnet text-[#FE5F01] text-fib-4 md:text-fib-5 font-bold mx-3"
                 >
-                  MY WORK
+                  PORTOFOLIU
                 </span>
               ))}
             </div>
@@ -682,7 +682,7 @@ export function Portfolio() {
                     <p className="text-[#E5E4E2] font-medium text-fib-1">{currentVideo.client}</p>
                   </div>
                   <div>
-                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Role</p>
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Rol</p>
                     <p className="text-[#E5E4E2] font-medium text-fib-1">{currentVideo.role}</p>
                   </div>
                 </div>
@@ -690,21 +690,21 @@ export function Portfolio() {
                 {/* Project Details */}
                 <div className="space-y-4">
                   <div>
-                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Project Overview</p>
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Detalii Proiect</p>
                     <p className="text-[#E5E4E2]/80 leading-relaxed text-fib-1">
                       {currentVideo.details}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Key Achievements</p>
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Rezultate Cheie</p>
                     <p className="text-[#E5E4E2]/80 leading-relaxed text-fib-1">
                       {currentVideo.achievements}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Techniques & Approach</p>
+                    <p className="text-fib-1 uppercase tracking-wider text-[#E5E4E2]/50 mb-1">Tehnici & Abordare</p>
                     <p className="text-[#E5E4E2]/80 leading-relaxed text-fib-1">
                       {currentVideo.techniques}
                     </p>

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import LightRays from '@/components/ui/LightRays';
+import { Button } from '@/components/ui/Button';
 
 interface NewsletterModernProps {
   className?: string;
@@ -17,7 +18,12 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
   const [isFocused, setIsFocused] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
   const [shouldLoadBackground, setShouldLoadBackground] = useState(false);
+  const [year, setYear] = useState(new Date().getFullYear());
   const isMobile = windowWidth < 768;
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
   
   // Load background when testimonials section is visible (earlier preload)
   useEffect(() => {
@@ -242,11 +248,20 @@ const NewsletterModern: React.FC<NewsletterModernProps> = ({ className = '', dis
               <div className="w-24 h-px bg-line/20" />
             </div>
 
-            <div className="flex flex-col items-center justify-center gap-5">
-              {/* Copyright and Links - Centered */}
+              <div className="flex flex-col items-center justify-center gap-5">
+                <Button 
+                  className="rounded-full border-none bg-white/5 backdrop-blur-md text-fg hover:bg-[#FE5F01] hover:text-white transition-all duration-300 mb-4 px-8 py-6 text-base" 
+                  asChild
+                >
+                  <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer">
+                    Programează o întâlnire
+                  </a>
+                </Button>
+
+                {/* Copyright and Links - Centered */}
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
                 <p className="text-fib-1 text-muted">
-                  © 2025 Alex Costea. All rights reserved.
+                  © {year} Alex Costea. All rights reserved.
                 </p>
               </div>
 
