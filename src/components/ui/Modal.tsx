@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
-import { Section } from '@/components/ui/Section';
 
 interface ModalProps {
   isOpen: boolean;
